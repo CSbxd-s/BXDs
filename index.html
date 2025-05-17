@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .loader {
+      position: relative;
+      border: 6px solid #cbd5e1; /* Tailwind gray-300 */
+      border-top: 6px solid #30cfcf;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      animation: spin 1.2s linear infinite;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      background: white;
+      overflow: hidden;
+    }
+    .loader img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    .loading-text {
+      color: #30cfcf;
+      font-weight: 600;
+      font-size: 1.25rem;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" role="status" aria-label="Loading spinner">
+    <img src="https://i.ibb.co/Rp3tpbxx/file-00000000dcd0622f83af3b17d128cdd5.png" alt="BOI XD Store logo, circular icon with stylized letters and bright cyan color" />
+  </div>
+  <div class="loading-text" aria-live="polite" aria-atomic="true">Harap menunggu</div>
+
+  <script>
+    // Fade in body on load
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+    });
+
+    // Generate random duration between 5 and 10 seconds (milliseconds)
+    const randomDuration = Math.floor(Math.random() * 5000) + 5000;
+
+    // After random duration, redirect to info.html
+    setTimeout(() => {
+      window.location.href = 'info.html';
+    }, randomDuration);
+  </script>
+</body>
+</html>

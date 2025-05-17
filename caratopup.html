@@ -1,0 +1,247 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Cara Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: #30cfcf;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .header-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .header-title {
+      color: white;
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-align: center;
+      flex-grow: 1;
+    }
+    .back-button {
+      position: absolute;
+      left: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+      border-radius: 0.375rem;
+      transition: background-color 0.2s ease;
+    }
+    .back-button:hover,
+    .back-button:focus {
+      background-color: rgba(255 255 255 / 0.2);
+      outline: none;
+    }
+    main {
+      max-width: 4xl;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+      flex-grow: 1;
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+      animation-delay: 0.1s;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #1f2937;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+      background: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+      user-select: none;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .step:hover,
+    .step:focus-within {
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+      transform: translateY(-4px);
+      outline: none;
+    }
+    .step-label {
+      background-color: #30cfcf;
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+    .step-content {
+      max-width: 600px;
+      text-align: center;
+    }
+    .step-title {
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+    .step-description {
+      font-size: 1rem;
+      color: #4b5563;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .step-image {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 0.5rem;
+      object-fit: contain;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      user-select: none;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body>
+  <header>
+   <div class="header-container">
+    <button aria-label="Back" class="back-button" onclick="window.location.href='mainmenu.html'" type="button">
+     <i aria-hidden="true" class="fas fa-arrow-left">
+     </i>
+    </button>
+    <h1 class="header-title">
+     Cara Topup
+    </h1>
+   </div>
+  </header>
+  <main>
+   <h2>
+    Langkah-langkah Cara Topup
+   </h2>
+   <section aria-describedby="step1-desc" aria-labelledby="step1-title" class="step" tabindex="0">
+    <div class="step-label">
+     1
+    </div>
+    <div class="step-content">
+     <h3 class="step-title" id="step1-title">
+      Pilih Game
+     </h3>
+     <p class="step-description" id="step1-desc">
+      Pilih game yang ingin Anda topup dari daftar game yang tersedia di aplikasi.
+     </p>
+     <img alt="Tampilan layar aplikasi dengan daftar game yang bisa dipilih untuk topup" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/c5a99f58-d577-43f9-f974-9fae22979d5a.jpg" width="400"/>
+    </div>
+   </section>
+   <section aria-describedby="step2-desc" aria-labelledby="step2-title" class="step" tabindex="0">
+    <div class="step-label">
+     2
+    </div>
+    <div class="step-content">
+     <h3 class="step-title" id="step2-title">
+      Tentukan Nominal
+     </h3>
+     <p class="step-description" id="step2-desc">
+      Tentukan nominal topup sesuai kebutuhan Anda, lalu lanjutkan ke proses pembayaran.
+     </p>
+     <img alt="Tampilan layar aplikasi dengan pilihan nominal topup yang tersedia" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2e31e296-d92f-47d3-be18-a57c1356cc35.jpg" width="400"/>
+    </div>
+   </section>
+   <section aria-describedby="step3-desc" aria-labelledby="step3-title" class="step" tabindex="0">
+    <div class="step-label">
+     3
+    </div>
+    <div class="step-content">
+     <h3 class="step-title" id="step3-title">
+      Pilih Metode Pembayaran
+     </h3>
+     <p class="step-description" id="step3-desc">
+      Pilih metode pembayaran yang Anda inginkan, seperti transfer bank, e-wallet, atau pulsa.
+     </p>
+     <img alt="Tampilan layar aplikasi dengan berbagai metode pembayaran yang bisa dipilih" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/38723d60-6d78-4c77-3cee-8d9f35887593.jpg" width="400"/>
+    </div>
+   </section>
+   <section aria-describedby="step4-desc" aria-labelledby="step4-title" class="step" tabindex="0">
+    <div class="step-label">
+     4
+    </div>
+    <div class="step-content">
+     <h3 class="step-title" id="step4-title">
+      Masukkan Data Akun
+     </h3>
+     <p class="step-description" id="step4-desc">
+      Masukkan data akun game Anda dengan benar, seperti ID pengguna atau username, untuk memastikan topup tepat sasaran.
+     </p>
+     <img alt="Tampilan layar aplikasi dengan form pengisian data akun game" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/704d3954-c3b8-4214-322b-2d28c5ce16aa.jpg" width="400"/>
+    </div>
+   </section>
+   <section aria-describedby="step5-desc" aria-labelledby="step5-title" class="step" tabindex="0">
+    <div class="step-label">
+     5
+    </div>
+    <div class="step-content">
+     <h3 class="step-title" id="step5-title">
+      Konfirmasi Pembayaran
+     </h3>
+     <p class="step-description" id="step5-desc">
+      Konfirmasi pembayaran Anda dan tunggu proses verifikasi dari sistem kami.
+     </p>
+     <img alt="Tampilan layar aplikasi dengan halaman konfirmasi pembayaran" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ffff5cea-ab48-4546-7ea5-2f3476d05f48.jpg" width="400"/>
+    </div>
+   </section>
+   <section aria-describedby="step6-desc" aria-labelledby="step6-title" class="step" tabindex="0">
+    <div class="step-label">
+     6
+    </div>
+    <div class="step-content">
+     <h3 class="step-title" id="step6-title">
+      Topup Selesai
+     </h3>
+     <p class="step-description" id="step6-desc">
+      Setelah pembayaran terverifikasi, saldo atau item akan langsung masuk ke akun game Anda.
+     </p>
+     <img alt="Tampilan layar aplikasi yang menunjukkan topup berhasil" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/86a2ca80-f2bf-40f9-d806-814472e12a8a.jpg" width="400"/>
+    </div>
+   </section>
+  </main>
+ </body>
+</html>

@@ -1,0 +1,1259 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Topup Mobile Legends - BOI XD Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+    }
+    /* Custom radio button styles */
+    input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      border: 2px solid #d1d5db; /* gray-300 */
+      transition: border-color 0.3s, background-color 0.3s;
+      position: relative;
+      outline-offset: 2px;
+    }
+    input[type="radio"]:checked {
+      border-color: #6366f1; /* indigo-500 */
+      background-color: #e0e7ff; /* indigo-100 */
+    }
+    input[type="radio"]:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+    label.radio-label {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      height: 80px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    input[type="radio"]:checked + label.radio-label {
+      border-color: #6366f1;
+      background-color: #e0e7ff;
+    }
+    /* Adjust payment logos for rectangular shape */
+    .payment-logo-rect {
+      width: 48px;
+      height: 24px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    /* Square logos */
+    .payment-logo-square {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    /* Disabled payment container */
+    .payment-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+    /* Button press animation */
+    .btn-press {
+      animation: btnPressAnim 0.2s ease forwards;
+    }
+    @keyframes btnPressAnim {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(0.95);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+    <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
+     <i class="fas fa-arrow-left">
+     </i>
+    </a>
+    <h1 class="text-2xl font-semibold text-gray-800">
+     Topup Mobile Legends
+    </h1>
+   </div>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+   <section class="bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
+     <img alt="Logo game Mobile Legends dengan karakter pahlawan berwarna-warni di latar belakang, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co.com/fVtwn47D/512x512bb.jpg" width="128"/>
+     <div class="mt-4 sm:mt-0 text-center sm:text-left">
+      <h2 class="text-xl font-semibold text-gray-900">
+       Mobile Legends
+      </h2>
+      <p class="mt-2 text-gray-600">
+       Top up akun Mobile Legends Anda dengan cepat dan aman. Pilih paket diamond yang diinginkan di bawah dan selesaikan pembelian Anda.
+      </p>
+     </div>
+    </div>
+    <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="userId">
+       ID Pengguna
+      </label>
+      <input aria-describedby="userIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="userId" inputmode="numeric" maxlength="9" name="userId" pattern="^\d{8,9}$" placeholder="Masukkan ID Pengguna (8-9 digit)" required="" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="userIdHelp">
+       ID unik pemain Mobile Legends Anda (8 sampai 9 digit).
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="userIdError" role="alert">
+       Harap masukkan ID Pengguna yang valid (8-9 digit).
+      </p>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="userIdAttention" role="alert">
+       ID Pengguna minimal 8 digit.
+      </p>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="serverId">
+       ID Server
+      </label>
+      <input aria-describedby="serverIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="serverId" inputmode="numeric" maxlength="5" name="serverId" pattern="^\d{4,5}$" placeholder="Masukkan ID Server (4-5 digit)" required="" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="serverIdHelp">
+       ID server Mobile Legends Anda (4 sampai 5 digit).
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="serverIdError" role="alert">
+       Harap masukkan ID Server yang valid (4-5 digit).
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Jenis Topup
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedTopupType">
+          Pilih Jenis Topup
+         </span>
+        </div>
+        <button aria-controls="topupTypeOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleTopupTypeBtn" type="button">
+         <span id="toggleTopupTypeText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleTopupTypeIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 gap-4 hidden" id="topupTypeOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="topupDiamond" name="topupType" type="radio" value="diamond"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupDiamond" tabindex="0">
+          <span class="text-2xl">
+           💎
+          </span>
+          <span class="text-lg font-semibold text-gray-900">
+           Topup Diamond
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="topupPackagePass" name="topupType" type="radio" value="packagepass"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupPackagePass" tabindex="0">
+          <i class="fas fa-box-open text-2xl">
+          </i>
+          <span class="text-lg font-semibold text-gray-900">
+           Package &amp; Pass
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-red-600 hidden" id="topupTypeError" role="alert">
+       Harap pilih jenis topup.
+      </p>
+     </div>
+     <div class="hidden" id="diamondSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Paket Diamond
+       </span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleDiamondDetailsBtn" type="button">
+        Sembunyikan
+       </button>
+      </div>
+      <fieldset aria-describedby="packageErrorDiamond" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+       <div>
+        <input class="hidden peer" id="pkg3" name="package" type="radio" value="3"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg3" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          3
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.034
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg5" name="package" type="radio" value="5"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg5" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          5
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.354
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg12" name="package" type="radio" value="12"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg12" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          12
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 3.700
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg14" name="package" type="radio" value="14"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg14" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          14
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 3.757
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg36" name="package" type="radio" value="36"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg36" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          36
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 9.386
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg42" name="package" type="radio" value="42"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg42" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          42
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 11.324
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg44" name="package" type="radio" value="44"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg44" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          44
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 11.476
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg59" name="package" type="radio" value="59"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg59" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          59
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 14.994
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg65" name="package" type="radio" value="65"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg65" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          65
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 17.540
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg67" name="package" type="radio" value="67"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg67" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          67
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 18.316
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg74" name="package" type="radio" value="74"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg74" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          74
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 18.655
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg85" name="package" type="radio" value="85"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg85" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          85
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 21.560
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg112" name="package" type="radio" value="112"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg112" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          112
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 28.886
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg408" name="package" type="radio" value="408"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg408" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          408
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 105.056
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg429" name="package" type="radio" value="429"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg429" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          429
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 107.877
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg514" name="package" type="radio" value="514"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg514" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          514
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 134.652
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg568" name="package" type="radio" value="568"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg568" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          568
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 140.185
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg600" name="package" type="radio" value="600"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg600" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          600
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 148.480
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg706" name="package" type="radio" value="706"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg706" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          706
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 173.987
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg716" name="package" type="radio" value="716"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg716" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          716
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 178.599
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg875" name="package" type="radio" value="875"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg875" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          875
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 214.430
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg878" name="package" type="radio" value="878"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg878" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          878
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 221.088
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg963" name="package" type="radio" value="963"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg963" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          963
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 242.550
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg1412" name="package" type="radio" value="1412"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg1412" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          1412
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 359.562
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg2010" name="package" type="radio" value="2010"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg2010" tabindex="0">
+         <span class="text-2xl">
+          💎
+         </span>
+         <span class="text-lg font-semibold text-gray-900">
+          2010
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 466.799
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorDiamond" role="alert">
+       Harap pilih paket diamond.
+      </p>
+     </div>
+     <div class="hidden" id="packagePassSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Package &amp; Pass
+       </span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="togglePassDetailsBtn" type="button">
+        Sembunyikan
+       </button>
+      </div>
+      <fieldset aria-describedby="packageErrorPass" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+       <div>
+        <input class="hidden peer" id="pkgWDP2X" name="package" type="radio" value="WDP 2X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkgWDP2X" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          WDP 2X
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 52.161
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkgWDP3X" name="package" type="radio" value="WDP 3X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkgWDP3X" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          WDP 3X
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 83.032
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkgTwilightPass" name="package" type="radio" value="Twilight Pass"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkgTwilightPass" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Twilight Pass
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 139.904
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkgStarlightMemberPlus" name="package" type="radio" value="Starlight Member Plus"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkgStarlightMemberPlus" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Starlight Member Plus
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 306.373
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorPass" role="alert">
+       Harap pilih package atau pass.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Metode Pembayaran
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="paymentContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <svg aria-hidden="true" class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8c-1.657 0-3 1.343-3 3v3h6v-3c0-1.657-1.343-3-3-3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+         </svg>
+         <span class="font-semibold text-gray-900" id="selectedPaymentLabel">
+          Pilih Metode
+         </span>
+        </div>
+        <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
+         <span id="toggleDetailsText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payGopay" tabindex="0">
+          <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/ea6ab2a7-d049-4a3c-48d4-275f34d2ac4e.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           GoPay
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payQris" tabindex="0">
+          <img alt="Logo QRIS hitam putih dengan pola QR code" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/3720a347-d582-4866-2ffb-c7d21ae8dc32.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           QRIS
+          </span>
+          <span class="text-sm text-green-600">
+           Harga Jual + Rp 1
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payOvo" tabindex="0">
+          <img alt="Logo OVO ungu dengan tulisan OVO" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/4aabfc09-4e51-4ed1-aaeb-45c5b31a67f0.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           OVO
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payDana" tabindex="0">
+          <img alt="Logo DANA biru dengan tulisan DANA" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/1b8aa5ec-2da1-4b2c-b3cf-17c781c8542f.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           DANA
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="paySpay" tabindex="0">
+          <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/ed5992ab-82f7-4d71-44a5-a84c63825d67.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           ShopeePay
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payLinkaja" tabindex="0">
+          <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/510130dd-5262-4ac5-5fc4-0f56eef1b999.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           LinkAja
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
+       Pilih jenis topup dan paket terlebih dahulu untuk memilih metode pembayaran.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
+       Harap pilih metode pembayaran.
+      </p>
+     </div>
+     <button class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 text-white font-semibold py-3 rounded-md transition-colors" type="submit">
+      Lanjutkan Topup
+     </button>
+    </form>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0">
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 BOI XD Topup. Semua hak dilindungi.
+   </div>
+  </footer>
+  <script>
+   (() => {
+      const form = document.getElementById('topupForm');
+      const userIdInput = document.getElementById('userId');
+      const serverIdInput = document.getElementById('serverId');
+      const topupTypeRadios = form.querySelectorAll('input[name="topupType"]');
+      const diamondSection = document.getElementById('diamondSection');
+      const packagePassSection = document.getElementById('packagePassSection');
+      const packageRadios = form.querySelectorAll('input[name="package"]');
+      const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
+      const paymentOptions = document.getElementById('paymentOptions');
+      const paymentContainer = document.getElementById('paymentContainer');
+      const toggleDetailsBtn = document.getElementById('toggleDetailsBtn');
+      const selectedPaymentLabel = document.getElementById('selectedPaymentLabel');
+      const toggleDetailsText = document.getElementById('toggleDetailsText');
+      const toggleDetailsIcon = document.getElementById('toggleDetailsIcon');
+      const toggleTopupTypeBtn = document.getElementById('toggleTopupTypeBtn');
+      const topupTypeOptions = document.getElementById('topupTypeOptions');
+      const selectedTopupType = document.getElementById('selectedTopupType');
+
+      const toggleDiamondDetailsBtn = document.getElementById('toggleDiamondDetailsBtn');
+      const togglePassDetailsBtn = document.getElementById('togglePassDetailsBtn');
+
+      const userIdError = document.getElementById('userIdError');
+      const userIdAttention = document.getElementById('userIdAttention');
+      const serverIdError = document.getElementById('serverIdError');
+      const packageErrorDiamond = document.getElementById('packageErrorDiamond');
+      const packageErrorPass = document.getElementById('packageErrorPass');
+      const topupTypeError = document.getElementById('topupTypeError');
+      const paymentMethodError = document.getElementById('paymentMethodError');
+      const paymentBlockedAttention = document.getElementById('paymentBlockedAttention');
+      const confirmation = document.getElementById('confirmation');
+
+      // Harga Asli (Rp) untuk jenis topup
+      const packageBasePrices = {
+        "3": 1034,
+        "5": 1354,
+        "12": 3700,
+        "14": 3757,
+        "36": 9386,
+        "42": 11324,
+        "44": 11476,
+        "59": 14994,
+        "65": 17540,
+        "67": 18316,
+        "74": 18655,
+        "85": 21560,
+        "112": 28886,
+        "408": 105056,
+        "429": 107877,
+        "514": 134652,
+        "568": 140185,
+        "600": 148480,
+        "706": 173987,
+        "716": 178599,
+        "875": 214430,
+        "878": 221088,
+        "963": 242550,
+        "1412": 359562,
+        "2010": 466799,
+        "WDP 2X": 52161,
+        "WDP 3X": 83032,
+        "Twilight Pass": 139904,
+        "Starlight Member Plus": 306373
+      };
+
+      // Harga Jual (Rp) untuk metode pembayaran
+      const packageSellPrices = {
+        "3": 1100,
+        "5": 1400,
+        "12": 3900,
+        "14": 3900,
+        "36": 9700,
+        "42": 11700,
+        "44": 11900,
+        "59": 15500,
+        "65": 18100,
+        "67": 18900,
+        "74": 19300,
+        "85": 22300,
+        "112": 29800,
+        "408": 108300,
+        "429": 111200,
+        "514": 138700,
+        "568": 144400,
+        "600": 153000,
+        "706": 179300,
+        "716": 184000,
+        "875": 220900,
+        "878": 227800,
+        "963": 249900,
+        "1412": 370400,
+        "2010": 480900,
+        "WDP 2X": 53800,
+        "WDP 3X": 85600,
+        "Twilight Pass": 144200,
+        "Starlight Member Plus": 315600
+      };
+
+      // Payment method price adjustments
+      // QRIS = Harga Jual + 1
+      // Others = Harga Jual + 2% (except 3% for large nominal packages)
+      const paymentPriceAdjustments = {
+        gopay: (base, pkg) => {
+          if (["408","429","514","568","600","706","716","875","878","963","1412","2010"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        qris: (base) => base + 1,
+        ovo: (base, pkg) => {
+          if (["408","429","514","568","600","706","716","875","878","963","1412","2010"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        dana: (base, pkg) => {
+          if (["408","429","514","568","600","706","716","875","878","963","1412","2010"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        spay: (base, pkg) => {
+          if (["408","429","514","568","600","706","716","875","878","963","1412","2010"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        linkaja: (base, pkg) => {
+          if (["408","429","514","568","600","706","716","875","878","963","1412","2010"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        }
+      };
+
+      function formatRupiah(number) {
+        return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      function updatePaymentPrices() {
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        if (!selectedPackage) return;
+
+        const nominal = selectedPackage.value;
+        const basePrice = packageSellPrices[nominal];
+        if (!basePrice) return;
+
+        paymentMethodRadios.forEach(radio => {
+          const label = radio.nextElementSibling;
+          let priceSpan = label.querySelector('span.text-sm');
+          if (!priceSpan) {
+            priceSpan = document.createElement('span');
+            priceSpan.className = 'text-sm text-gray-600';
+            label.appendChild(priceSpan);
+          }
+          const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
+          priceSpan.textContent = formatRupiah(adjustedPrice);
+          if (radio.value === 'qris') {
+            priceSpan.classList.remove('text-gray-600');
+            priceSpan.classList.add('text-green-600');
+          } else {
+            priceSpan.classList.remove('text-green-600');
+            priceSpan.classList.add('text-gray-600');
+          }
+        });
+      }
+
+      function validateUserId() {
+        const value = userIdInput.value.trim();
+        const onlyDigits = /^\d*$/.test(value);
+        if (!onlyDigits) {
+          userIdInput.value = value.replace(/\D/g, '');
+          return false;
+        }
+        if (value.length < 8) {
+          userIdAttention.classList.remove('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        } else if (value.length > 9) {
+          userIdInput.value = value.slice(0,9);
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.removeAttribute('aria-invalid');
+          return true;
+        } else if (value.length >= 8 && value.length <= 9) {
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.removeAttribute('aria-invalid');
+          return true;
+        } else {
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.remove('hidden');
+          userIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        }
+      }
+
+      function validateServerId() {
+        const value = serverIdInput.value.trim();
+        const onlyDigits = /^\d*$/.test(value);
+        if (!onlyDigits) {
+          serverIdInput.value = value.replace(/\D/g, '');
+          return false;
+        }
+        if (value.length < 4) {
+          serverIdError.classList.remove('hidden');
+          serverIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        } else if (value.length > 5) {
+          serverIdInput.value = value.slice(0,5);
+          serverIdError.classList.add('hidden');
+          serverIdInput.removeAttribute('aria-invalid');
+          return true;
+        } else if (value.length >= 4 && value.length <= 5) {
+          serverIdError.classList.add('hidden');
+          serverIdInput.removeAttribute('aria-invalid');
+          return true;
+        } else {
+          serverIdError.classList.remove('hidden');
+          serverIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        }
+      }
+
+      function validateTopupType() {
+        let selected = false;
+        topupTypeRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          topupTypeError.classList.remove('hidden');
+        } else {
+          topupTypeError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function validatePackage() {
+        let selected = false;
+        packageRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          if (diamondSection.classList.contains('hidden')) {
+            packageErrorDiamond.classList.add('hidden');
+            packageErrorPass.classList.remove('hidden');
+          } else {
+            packageErrorDiamond.classList.remove('hidden');
+            packageErrorPass.classList.add('hidden');
+          }
+        } else {
+          packageErrorDiamond.classList.add('hidden');
+          packageErrorPass.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function validatePaymentMethod() {
+        let selected = false;
+        paymentMethodRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          paymentMethodError.classList.remove('hidden');
+        } else {
+          paymentMethodError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function updatePaymentAvailability() {
+        const topupSelected = validateTopupType();
+        const packageSelected = validatePackage();
+        if (topupSelected && packageSelected) {
+          paymentContainer.classList.remove('payment-disabled');
+          paymentBlockedAttention.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.disabled = false;
+          });
+        } else {
+          paymentContainer.classList.add('payment-disabled');
+          paymentBlockedAttention.classList.remove('hidden');
+          paymentMethodError.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.checked = false;
+            radio.disabled = true;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        }
+      }
+
+      // Utility to add press animation on buttons
+      function addPressAnimation(button) {
+        button.addEventListener('click', () => {
+          button.classList.add('btn-press');
+          setTimeout(() => {
+            button.classList.remove('btn-press');
+          }, 200);
+        });
+      }
+
+      // Add press animation to all toggle buttons
+      [toggleTopupTypeBtn, toggleDetailsBtn, toggleDiamondDetailsBtn, togglePassDetailsBtn].forEach(btn => {
+        if (btn) addPressAnimation(btn);
+      });
+
+      toggleTopupTypeBtn.addEventListener('click', () => {
+        const expanded = toggleTopupTypeBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          topupTypeOptions.classList.add('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'false');
+          toggleTopupTypeText.textContent = 'Detail';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-up');
+          toggleTopupTypeIcon.classList.add('fa-chevron-down');
+        } else {
+          topupTypeOptions.classList.remove('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'true');
+          toggleTopupTypeText.textContent = 'Sembunyikan';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-down');
+          toggleTopupTypeIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      toggleDetailsBtn.addEventListener('click', () => {
+        const expanded = toggleDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        } else {
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      toggleDiamondDetailsBtn.addEventListener('click', () => {
+        const fieldset = diamondSection.querySelector('fieldset');
+        const expanded = toggleDiamondDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          fieldset.classList.add('hidden');
+          toggleDiamondDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDiamondDetailsBtn.textContent = 'Munculkan detail';
+        } else {
+          fieldset.classList.remove('hidden');
+          toggleDiamondDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDiamondDetailsBtn.textContent = 'Sembunyikan';
+        }
+      });
+
+      togglePassDetailsBtn.addEventListener('click', () => {
+        const fieldset = packagePassSection.querySelector('fieldset');
+        const expanded = togglePassDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          fieldset.classList.add('hidden');
+          togglePassDetailsBtn.setAttribute('aria-expanded', 'false');
+          togglePassDetailsBtn.textContent = 'Munculkan detail';
+        } else {
+          fieldset.classList.remove('hidden');
+          togglePassDetailsBtn.setAttribute('aria-expanded', 'true');
+          togglePassDetailsBtn.textContent = 'Sembunyikan';
+        }
+      });
+
+      // Flag to track if user has manually selected topup type
+      let topupTypeSelectedManually = false;
+
+      topupTypeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          topupTypeSelectedManually = true;
+          selectedTopupType.textContent = radio.nextElementSibling.textContent.trim();
+          if (radio.value === 'diamond') {
+            diamondSection.classList.remove('hidden');
+            packagePassSection.classList.add('hidden');
+            // Show diamond details by default
+            diamondSection.querySelector('fieldset').classList.remove('hidden');
+            toggleDiamondDetailsBtn.setAttribute('aria-expanded', 'true');
+            toggleDiamondDetailsBtn.textContent = 'Sembunyikan';
+          } else if (radio.value === 'packagepass') {
+            diamondSection.classList.add('hidden');
+            packagePassSection.classList.remove('hidden');
+            // Show package pass details by default
+            packagePassSection.querySelector('fieldset').classList.remove('hidden');
+            togglePassDetailsBtn.setAttribute('aria-expanded', 'true');
+            togglePassDetailsBtn.textContent = 'Sembunyikan';
+          }
+          // Clear package selection and errors
+          packageRadios.forEach(pkg => pkg.checked = false);
+          packageErrorDiamond.classList.add('hidden');
+          packageErrorPass.classList.add('hidden');
+
+          // Reset payment method selection and label
+          paymentMethodRadios.forEach(pm => pm.checked = false);
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+
+          updatePaymentAvailability();
+          updatePaymentPrices();
+        });
+      });
+
+      paymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          const label = radio.nextElementSibling.querySelector('span.font-semibold');
+          if (label) {
+            selectedPaymentLabel.textContent = label.textContent;
+          }
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        });
+      });
+
+      packageRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          updatePaymentPrices();
+          paymentMethodRadios.forEach(pmRadio => {
+            pmRadio.checked = false;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+          paymentMethodError.classList.add('hidden');
+
+          updatePaymentAvailability();
+        });
+      });
+
+      userIdInput.addEventListener('input', () => {
+        // Enforce numeric only and max length 9
+        userIdInput.value = userIdInput.value.replace(/\D/g, '').slice(0,9);
+        validateUserId();
+      });
+      serverIdInput.addEventListener('input', () => {
+        // Enforce numeric only and max length 5
+        serverIdInput.value = serverIdInput.value.replace(/\D/g, '').slice(0,5);
+        validateServerId();
+      });
+
+      // Initialize payment availability on load
+      updatePaymentAvailability();
+      updatePaymentPrices();
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const missingFields = [];
+        if (!validateUserId()) missingFields.push("ID Pengguna");
+        if (!validateServerId()) missingFields.push("ID Server");
+        if (!validateTopupType()) missingFields.push("Jenis Topup");
+        if (!validatePackage()) missingFields.push("Paket");
+        if (!validatePaymentMethod()) missingFields.push("Metode Pembayaran");
+
+        if (missingFields.length > 0) {
+          alert(`Harap isi ${missingFields.join(", ")}`);
+          return;
+        }
+
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        const packageLabelSpan = selectedPackage.nextElementSibling.querySelector('span.text-lg, span.font-semibold');
+        const packageEmojiSpan = selectedPackage.nextElementSibling.querySelector('span.text-2xl');
+        const packageLabel = packageLabelSpan ? packageLabelSpan.textContent : selectedPackage.value;
+        const packageEmoji = packageEmojiSpan ? packageEmojiSpan.textContent : '';
+        const basePrice = packageBasePrices[selectedPackage.value];
+        const selectedPayment = Array.from(paymentMethodRadios).find(r => r.checked);
+        const paymentLabel = selectedPayment.nextElementSibling.querySelector('span.font-semibold').textContent;
+        const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+        // Use WhatsApp number without symbols/spaces for URL
+        const phoneNumber = '6283132420423';
+
+        const message = `Halo, saya ingin melakukan topup Mobile Legends dengan detail berikut:%0A` +
+          `ID Pengguna: ${userIdInput.value.trim()}%0A` +
+          `ID Server: ${serverIdInput.value.trim()}%0A` +
+          `Jenis Topup: ${selectedTopupType.textContent} (Harga Asli: ${formatRupiah(basePrice)})%0A` +
+          `Nominal: ${packageEmoji} ${packageLabel}%0A` +
+          `Metode Pembayaran: ${paymentLabel}%0A` +
+          `Harga: ${formatRupiah(adjustedPrice)}`;
+
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+        // Open WhatsApp chat in new tab
+        window.open(whatsappUrl, '_blank');
+      });
+    })();
+  </script>
+ </body>
+</html>

@@ -1,0 +1,274 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Main Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 64px; /* space for bottom nav */
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .menu-button {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform, box-shadow;
+      opacity: 0;
+      animation-name: fadeInUp;
+      animation-duration: 0.6s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+      cursor: pointer;
+    }
+    .menu-button:hover,
+    .menu-button:focus {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 20px rgba(48, 207, 207, 0.4);
+      outline: none;
+    }
+    .menu-button:active {
+      transform: translateY(-2px) scale(0.98);
+      box-shadow: 0 6px 10px rgba(48, 207, 207, 0.25);
+    }
+    nav#bottomNav {
+      height: 64px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e5e7eb; /* gray-200 */
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 50;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav#bottomNav button.left-button,
+    nav#bottomNav button.right-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #30cfcf;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0;
+      width: 64px;
+      height: 64px;
+      transition: color 0.3s ease;
+      z-index: 40;
+      text-align: center;
+    }
+    nav#bottomNav button.left-button:hover,
+    nav#bottomNav button.left-button:focus,
+    nav#bottomNav button.right-button:hover,
+    nav#bottomNav button.right-button:focus {
+      color: #238383;
+      outline: none;
+    }
+    nav#bottomNav button.left-button i,
+    nav#bottomNav button.right-button i {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      color: #30cfcf;
+    }
+    nav#bottomNav .floating-topup {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 60;
+      width: 64px;
+      height: 64px;
+      background-color: #30cfcf;
+      border-radius: 9999px;
+      box-shadow: 0 10px 15px rgba(48, 207, 207, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      outline-offset: 2px;
+      transition: background-color 0.3s ease;
+      color: white;
+      font-size: 1.5rem;
+    }
+    nav#bottomNav .floating-topup:hover,
+    nav#bottomNav .floating-topup:focus {
+      background-color: #2bbaba;
+      outline: none;
+    }
+    nav#bottomNav .floating-topup:active {
+      background-color: #239999;
+    }
+    nav#bottomNav .topup-label {
+      position: absolute;
+      top: 44px; /* 64px (circle height) - 20px margin */
+      left: 50%;
+      transform: translateX(-50%);
+      color: #30cfcf;
+      font-weight: 600;
+      font-size: 0.75rem;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-center">
+      <h1 class="text-2xl font-semibold text-white">BOI XD Store</h1>
+    </div>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 gap-6"
+      role="list"
+      aria-label="Main menu navigation"
+    >
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="Daftar Game"
+        data-inti="daftargame"
+        style="animation-delay: 0s"
+      >
+        <i class="fas fa-gamepad text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">Daftar Game</span>
+      </button>
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="Promo & Diskon"
+        data-inti="promo"
+        style="animation-delay: 0.1s"
+      >
+        <i class="fas fa-tag text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">Promo &amp; Diskon</span>
+      </button>
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="Cara TopUp"
+        data-inti="caratopup"
+        style="animation-delay: 0.2s"
+      >
+        <i class="fas fa-book text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">Cara TopUp</span>
+      </button>
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="Layanan Lain"
+        data-inti="layanandll"
+        style="animation-delay: 0.3s"
+      >
+        <i class="fas fa-wallet text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">Layanan Lain</span>
+      </button>
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="Testimoni"
+        data-inti="testimoni"
+        style="animation-delay: 0.4s"
+      >
+        <i class="fas fa-star text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">Testimoni</span>
+      </button>
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="Kontak Admin"
+        data-inti="kontakadmin"
+        style="animation-delay: 0.5s"
+      >
+        <i class="fas fa-phone-alt text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">Kontak Admin</span>
+      </button>
+      <button
+        type="button"
+        class="menu-button flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-6 focus:outline-none"
+        aria-label="FAQ / Bantuan"
+        data-inti="faq"
+        style="animation-delay: 0.6s"
+      >
+        <i class="fas fa-question-circle text-[#30cfcf] text-4xl mb-3" aria-hidden="true"></i>
+        <span class="text-[#30cfcf] font-semibold text-base">FAQ / Bantuan</span>
+      </button>
+    </div>
+  </main>
+  <nav aria-label="Bottom navigation" id="bottomNav">
+    <button aria-label="Main Menu" data-inti="mainmenu" type="button" tabindex="0" class="left-button">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+      <span>Main Menu</span>
+    </button>
+    <button aria-label="TopUp" data-inti="topup" type="button" class="floating-topup" tabindex="0" aria-describedby="topup-label">
+      <i class="fas fa-coins" aria-hidden="true"></i>
+    </button>
+    <span id="topup-label" class="topup-label" aria-hidden="true">TopUp</span>
+    <button aria-label="Profil" data-inti="profil" type="button" tabindex="0" class="right-button">
+      <i class="fas fa-user" aria-hidden="true"></i>
+      <span>Profil</span>
+    </button>
+  </nav>
+  <script>
+    document.querySelectorAll('#bottomNav button').forEach(button => {
+      button.addEventListener('click', () => {
+        const inti = button.getAttribute('data-inti');
+        if (inti) {
+          window.location.href = `${inti}.html`;
+        }
+      });
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          button.click();
+        }
+      });
+    });
+    document.querySelectorAll('.menu-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const inti = button.getAttribute('data-inti');
+        if (inti) {
+          window.location.href = `${inti}.html`;
+        }
+      });
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          button.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
