@@ -2,8 +2,11 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>Topup Genshin Impact - BOI XD Topup</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>
+   Topup Genshin Impact - BOI XD Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
   <style>
@@ -82,13 +85,27 @@
       50% {transform: scale(0.95);opacity: 0.7;}
       100% {transform: scale(1);opacity: 1;}
     }
+    /* Custom styles for pack section */
+    #packSection fieldset {
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    /* Disabled server options */
+    .server-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
   </style>
  </head>
  <body class="bg-gray-50 min-h-screen flex flex-col">
   <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
     <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
-     <i class="fas fa-arrow-left"></i>
+     <i class="fas fa-arrow-left">
+     </i>
     </a>
     <h1 class="text-2xl font-semibold text-gray-800">
      Topup Genshin Impact
@@ -98,17 +115,55 @@
   <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
    <section class="bg-white rounded-lg shadow p-6">
     <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
-     <img alt="Logo game Genshin Impact dengan latar belakang putih dan simbol bintang berwarna hitam, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/B2XM2BH0/genshinimpact.jpg" width="128"/>
+     <img alt="Logo game Genshin Impact dengan latar belakang berwarna merah dan karakter utama, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/B2XM2BH0/genshinimpact.jpg" width="128"/>
      <div class="mt-4 sm:mt-0 text-center sm:text-left">
-      <h2 class="text-xl font-semibold text-gray-900">
-       Genshin Impact
+      <h2 class="text-xl font-semibold text-gray-900 flex items-center space-x-3">
+       <span>Genshin Impact</span>
+       <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded" loading="lazy"/>
       </h2>
       <p class="mt-2 text-gray-600">
-       Top up akun Genshin Impact Anda dengan cepat dan aman. Pilih paket Genesis Crystals yang diinginkan di bawah dan selesaikan pembelian Anda.
+       Top up Genesis Crystals akun Genshin Impact Anda dengan cepat dan aman. Pilih nominal yang diinginkan dan selesaikan pembelian Anda.
       </p>
      </div>
     </div>
     <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">
+       Server
+      </label>
+      <fieldset class="grid grid-cols-3 gap-4" aria-required="true" aria-describedby="serverHelp" id="serverOptions">
+       <div>
+        <input class="hidden peer" id="serverAsia" name="server" type="radio" value="Asia" required/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="serverAsia" tabindex="0">
+         Asia
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer server-disabled" id="serverAmerica" name="server" type="radio" value="America" />
+        <label class="radio-label cursor-pointer opacity-50" for="serverAmerica" tabindex="0">
+         America
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer server-disabled" id="serverEurope" name="server" type="radio" value="Europe" />
+        <label class="radio-label cursor-pointer opacity-50" for="serverEurope" tabindex="0">
+         Europe
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer server-disabled" id="serverAfrika" name="server" type="radio" value="Afrika" />
+        <label class="radio-label cursor-pointer opacity-50" for="serverAfrika" tabindex="0">
+         Afrika
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-xs text-gray-500" id="serverHelp">
+       Pilih server Anda. Hanya server Asia yang tersedia.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="serverError" role="alert">
+       Harap pilih server.
+      </p>
+     </div>
      <div>
       <label class="block text-sm font-medium text-gray-700" for="userId">
        ID Pengguna
@@ -139,26 +194,33 @@
          <span id="toggleTopupTypeText">
           Detail
          </span>
-         <i class="fas fa-chevron-down" id="toggleTopupTypeIcon"></i>
+         <i class="fas fa-chevron-down" id="toggleTopupTypeIcon">
+         </i>
         </button>
        </div>
-       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 hidden" id="topupTypeOptions" role="list">
+       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 gap-4 hidden" id="topupTypeOptions" role="list">
         <div role="listitem">
-         <input class="hidden peer" id="topupNoEvent" name="topupType" type="radio" value="No Event"/>
+         <input class="hidden peer" id="topupNoEvent" name="topupType" type="radio" value="noevent"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupNoEvent" tabindex="0">
-          <span class="text-lg font-semibold text-gray-900">No Event</span>
+          <span class="text-lg font-semibold text-gray-900">
+           No Event
+          </span>
+         </label>
+        </div>
+        <div role="listitem" class="col-span-2">
+         <input class="hidden peer" id="topupPack" name="topupType" type="radio" value="pack"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupPack" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">
+           Pack
+          </span>
          </label>
         </div>
         <div role="listitem">
-         <input class="hidden peer" id="topupBlessing" name="topupType" type="radio" value="Blessing Of The Welkin Moon"/>
-         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupBlessing" tabindex="0">
-          <span class="text-lg font-semibold text-gray-900">Blessing Of The Welkin Moon</span>
-         </label>
-        </div>
-        <div role="listitem">
-         <input class="hidden peer" id="topupWithEvent" name="topupType" type="radio" value="With Event"/>
+         <input class="hidden peer" id="topupWithEvent" name="topupType" type="radio" value="withevent"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupWithEvent" tabindex="0">
-          <span class="text-lg font-semibold text-gray-900">With Event</span>
+          <span class="text-lg font-semibold text-gray-900">
+           With Event
+          </span>
          </label>
         </div>
        </div>
@@ -167,20 +229,263 @@
        Harap pilih jenis topup.
       </p>
      </div>
-     <div class="hidden" id="packageSection">
+     <div class="hidden" id="noEventSection">
       <div class="flex justify-between items-center mb-2">
        <span class="block text-sm font-medium text-gray-700">
-        Paket Genesis Crystals
+        Nominal No Event
        </span>
-       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="togglePackageDetailsBtn" type="button">
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleNoEventDetailsBtn" type="button">
         Sembunyikan
        </button>
       </div>
-      <fieldset aria-describedby="packageError" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="packageFieldset">
-       <!-- Packages will be dynamically inserted here -->
+      <fieldset aria-describedby="packageErrorNoEvent" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+       <div>
+        <input class="hidden peer" id="noevent60" name="package" type="radio" value="60"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="noevent60" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>60</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 12.082
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="noevent330" name="package" type="radio" value="330"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="noevent330" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>330</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 61.698
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="noevent1090" name="package" type="radio" value="1090"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="noevent1090" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>1090</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 185.651
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="noevent2240" name="package" type="radio" value="2240"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="noevent2240" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>2240</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 402.605
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="noevent3880" name="package" type="radio" value="3880"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="noevent3880" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>3880</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 619.558
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="noevent8080" name="package" type="radio" value="8080"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="noevent8080" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>8080</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.239.372
+         </span>
+        </label>
+       </div>
       </fieldset>
-      <p class="mt-1 text-sm text-red-600 hidden" id="packageError" role="alert">
-       Harap pilih paket.
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorNoEvent" role="alert">
+       Harap pilih paket nominal.
+      </p>
+     </div>
+     <div class="hidden" id="packSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Pack
+       </span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="togglePackDetailsBtn" type="button">
+        Sembunyikan
+       </button>
+      </div>
+      <fieldset aria-describedby="packageErrorPack" aria-required="true" class="grid grid-cols-1 gap-4 max-h-96 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="pack1x" name="package" type="radio" value="Blessing Of The Welkin Moon 1X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex items-center space-x-3" for="pack1x" tabindex="0">
+         <img src="https://i.ibb.co/zTjym4Xw/Screenshot-20250518-110452-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna ungu dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded"/>
+         <div class="flex flex-col text-left">
+          <span class="text-lg font-semibold text-gray-900">
+           Blessing Of The Welkin Moon 1X
+          </span>
+          <span class="text-sm text-gray-600">
+           Rp 61.714
+          </span>
+         </div>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pack2x" name="package" type="radio" value="Blessing Of The Welkin Moon 2X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex items-center space-x-3" for="pack2x" tabindex="0">
+         <img src="https://i.ibb.co/zTjym4Xw/Screenshot-20250518-110452-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna ungu dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded"/>
+         <div class="flex flex-col text-left">
+          <span class="text-lg font-semibold text-gray-900">
+           Blessing Of The Welkin Moon 2X
+          </span>
+          <span class="text-sm text-gray-600">
+           Rp 122.930
+          </span>
+         </div>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pack3x" name="package" type="radio" value="Blessing Of The Welkin Moon 3X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex items-center space-x-3" for="pack3x" tabindex="0">
+         <img src="https://i.ibb.co/zTjym4Xw/Screenshot-20250518-110452-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna ungu dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded"/>
+         <div class="flex flex-col text-left">
+          <span class="text-lg font-semibold text-gray-900">
+           Blessing Of The Welkin Moon 3X
+          </span>
+          <span class="text-sm text-gray-600">
+           Rp 184.382
+          </span>
+         </div>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pack4x" name="package" type="radio" value="Blessing Of The Welkin Moon 4X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex items-center space-x-3" for="pack4x" tabindex="0">
+         <img src="https://i.ibb.co/zTjym4Xw/Screenshot-20250518-110452-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna ungu dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded"/>
+         <div class="flex flex-col text-left">
+          <span class="text-lg font-semibold text-gray-900">
+           Blessing Of The Welkin Moon 4X
+          </span>
+          <span class="text-sm text-gray-600">
+           Rp 245.806
+          </span>
+         </div>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pack5x" name="package" type="radio" value="Blessing Of The Welkin Moon 5X"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex items-center space-x-3" for="pack5x" tabindex="0">
+         <img src="https://i.ibb.co/zTjym4Xw/Screenshot-20250518-110452-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna ungu dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded"/>
+         <div class="flex flex-col text-left">
+          <span class="text-lg font-semibold text-gray-900">
+           Blessing Of The Welkin Moon 5X
+          </span>
+          <span class="text-sm text-gray-600">
+           Rp 307.285
+          </span>
+         </div>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorPack" role="alert">
+       Harap pilih paket pack.
+      </p>
+     </div>
+     <div class="hidden" id="withEventSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Nominal With Event
+       </span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleWithEventDetailsBtn" type="button">
+        Sembunyikan
+       </button>
+      </div>
+      <fieldset aria-describedby="packageErrorWithEvent" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+       <div>
+        <input class="hidden peer" id="withevent60" name="package" type="radio" value="60we"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="withevent60" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>60</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 13.530
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="withevent330" name="package" type="radio" value="330we"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="withevent330" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>330</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 65.026
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="withevent1090" name="package" type="radio" value="1090we"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="withevent1090" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>1090</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 204.906
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="withevent2240" name="package" type="radio" value="2240we"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="withevent2240" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>2240</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 447.226
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="withevent3880" name="package" type="radio" value="3880we"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="withevent3880" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>3880</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 728.026
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="withevent8080" name="package" type="radio" value="8080we"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="withevent8080" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900 flex items-center justify-center space-x-1">
+          <img src="https://i.ibb.co/jvnJZCG8/Screenshot-20250518-105645-Chrome.jpg" alt="Gambar Genesis Crystals Genshin Impact berwarna biru dengan bentuk kristal dan efek cahaya" class="w-5 h-5 object-contain"/>
+          <span>8080</span>
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.352.000
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorWithEvent" role="alert">
+       Harap pilih paket nominal.
       </p>
      </div>
      <div>
@@ -191,16 +496,21 @@
        <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
          <svg aria-hidden="true" class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 8c-1.657 0-3 1.343-3 3v3h6v-3c0-1.657-1.343-3-3-3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          <path d="M12 8c-1.657 0-3 1.343-3 3v3h6v-3c0-1.657-1.343-3-3-3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
          </svg>
          <span class="font-semibold text-gray-900" id="selectedPaymentLabel">
           Pilih Metode
          </span>
         </div>
         <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
-         <span id="toggleDetailsText">Detail</span>
-         <i class="fas fa-chevron-down" id="toggleDetailsIcon"></i>
+         <span id="toggleDetailsText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon">
+         </i>
         </button>
        </div>
        <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
@@ -208,54 +518,78 @@
          <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payGopay" tabindex="0">
           <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/ea6ab2a7-d049-4a3c-48d4-275f34d2ac4e.jpg" width="32"/>
-          <span class="text-gray-900 font-semibold">GoPay</span>
-          <span class="text-sm text-gray-600">Harga Jual</span>
+          <span class="text-gray-900 font-semibold">
+           GoPay
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceGopay">
+           Harga Jual
+          </span>
          </label>
         </div>
         <div role="listitem">
          <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payQris" tabindex="0">
           <img alt="Logo QRIS hitam putih dengan pola QR code" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/3720a347-d582-4866-2ffb-c7d21ae8dc32.jpg" width="48"/>
-          <span class="text-gray-900 font-semibold">QRIS</span>
-          <span class="text-sm text-green-600">Harga Jual + Rp 1</span>
+          <span class="text-gray-900 font-semibold">
+           QRIS
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceQris">
+           Harga Jual + Rp 1
+          </span>
          </label>
         </div>
         <div role="listitem">
          <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payOvo" tabindex="0">
           <img alt="Logo OVO ungu dengan tulisan OVO" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/4aabfc09-4e51-4ed1-aaeb-45c5b31a67f0.jpg" width="48"/>
-          <span class="text-gray-900 font-semibold">OVO</span>
-          <span class="text-sm text-gray-600">Harga Jual + 2%</span>
+          <span class="text-gray-900 font-semibold">
+           OVO
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceOvo">
+           Harga Jual
+          </span>
          </label>
         </div>
         <div role="listitem">
          <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payDana" tabindex="0">
           <img alt="Logo DANA biru dengan tulisan DANA" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/1b8aa5ec-2da1-4b2c-b3cf-17c781c8542f.jpg" width="48"/>
-          <span class="text-gray-900 font-semibold">DANA</span>
-          <span class="text-sm text-gray-600">Harga Jual + 2%</span>
+          <span class="text-gray-900 font-semibold">
+           DANA
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceDana">
+           Harga Jual
+          </span>
          </label>
         </div>
         <div role="listitem">
          <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="paySpay" tabindex="0">
           <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/ed5992ab-82f7-4d71-44a5-a84c63825d67.jpg" width="48"/>
-          <span class="text-gray-900 font-semibold">ShopeePay</span>
-          <span class="text-sm text-gray-600">Harga Jual + 2%</span>
+          <span class="text-gray-900 font-semibold">
+           ShopeePay
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceSpay">
+           Harga Jual
+          </span>
          </label>
         </div>
         <div role="listitem">
          <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
          <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payLinkaja" tabindex="0">
           <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/510130dd-5262-4ac5-5fc4-0f56eef1b999.jpg" width="32"/>
-          <span class="text-gray-900 font-semibold">LinkAja</span>
-          <span class="text-sm text-gray-600">Harga Jual + 2%</span>
+          <span class="text-gray-900 font-semibold">
+           LinkAja
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceLinkaja">
+           Harga Jual
+          </span>
          </label>
         </div>
        </div>
       </div>
       <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
-       Pilih jenis topup dan paket terlebih dahulu untuk memilih metode pembayaran.
+       Pilih server, jenis topup, dan paket terlebih dahulu untuk memilih metode pembayaran.
       </p>
       <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
        Harap pilih metode pembayaran.
@@ -265,7 +599,8 @@
       Lanjutkan Topup
      </button>
     </form>
-    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0"></div>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0">
+    </div>
    </section>
   </main>
   <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
@@ -277,9 +612,12 @@
    (() => {
       const form = document.getElementById('topupForm');
       const userIdInput = document.getElementById('userId');
+      const serverRadios = form.querySelectorAll('input[name="server"]');
       const topupTypeRadios = form.querySelectorAll('input[name="topupType"]');
-      const packageSection = document.getElementById('packageSection');
-      const packageFieldset = document.getElementById('packageFieldset');
+      const noEventSection = document.getElementById('noEventSection');
+      const packSection = document.getElementById('packSection');
+      const withEventSection = document.getElementById('withEventSection');
+      const packageRadios = form.querySelectorAll('input[name="package"]');
       const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
       const paymentOptions = document.getElementById('paymentOptions');
       const paymentContainer = document.getElementById('paymentContainer');
@@ -290,47 +628,65 @@
       const toggleTopupTypeBtn = document.getElementById('toggleTopupTypeBtn');
       const topupTypeOptions = document.getElementById('topupTypeOptions');
       const selectedTopupType = document.getElementById('selectedTopupType');
-      const togglePackageDetailsBtn = document.getElementById('togglePackageDetailsBtn');
-      const packageError = document.getElementById('packageError');
+
+      const toggleNoEventDetailsBtn = document.getElementById('toggleNoEventDetailsBtn');
+      const togglePackDetailsBtn = document.getElementById('togglePackDetailsBtn');
+      const toggleWithEventDetailsBtn = document.getElementById('toggleWithEventDetailsBtn');
+
       const userIdError = document.getElementById('userIdError');
       const userIdAttention = document.getElementById('userIdAttention');
+      const serverError = document.getElementById('serverError');
+      const packageErrorNoEvent = document.getElementById('packageErrorNoEvent');
+      const packageErrorPack = document.getElementById('packageErrorPack');
+      const packageErrorWithEvent = document.getElementById('packageErrorWithEvent');
       const topupTypeError = document.getElementById('topupTypeError');
       const paymentMethodError = document.getElementById('paymentMethodError');
       const paymentBlockedAttention = document.getElementById('paymentBlockedAttention');
       const confirmation = document.getElementById('confirmation');
 
-      // Data harga asli dan harga jual per paket dan jenis topup
-      // Format: { [topupType]: { [packageValue]: { basePrice, sellPrice } } }
-      const priceData = {
-        "No Event": {
-          "60": { basePrice: 12082, sellPrice: 12700 },
-          "330": { basePrice: 61698, sellPrice: 64800 },
-          "1090": { basePrice: 185651, sellPrice: 195000 },
-          "2240": { basePrice: 402605, sellPrice: 422800 },
-          "3880": { basePrice: 619558, sellPrice: 650600 },
-          "8080": { basePrice: 1239372, sellPrice: 1301400 }
-        },
-        "Blessing Of The Welkin Moon": {
-          "Blessing Of The Welkin Moon 1X": { basePrice: 61714, sellPrice: 64800 },
-          "Blessing Of The Welkin Moon 2X": { basePrice: 122930, sellPrice: 129100 },
-          "Blessing Of The Welkin Moon 3X": { basePrice: 184382, sellPrice: 193700 },
-          "Blessing Of The Welkin Moon 4X": { basePrice: 245806, sellPrice: 258100 },
-          "Blessing Of The Welkin Moon 5X": { basePrice: 307285, sellPrice: 322700 }
-        },
-        "With Event": {
-          "60": { basePrice: 13530, sellPrice: 14300 },
-          "330": { basePrice: 65026, sellPrice: 68300 },
-          "1090": { basePrice: 204906, sellPrice: 215200 },
-          "2240": { basePrice: 447226, sellPrice: 469600 },
-          "3880": { basePrice: 728026, sellPrice: 764500 },
-          "8080": { basePrice: 1352000, sellPrice: 1419600 }
-        }
+      // Harga Asli (Rp) untuk paket
+      const packageBasePrices = {
+        "60": 12082,
+        "330": 61698,
+        "1090": 185651,
+        "2240": 402605,
+        "3880": 619558,
+        "8080": 1239372,
+        "Blessing Of The Welkin Moon 1X": 61714,
+        "Blessing Of The Welkin Moon 2X": 122930,
+        "Blessing Of The Welkin Moon 3X": 184382,
+        "Blessing Of The Welkin Moon 4X": 245806,
+        "Blessing Of The Welkin Moon 5X": 307285,
+        "60we": 13530,
+        "330we": 65026,
+        "1090we": 204906,
+        "2240we": 447226,
+        "3880we": 728026,
+        "8080we": 1352000
       };
 
-      // Payment method price adjustments
-      // QRIS = Harga Jual + 1
-      // Others = Harga Jual + 2% (except 3% for large nominal packages)
-      const largePackages = ["1090", "2240", "3880", "8080", "Blessing Of The Welkin Moon 3X", "Blessing Of The Welkin Moon 4X", "Blessing Of The Welkin Moon 5X"];
+      // Harga Jual (Rp) untuk paket
+      const packageSellPrices = {
+        "60": 12700,
+        "330": 64800,
+        "1090": 195000,
+        "2240": 422800,
+        "3880": 650600,
+        "8080": 1301400,
+        "Blessing Of The Welkin Moon 1X": 64800,
+        "Blessing Of The Welkin Moon 2X": 129100,
+        "Blessing Of The Welkin Moon 3X": 193700,
+        "Blessing Of The Welkin Moon 4X": 258100,
+        "Blessing Of The Welkin Moon 5X": 322700,
+        "60we": 14300,
+        "330we": 68300,
+        "1090we": 215200,
+        "2240we": 469600,
+        "3880we": 764500,
+        "8080we": 1419600
+      };
+
+      const largePackages = ["3880","8080","Blessing Of The Welkin Moon 4X","Blessing Of The Welkin Moon 5X","3880we","8080we"];
       const paymentPriceAdjustments = {
         gopay: (base, pkg) => {
           if (largePackages.includes(pkg)) {
@@ -366,67 +722,31 @@
       };
 
       function formatRupiah(number) {
-        if (typeof number !== "number") return number;
         return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
       }
 
-      // Packages for each topup type
-      const packagesByType = {
-        "No Event": ["60", "330", "1090", "2240", "3880", "8080"],
-        "Blessing Of The Welkin Moon": ["Blessing Of The Welkin Moon 1X", "Blessing Of The Welkin Moon 2X", "Blessing Of The Welkin Moon 3X", "Blessing Of The Welkin Moon 4X", "Blessing Of The Welkin Moon 5X"],
-        "With Event": ["60", "330", "1090", "2240", "3880", "8080"]
-      };
-
-      function renderPackages(topupType) {
-        packageFieldset.innerHTML = '';
-        const pkgs = packagesByType[topupType] || [];
-        pkgs.forEach(pkgVal => {
-          let labelText = pkgVal;
-          if (topupType === "Blessing Of The Welkin Moon") {
-            labelText = pkgVal.replace("Blessing Of The Welkin Moon ", "Blessing ") || pkgVal;
-          } else if (topupType === "With Event") {
-            labelText = pkgVal + " (With Event)";
-          }
-          const basePrice = priceData[topupType][pkgVal]?.basePrice ?? '';
-          const basePriceFormatted = basePrice ? formatRupiah(basePrice) : '';
-          const div = document.createElement('div');
-          div.innerHTML = `
-            <input class="hidden peer" id="pkg${pkgVal.replace(/\s+/g, '')}" name="package" type="radio" value="${pkgVal}"/>
-            <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="pkg${pkgVal.replace(/\s+/g, '')}" tabindex="0">
-              <span class="text-lg font-semibold text-gray-900">${labelText}</span>
-              <span class="text-sm text-gray-600">${basePriceFormatted}</span>
-            </label>
-          `;
-          packageFieldset.appendChild(div.firstElementChild);
-          packageFieldset.appendChild(div.lastElementChild);
-        });
-      }
-
       function updatePaymentPrices() {
-        const selectedTopup = Array.from(topupTypeRadios).find(r => r.checked);
-        const selectedPackage = Array.from(form.querySelectorAll('input[name="package"]')).find(r => r.checked);
-        if (!selectedTopup || !selectedPackage) return;
-        const topupType = selectedTopup.value;
-        const pkgVal = selectedPackage.value;
-        let sellPrice = priceData[topupType]?.[pkgVal]?.sellPrice ?? null;
-        if (sellPrice === null) return;
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        if (!selectedPackage) {
+          ['Gopay','Qris','Ovo','Dana','Spay','Linkaja'].forEach(method => {
+            const el = document.getElementById('price' + method);
+            if(el) el.textContent = 'Harga Jual';
+          });
+          return;
+        }
+
+        const nominal = selectedPackage.value;
+        const basePrice = packageSellPrices[nominal];
+        if (!basePrice) return;
 
         paymentMethodRadios.forEach(radio => {
-          const label = radio.nextElementSibling;
-          let priceSpan = label.querySelector('span.text-sm');
-          if (!priceSpan) {
-            priceSpan = document.createElement('span');
-            priceSpan.className = 'text-sm text-gray-600';
-            label.appendChild(priceSpan);
-          }
-          const adjustedPrice = paymentPriceAdjustments[radio.value](sellPrice, pkgVal);
-          priceSpan.textContent = formatRupiah(adjustedPrice);
+          const priceSpan = document.getElementById('price' + radio.value.charAt(0).toUpperCase() + radio.value.slice(1));
+          if (!priceSpan) return;
+          const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
           if (radio.value === 'qris') {
-            priceSpan.classList.remove('text-gray-600');
-            priceSpan.classList.add('text-green-600');
+            priceSpan.textContent = formatRupiah(adjustedPrice) + ' + Rp 1';
           } else {
-            priceSpan.classList.remove('text-green-600');
-            priceSpan.classList.add('text-gray-600');
+            priceSpan.textContent = formatRupiah(adjustedPrice);
           }
         });
       }
@@ -462,6 +782,19 @@
         }
       }
 
+      function validateServer() {
+        let selected = false;
+        serverRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          serverError.classList.remove('hidden');
+        } else {
+          serverError.classList.add('hidden');
+        }
+        return selected;
+      }
+
       function validateTopupType() {
         let selected = false;
         topupTypeRadios.forEach(radio => {
@@ -477,14 +810,27 @@
 
       function validatePackage() {
         let selected = false;
-        const packageRadiosCurrent = form.querySelectorAll('input[name="package"]');
-        packageRadiosCurrent.forEach(radio => {
+        packageRadios.forEach(radio => {
           if (radio.checked) selected = true;
         });
         if (!selected) {
-          packageError.classList.remove('hidden');
+          if (!noEventSection.classList.contains('hidden')) {
+            packageErrorNoEvent.classList.remove('hidden');
+            packageErrorPack.classList.add('hidden');
+            packageErrorWithEvent.classList.add('hidden');
+          } else if (!packSection.classList.contains('hidden')) {
+            packageErrorNoEvent.classList.add('hidden');
+            packageErrorPack.classList.remove('hidden');
+            packageErrorWithEvent.classList.add('hidden');
+          } else if (!withEventSection.classList.contains('hidden')) {
+            packageErrorNoEvent.classList.add('hidden');
+            packageErrorPack.classList.add('hidden');
+            packageErrorWithEvent.classList.remove('hidden');
+          }
         } else {
-          packageError.classList.add('hidden');
+          packageErrorNoEvent.classList.add('hidden');
+          packageErrorPack.classList.add('hidden');
+          packageErrorWithEvent.classList.add('hidden');
         }
         return selected;
       }
@@ -503,9 +849,10 @@
       }
 
       function updatePaymentAvailability() {
+        const serverSelected = validateServer();
         const topupSelected = validateTopupType();
         const packageSelected = validatePackage();
-        if (topupSelected && packageSelected) {
+        if (serverSelected && topupSelected && packageSelected) {
           paymentContainer.classList.remove('payment-disabled');
           paymentBlockedAttention.classList.add('hidden');
           paymentMethodRadios.forEach(radio => {
@@ -525,6 +872,7 @@
           toggleDetailsText.textContent = 'Detail';
           toggleDetailsIcon.classList.remove('fa-chevron-up');
           toggleDetailsIcon.classList.add('fa-chevron-down');
+          updatePaymentPrices();
         }
       }
 
@@ -537,7 +885,7 @@
         });
       }
 
-      [toggleTopupTypeBtn, toggleDetailsBtn, togglePackageDetailsBtn].forEach(btn => {
+      [toggleTopupTypeBtn, toggleDetailsBtn, toggleNoEventDetailsBtn, togglePackDetailsBtn, toggleWithEventDetailsBtn].forEach(btn => {
         if (btn) addPressAnimation(btn);
       });
 
@@ -575,41 +923,84 @@
         }
       });
 
-      togglePackageDetailsBtn.addEventListener('click', () => {
-        const fieldset = packageSection.querySelector('fieldset');
-        const expanded = togglePackageDetailsBtn.getAttribute('aria-expanded') === 'true';
+      toggleNoEventDetailsBtn.addEventListener('click', () => {
+        const fieldset = noEventSection.querySelector('fieldset');
+        const expanded = toggleNoEventDetailsBtn.getAttribute('aria-expanded') === 'true';
         if (expanded) {
           fieldset.classList.add('hidden');
-          togglePackageDetailsBtn.setAttribute('aria-expanded', 'false');
-          togglePackageDetailsBtn.textContent = 'Munculkan detail';
+          toggleNoEventDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleNoEventDetailsBtn.textContent = 'Munculkan detail';
         } else {
           fieldset.classList.remove('hidden');
-          togglePackageDetailsBtn.setAttribute('aria-expanded', 'true');
-          togglePackageDetailsBtn.textContent = 'Sembunyikan';
+          toggleNoEventDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleNoEventDetailsBtn.textContent = 'Sembunyikan';
         }
+      });
+
+      togglePackDetailsBtn.addEventListener('click', () => {
+        const fieldset = packSection.querySelector('fieldset');
+        const expanded = togglePackDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          fieldset.classList.add('hidden');
+          togglePackDetailsBtn.setAttribute('aria-expanded', 'false');
+          togglePackDetailsBtn.textContent = 'Munculkan detail';
+        } else {
+          fieldset.classList.remove('hidden');
+          togglePackDetailsBtn.setAttribute('aria-expanded', 'true');
+          togglePackDetailsBtn.textContent = 'Sembunyikan';
+        }
+      });
+
+      toggleWithEventDetailsBtn.addEventListener('click', () => {
+        const fieldset = withEventSection.querySelector('fieldset');
+        const expanded = toggleWithEventDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          fieldset.classList.add('hidden');
+          toggleWithEventDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleWithEventDetailsBtn.textContent = 'Munculkan detail';
+        } else {
+          fieldset.classList.remove('hidden');
+          toggleWithEventDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleWithEventDetailsBtn.textContent = 'Sembunyikan';
+        }
+      });
+
+      serverRadios.forEach(radio => {
+        radio.addEventListener('click', (e) => {
+          if (radio.classList.contains('server-disabled')) {
+            e.preventDefault();
+            alert(`Tidak mendukung server ${radio.value}`);
+          } else {
+            updatePaymentAvailability();
+          }
+        });
       });
 
       topupTypeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
           selectedTopupType.textContent = radio.nextElementSibling.textContent.trim();
+          noEventSection.classList.toggle('hidden', radio.value !== 'noevent');
+          packSection.classList.toggle('hidden', radio.value !== 'pack');
+          withEventSection.classList.toggle('hidden', radio.value !== 'withevent');
+          packageRadios.forEach(pkg => pkg.checked = false);
           paymentMethodRadios.forEach(pm => pm.checked = false);
           selectedPaymentLabel.textContent = 'Pilih Metode';
           paymentOptions.classList.add('hidden');
-          packageSection.classList.remove('hidden');
-          renderPackages(radio.value);
           updatePaymentAvailability();
           updatePaymentPrices();
         });
       });
 
-      form.addEventListener('change', (e) => {
-        if (e.target.name === 'package') {
-          paymentMethodRadios.forEach(pm => pm.checked = false);
+      packageRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          paymentMethodRadios.forEach(pmRadio => {
+            pmRadio.checked = false;
+          });
           selectedPaymentLabel.textContent = 'Pilih Metode';
           paymentOptions.classList.add('hidden');
           updatePaymentAvailability();
           updatePaymentPrices();
-        }
+        });
       });
 
       userIdInput.addEventListener('input', () => {
@@ -622,6 +1013,7 @@
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const missingFields = [];
+        if (!validateServer()) missingFields.push("Server");
         if (!validateUserId()) missingFields.push("ID Pengguna");
         if (!validateTopupType()) missingFields.push("Jenis Topup");
         if (!validatePackage()) missingFields.push("Paket");
@@ -632,27 +1024,23 @@
           return;
         }
 
-        const selectedTopup = Array.from(topupTypeRadios).find(r => r.checked);
-        const selectedPackage = Array.from(form.querySelectorAll('input[name="package"]')).find(r => r.checked);
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        const packageLabel = selectedPackage.nextElementSibling.querySelector('span.text-lg, span.font-semibold').textContent;
+        const basePrice = packageBasePrices[selectedPackage.value];
         const selectedPayment = Array.from(paymentMethodRadios).find(r => r.checked);
-
-        const topupType = selectedTopup.value;
-        const pkgVal = selectedPackage.value;
-
-        let basePrice = priceData[topupType]?.[pkgVal]?.basePrice ?? null;
-        let sellPrice = priceData[topupType]?.[pkgVal]?.sellPrice ?? null;
-
         const paymentLabel = selectedPayment.nextElementSibling.querySelector('span.font-semibold').textContent;
-        const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](sellPrice, pkgVal);
+        const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+        const selectedServer = Array.from(serverRadios).find(r => r.checked).value;
 
         const phoneNumber = '6283132420423';
 
         const message = `Halo, saya ingin melakukan topup Genshin Impact dengan detail berikut:%0A` +
+          `Server: ${selectedServer}%0A` +
           `ID Pengguna: ${userIdInput.value.trim()}%0A` +
-          `Jenis Topup: ${topupType}%0A` +
-          `Nominal: ${pkgVal}%0A` +
+          `Jenis Topup: ${selectedTopupType.textContent} (Harga Asli: ${formatRupiah(basePrice)})%0A` +
+          `Nominal: ${packageLabel}%0A` +
           `Metode Pembayaran: ${paymentLabel}%0A` +
-          `Harga Asli: ${formatRupiah(basePrice)}%0A` +
           `Harga: ${formatRupiah(adjustedPrice)}`;
 
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
