@@ -1,0 +1,187 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    .error-message {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" data-inti="mainmenu" id="backButton" type="button">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <h1 class="text-2xl font-semibold text-white text-center flex-grow">Login</h1>
+      <div class="w-8"></div>
+    </div>
+  </header>
+  <main class="flex-grow max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <section class="bg-white rounded-lg shadow-md p-6">
+      <form aria-label="Login form" id="loginForm" class="space-y-6" novalidate>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="email" name="email" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan email" />
+          <p class="error-message hidden" id="errorEmail"></p>
+        </div>
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
+          <div class="flex rounded-md border border-gray-300 focus-within:ring focus-within:ring-[#30cfcf]/50 focus-within:border-[#30cfcf]">
+            <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">+62</span>
+            <input type="tel" id="phone" name="phone" required class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" placeholder="Masukkan nomor telepon tanpa +62" aria-describedby="errorPhone" />
+          </div>
+          <p class="error-message hidden" id="errorPhone"></p>
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input type="password" id="password" name="password" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan password" />
+          <p class="error-message hidden" id="errorPassword"></p>
+        </div>
+        <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
+          Masuk
+        </button>
+      </form>
+      <p class="mt-4 text-center text-gray-700">
+        Belum punya akun?
+        <button id="goSignup" class="text-[#30cfcf] font-semibold hover:underline focus:outline-none" type="button">Daftar di sini</button>
+      </p>
+    </section>
+  </main>
+  <script>
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'mainmenu.html';
+    });
+    document.getElementById('backButton').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('backButton').click();
+      }
+    });
+
+    document.getElementById('goSignup').addEventListener('click', () => {
+      window.location.href = 'signup.html';
+    });
+    document.getElementById('goSignup').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('goSignup').click();
+      }
+    });
+
+    function getUsers() {
+      const usersJSON = localStorage.getItem('boi_xd_users');
+      if (!usersJSON) return [];
+      try {
+        return JSON.parse(usersJSON);
+      } catch {
+        return [];
+      }
+    }
+
+    function showError(inputId, message) {
+      const errorEl = document.getElementById('error' + inputId);
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+      }
+    }
+    function hideError(inputId) {
+      const errorEl = document.getElementById('error' + inputId);
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.add('hidden');
+      }
+    }
+
+    const phoneInput = document.getElementById('phone');
+
+    // Prevent user from entering +62 in input, since prefix is fixed outside input
+    phoneInput.addEventListener('input', () => {
+      // Remove any + or 62 if user tries to type it inside input
+      let val = phoneInput.value;
+      val = val.replace(/^\+?62/, '');
+      phoneInput.value = val;
+    });
+
+    phoneInput.addEventListener('keydown', (e) => {
+      // Prevent space and plus sign inside input
+      if (e.key === ' ' || e.key === '+') {
+        e.preventDefault();
+      }
+    });
+
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      ['Email', 'Phone', 'Password'].forEach(hideError);
+
+      const email = loginForm.email.value.trim().toLowerCase();
+      let phone = loginForm.phone.value.trim();
+      const password = loginForm.password.value;
+
+      let hasError = false;
+
+      if (!email) {
+        showError('Email', 'Yang terisi (Email) tidak sesuai karena tidak boleh kosong.');
+        hasError = true;
+      }
+      if (!phone) {
+        showError('Phone', 'Yang terisi (Nomor Telepon) tidak sesuai karena tidak boleh kosong.');
+        hasError = true;
+      }
+      if (!password) {
+        showError('Password', 'Yang terisi (Password) tidak sesuai karena tidak boleh kosong.');
+        hasError = true;
+      }
+      if (hasError) return;
+
+      // Add prefix +62 automatically for validation and matching
+      phone = '+62' + phone;
+
+      const users = getUsers();
+      const user = users.find(u => u.email === email);
+
+      if (!user) {
+        showError('Email', 'Yang terisi (Email) tidak sesuai karena email tidak terdaftar.');
+        return;
+      }
+      if (user.phone !== phone) {
+        alert('Nomor telepon tidak terdaftar atau tidak sesuai. Silakan cek ulang.');
+        return;
+      }
+      if (user.password !== password) {
+        showError('Password', 'Yang terisi (Password) tidak sesuai karena password salah.');
+        return;
+      }
+
+      alert(`Login berhasil! Selamat datang, ${user.name}.`);
+      window.location.href = 'profil.html';
+    });
+  </script>
+</body>
+</html>

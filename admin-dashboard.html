@@ -1,0 +1,456 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    /* Scrollbar for user list */
+    .user-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    /* Table header sticky */
+    thead th {
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+      border-bottom: 2px solid #30cfcf;
+    }
+    /* Error message styling */
+    .error-message {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      font-weight: 600;
+    }
+    /* Modal backdrop and modal styling */
+    #modalBackdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 50;
+    }
+    #modalBackdrop.hidden {
+      display: none;
+    }
+    .modal {
+      background: white;
+      border-radius: 0.5rem;
+      max-width: 480px;
+      width: 100%;
+      padding: 1.5rem 2rem 2rem 2rem;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      font-size: 1.5rem;
+      line-height: 1;
+      background: transparent;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+      color: #30cfcf;
+      outline: none;
+    }
+    /* Smaller text for createdAt */
+    .created-at {
+      font-size: 0.75rem;
+      color: #6b7280; /* Tailwind gray-500 */
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" id="backButton" type="button">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <h1 class="text-2xl font-semibold text-white text-center flex-grow">Admin Dashboard</h1>
+      <div class="w-8"></div>
+    </div>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <section class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold text-[#30cfcf] mb-4">User Management</h2>
+      <div class="overflow-x-auto user-list border border-gray-300 rounded-md">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr>
+              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Name</th>
+              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Email</th>
+              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Phone</th>
+              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Keterangan</th>
+              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Dibuat Pada</th>
+              <th scope="col" class="px-4 py-2 text-center text-sm font-semibold text-gray-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody" class="divide-y divide-gray-200">
+            <!-- User rows inserted here -->
+          </tbody>
+        </table>
+      </div>
+      <button id="addUserBtn" class="mt-6 w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="button">
+        <i class="fas fa-user-plus mr-2"></i>Tambah User Baru
+      </button>
+    </section>
+  </main>
+
+  <!-- Modal backdrop -->
+  <div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" role="document">
+      <button id="modalCloseBtn" class="close-btn" aria-label="Close modal" type="button">&times;</button>
+      <h2 id="modalTitle" class="text-xl font-semibold text-[#30cfcf] mb-4 text-center">Tambah User Baru</h2>
+      <form id="userForm" class="space-y-4" novalidate>
+        <div>
+          <label for="userName" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+          <input type="text" id="userName" name="userName" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan nama lengkap" />
+          <p class="error-message hidden" id="errorUserName"></p>
+        </div>
+        <div>
+          <label for="userEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="userEmail" name="userEmail" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan email" />
+          <p class="error-message hidden" id="errorUserEmail"></p>
+        </div>
+        <div>
+          <label for="userPhone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
+          <div class="flex rounded-md border border-gray-300 focus-within:ring focus-within:ring-[#30cfcf]/50 focus-within:border-[#30cfcf]">
+            <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">+62</span>
+            <input type="tel" id="userPhone" name="userPhone" required class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" placeholder="Masukkan nomor telepon tanpa +62" aria-describedby="errorUserPhone" />
+          </div>
+          <p class="error-message hidden" id="errorUserPhone"></p>
+        </div>
+        <div>
+          <label for="userAddress" class="block text-sm font-medium text-gray-700 mb-1">Keterangan</label>
+          <textarea id="userAddress" name="userAddress" rows="3" class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan keterangan"></textarea>
+        </div>
+        <div>
+          <label for="userPassword" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input type="password" id="userPassword" name="userPassword" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan password" />
+          <p class="error-message hidden" id="errorUserPassword"></p>
+        </div>
+        <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
+          Simpan User
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Utility functions for localStorage users
+    function getUsers() {
+      const usersJSON = localStorage.getItem('boi_xd_users');
+      if (!usersJSON) return [];
+      try {
+        return JSON.parse(usersJSON);
+      } catch {
+        return [];
+      }
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('boi_xd_users', JSON.stringify(users));
+    }
+
+    // Format date to readable string with time
+    function formatDateTime(dateString) {
+      const d = new Date(dateString);
+      if (isNaN(d)) return '-';
+      return d.toLocaleString('id-ID', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      });
+    }
+
+    // Elements
+    const userTableBody = document.getElementById('userTableBody');
+    const addUserBtn = document.getElementById('addUserBtn');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const userForm = document.getElementById('userForm');
+
+    // Form inputs and error elements
+    const userNameInput = document.getElementById('userName');
+    const userEmailInput = document.getElementById('userEmail');
+    const userPhoneInput = document.getElementById('userPhone');
+    const userAddressInput = document.getElementById('userAddress');
+    const userPasswordInput = document.getElementById('userPassword');
+
+    const errorUserName = document.getElementById('errorUserName');
+    const errorUserEmail = document.getElementById('errorUserEmail');
+    const errorUserPhone = document.getElementById('errorUserPhone');
+    const errorUserPassword = document.getElementById('errorUserPassword');
+
+    // Show modal
+    function openModal() {
+      clearForm();
+      modalBackdrop.classList.remove('hidden');
+      userNameInput.focus();
+    }
+
+    // Hide modal
+    function closeModal() {
+      modalBackdrop.classList.add('hidden');
+    }
+
+    // Clear form and errors
+    function clearForm() {
+      userForm.reset();
+      [errorUserName, errorUserEmail, errorUserPhone, errorUserPassword].forEach(el => {
+        el.textContent = '';
+        el.classList.add('hidden');
+      });
+    }
+
+    // Validate email format
+    function isValidEmail(email) {
+      // Simple email regex
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // Validate phone number (digits only)
+    function isValidPhone(phone) {
+      return /^\d+$/.test(phone);
+    }
+
+    // Render users in table
+    function renderUsers() {
+      const users = getUsers();
+      userTableBody.innerHTML = '';
+      if (users.length === 0) {
+        userTableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-gray-500">Belum ada user terdaftar.</td></tr>`;
+        return;
+      }
+      users.forEach((user, index) => {
+        const tr = document.createElement('tr');
+        tr.classList.add('hover:bg-gray-50');
+        tr.innerHTML = `
+          <td class="px-4 py-2 text-sm text-gray-700">${user.name}</td>
+          <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.email}</td>
+          <td class="px-4 py-2 text-sm text-gray-700">${user.phone}</td>
+          <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.address || '-'}</td>
+          <td class="px-4 py-2 text-sm text-gray-500 created-at">${formatDateTime(user.createdAt)}</td>
+          <td class="px-4 py-2 text-center text-sm">
+            <button aria-label="Edit user ${user.name}" class="text-[#30cfcf] hover:text-[#238383] focus:outline-none mr-3 edit-btn" data-index="${index}" type="button">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button aria-label="Delete user ${user.name}" class="text-red-500 hover:text-red-700 focus:outline-none delete-btn" data-index="${index}" type="button">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        userTableBody.appendChild(tr);
+      });
+      attachRowEventListeners();
+    }
+
+    // Attach event listeners to edit and delete buttons
+    function attachRowEventListeners() {
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = btn.getAttribute('data-index');
+          openEditModal(index);
+        });
+      });
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = btn.getAttribute('data-index');
+          deleteUser(index);
+        });
+      });
+    }
+
+    // Open modal for editing user
+    function openEditModal(index) {
+      const users = getUsers();
+      const user = users[index];
+      if (!user) return;
+      clearForm();
+      userNameInput.value = user.name;
+      userEmailInput.value = user.email;
+      // Remove +62 prefix for input field
+      userPhoneInput.value = user.phone.startsWith('+62') ? user.phone.slice(3) : user.phone;
+      userAddressInput.value = user.address || '';
+      userPasswordInput.value = '';
+      modalBackdrop.classList.remove('hidden');
+      userNameInput.focus();
+      userForm.setAttribute('data-edit-index', index);
+      document.getElementById('modalTitle').textContent = 'Edit User';
+      userPasswordInput.placeholder = 'Masukkan password baru atau kosongkan untuk tidak diubah';
+    }
+
+    // Delete user with confirmation
+    function deleteUser(index) {
+      const users = getUsers();
+      if (!users[index]) return;
+      if (confirm(`Apakah Anda yakin ingin menghapus user "${users[index].name}"?`)) {
+        users.splice(index, 1);
+        saveUsers(users);
+        renderUsers();
+      }
+    }
+
+    // Validate form and show errors
+    function validateForm() {
+      let valid = true;
+
+      // Clear errors
+      [errorUserName, errorUserEmail, errorUserPhone, errorUserPassword].forEach(el => {
+        el.textContent = '';
+        el.classList.add('hidden');
+      });
+
+      if (!userNameInput.value.trim()) {
+        errorUserName.textContent = 'Nama lengkap wajib diisi.';
+        errorUserName.classList.remove('hidden');
+        valid = false;
+      }
+      if (!userEmailInput.value.trim()) {
+        errorUserEmail.textContent = 'Email wajib diisi.';
+        errorUserEmail.classList.remove('hidden');
+        valid = false;
+      } else if (!isValidEmail(userEmailInput.value.trim())) {
+        errorUserEmail.textContent = 'Format email tidak valid.';
+        errorUserEmail.classList.remove('hidden');
+        valid = false;
+      }
+      if (!userPhoneInput.value.trim()) {
+        errorUserPhone.textContent = 'Nomor telepon wajib diisi.';
+        errorUserPhone.classList.remove('hidden');
+        valid = false;
+      } else if (!isValidPhone(userPhoneInput.value.trim())) {
+        errorUserPhone.textContent = 'Nomor telepon hanya boleh berisi angka tanpa spasi atau simbol.';
+        errorUserPhone.classList.remove('hidden');
+        valid = false;
+      }
+      // Password required only when adding new user
+      const isEditing = userForm.hasAttribute('data-edit-index');
+      if (!isEditing && !userPasswordInput.value.trim()) {
+        errorUserPassword.textContent = 'Password wajib diisi.';
+        errorUserPassword.classList.remove('hidden');
+        valid = false;
+      }
+      return valid;
+    }
+
+    // Save user (add or update)
+    function saveUser() {
+      const users = getUsers();
+      const name = userNameInput.value.trim();
+      const email = userEmailInput.value.trim().toLowerCase();
+      const phone = '+62' + userPhoneInput.value.trim();
+      const address = userAddressInput.value.trim();
+      const password = userPasswordInput.value;
+
+      const isEditing = userForm.hasAttribute('data-edit-index');
+      const editIndex = isEditing ? parseInt(userForm.getAttribute('data-edit-index'), 10) : -1;
+
+      // Check for duplicate email if adding new or changing email
+      const emailExists = users.some((u, i) => u.email === email && i !== editIndex);
+      if (emailExists) {
+        errorUserEmail.textContent = 'Email sudah terdaftar.';
+        errorUserEmail.classList.remove('hidden');
+        return false;
+      }
+
+      if (isEditing) {
+        // Update existing user
+        users[editIndex].name = name;
+        users[editIndex].email = email;
+        users[editIndex].phone = phone;
+        users[editIndex].address = address;
+        // Update password only if filled
+        if (password.trim()) {
+          users[editIndex].password = password;
+        }
+      } else {
+        // Add new user with createdAt timestamp
+        users.push({
+          name,
+          email,
+          phone,
+          address,
+          password,
+          createdAt: new Date().toISOString()
+        });
+      }
+      saveUsers(users);
+      return true;
+    }
+
+    // Event listeners
+    addUserBtn.addEventListener('click', () => {
+      userForm.removeAttribute('data-edit-index');
+      document.getElementById('modalTitle').textContent = 'Tambah User Baru';
+      userPasswordInput.placeholder = 'Masukkan password';
+      clearForm();
+      modalBackdrop.classList.remove('hidden');
+      userNameInput.focus();
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+
+    userForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateForm()) return;
+      if (saveUser()) {
+        closeModal();
+        renderUsers();
+      }
+    });
+
+    // Back button to main menu
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'mainmenu.html';
+    });
+    document.getElementById('backButton').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('backButton').click();
+      }
+    });
+
+    // Initial render
+    renderUsers();
+  </script>
+</body>
+</html>

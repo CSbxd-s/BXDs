@@ -1,0 +1,251 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0; /* removed space for bottom nav */
+    }
+    /* Phone input container */
+    .phone-input-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .phone-prefix {
+      background-color: #e5e7eb;
+      border: 1px solid #d1d5db;
+      border-right: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem 0 0 0.375rem;
+      font-weight: 600;
+      color: #6b7280;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .phone-input-container input[type="tel"] {
+      border-radius: 0 0.375rem 0.375rem 0;
+      border: 1px solid #d1d5db;
+      border-left: none;
+      padding: 0.5rem 0.75rem;
+      flex-grow: 1;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .phone-input-container input[type="tel"]:focus {
+      border-color: #30cfcf;
+      box-shadow: 0 0 0 3px rgba(48, 207, 207, 0.3);
+      outline: none;
+    }
+    /* Error message styling */
+    .error-message {
+      color: #dc2626; /* red-600 */
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" data-inti="mainmenu" id="backButton" type="button">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <h1 class="text-2xl font-semibold text-white text-center flex-grow">Signup</h1>
+      <div class="w-8"></div>
+    </div>
+  </header>
+  <main class="flex-grow max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <section class="bg-white rounded-lg shadow-md p-6">
+      <form aria-label="Signup form" id="signupForm" class="space-y-6" novalidate>
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+          <input type="text" id="name" name="name" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan nama lengkap" />
+          <p class="error-message hidden" id="errorName"></p>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="email" name="email" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan email (harus @gmail.com)" />
+          <p class="error-message hidden" id="errorEmail"></p>
+        </div>
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
+          <div class="phone-input-container">
+            <span class="phone-prefix">+62</span>
+            <input type="tel" id="phone" name="phone" maxlength="15" placeholder="Masukkan nomor tanpa 0 di depan" class="focus:outline-none" />
+          </div>
+          <p class="error-message hidden" id="errorPhone"></p>
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input type="password" id="password" name="password" required minlength="8" maxlength="16" class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="8-16 karakter, huruf besar, kecil, angka, simbol" />
+          <p class="error-message hidden" id="errorPassword"></p>
+        </div>
+        <div>
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8" maxlength="16" class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Konfirmasi password" />
+          <p class="error-message hidden" id="errorConfirmPassword"></p>
+        </div>
+        <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
+          Daftar
+        </button>
+      </form>
+    </section>
+  </main>
+  <script>
+    // Back button to main menu
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'mainmenu.html';
+    });
+    document.getElementById('backButton').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('backButton').click();
+      }
+    });
+
+    // Helper: get users from localStorage
+    function getUsers() {
+      const usersJSON = localStorage.getItem('boi_xd_users');
+      if (!usersJSON) return [];
+      try {
+        return JSON.parse(usersJSON);
+      } catch {
+        return [];
+      }
+    }
+    // Helper: save users to localStorage
+    function saveUsers(users) {
+      localStorage.setItem('boi_xd_users', JSON.stringify(users));
+    }
+
+    // Password validation function
+    function validatePassword(password) {
+      // 8-16 chars, at least one uppercase, one lowercase, one digit, one special char
+      const lengthCheck = /^.{8,16}$/;
+      const uppercaseCheck = /[A-Z]/;
+      const lowercaseCheck = /[a-z]/;
+      const digitCheck = /\d/;
+      const specialCharCheck = /[!@#$%^&*(),.?":{}|<>_\-\\\/\[\];'`~+=]/;
+      return (
+        lengthCheck.test(password) &&
+        uppercaseCheck.test(password) &&
+        lowercaseCheck.test(password) &&
+        digitCheck.test(password) &&
+        specialCharCheck.test(password)
+      );
+    }
+
+    // Show error message helper
+    function showError(inputId, message) {
+      const errorEl = document.getElementById('error' + inputId);
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+      }
+    }
+    // Hide error message helper
+    function hideError(inputId) {
+      const errorEl = document.getElementById('error' + inputId);
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.add('hidden');
+      }
+    }
+
+    // Signup form submission
+    const signupForm = document.getElementById('signupForm');
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Clear all errors first
+      ['Name', 'Email', 'Phone', 'Password', 'ConfirmPassword'].forEach(hideError);
+
+      const name = signupForm.name.value.trim();
+      const email = signupForm.email.value.trim().toLowerCase();
+      const phone = signupForm.phone.value.trim();
+      const password = signupForm.password.value;
+      const confirmPassword = signupForm.confirmPassword.value;
+
+      let hasError = false;
+
+      // Name validation
+      if (!name) {
+        showError('Name', `Yang terisi (Nama Lengkap) tidak sesuai karena tidak boleh kosong.`);
+        hasError = true;
+      }
+
+      // Email validation
+      if (!email) {
+        showError('Email', `Yang terisi (Email) tidak sesuai karena tidak boleh kosong.`);
+        hasError = true;
+      } else if (!email.endsWith('@gmail.com')) {
+        showError('Email', `Yang terisi (Email) tidak sesuai karena harus menggunakan domain @gmail.com.`);
+        hasError = true;
+      }
+
+      // Phone validation (optional)
+      if (phone) {
+        const phoneRegex = /^[1-9][0-9]{5,14}$/;
+        if (!phoneRegex.test(phone)) {
+          showError('Phone', `Yang terisi (Nomor Telepon) tidak sesuai karena harus berupa angka tanpa 0 di depan dan minimal 6 digit.`);
+          hasError = true;
+        }
+      }
+
+      // Password validation
+      if (!password) {
+        showError('Password', `Yang terisi (Password) tidak sesuai karena tidak boleh kosong.`);
+        hasError = true;
+      } else if (!validatePassword(password)) {
+        showError('Password', `Yang terisi (Password) tidak sesuai karena harus 8-16 karakter dan mengandung huruf besar, huruf kecil, angka, dan karakter khusus.`);
+        hasError = true;
+      }
+
+      // Confirm password validation
+      if (!confirmPassword) {
+        showError('ConfirmPassword', `Yang terisi (Konfirmasi Password) tidak sesuai karena tidak boleh kosong.`);
+        hasError = true;
+      } else if (password !== confirmPassword) {
+        showError('ConfirmPassword', `Yang terisi (Konfirmasi Password) tidak sesuai karena tidak sama dengan password.`);
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      const users = getUsers();
+      const existingUser = users.find(u => u.email === email);
+      if (existingUser) {
+        alert(`Yang terisi (Email) tidak sesuai karena sudah terdaftar, silakan gunakan email lain atau login.`);
+        return;
+      }
+
+      // Save new user
+      users.push({ name, email, phone: phone ? '+62' + phone : '', password });
+      saveUsers(users);
+
+      alert('Pendaftaran berhasil! Silakan login.');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

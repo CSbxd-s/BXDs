@@ -1,0 +1,201 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Loading Splash Screen with Auto Transition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+    /* Bounce animation for logo */
+    @keyframes logoBounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    /* Fade in up for text */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Fade out and scale up */
+    @keyframes fadeOutScale {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.3);
+      }
+    }
+    /* Loading dots ping with staggered delays */
+    .dot {
+      width: 14px;
+      height: 14px;
+      background-color: white;
+      border-radius: 9999px;
+      animation: ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+      animation-fill-mode: both;
+      opacity: 0.7;
+    }
+    .dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  </style>
+ </head>
+ <body class="bg-gradient-to-tr from-indigo-700 via-purple-800 to-pink-700 min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Splash Screen -->
+  <div class="flex flex-col items-center justify-center space-y-8 text-white px-6" id="splash">
+   <img alt="Circular app logo with purple and pink gradient abstract wave design, modern and minimalistic style" class="w-36 h-36 rounded-full shadow-2xl" height="150" src="https://storage.googleapis.com/a1aa/image/3bed3bf8-62ef-469a-5c9e-d85478b79103.jpg" style="animation: logoBounce 2.5s ease-in-out infinite;" width="150"/>
+   <h1 class="text-5xl font-extrabold tracking-widest uppercase drop-shadow-lg opacity-100" id="splashTitle" style="animation: fadeInUp 1.2s ease forwards 0.5s;">
+    NEXAAPP
+   </h1>
+   <p class="text-lg font-semibold max-w-xs text-center opacity-100" id="splashSubtitle" style="animation: fadeInUp 1.2s ease forwards 1.2s;">
+    Experience the future of productivity with style and speed.
+   </p>
+   <div class="flex space-x-4 mt-8">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+   </div>
+  </div>
+  <!-- Main Page -->
+  <div class="hidden min-h-screen bg-white flex flex-col" id="mainPage">
+   <nav class="bg-indigo-700 text-white px-6 py-4 flex items-center justify-between shadow-md">
+    <div class="flex items-center space-x-3">
+     <img alt="Small circular app logo with purple and pink gradient" class="w-10 h-10 rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/f2c6a3d0-18a2-4a19-8ee1-91f2517b3ffe.jpg" width="40"/>
+     <span class="font-bold text-xl tracking-wide">
+      NexaApp
+     </span>
+    </div>
+    <ul class="hidden md:flex space-x-8 font-medium">
+     <li>
+      <a class="hover:text-pink-400 transition-colors" href="#">
+       Home
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-pink-400 transition-colors" href="#">
+       Features
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-pink-400 transition-colors" href="#">
+       Pricing
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-pink-400 transition-colors" href="#">
+       Contact
+      </a>
+     </li>
+    </ul>
+    <button class="hidden md:inline-flex items-center space-x-2 bg-pink-500 hover:bg-pink-600 px-4 py-2 rounded-full font-semibold shadow-md transition-colors focus:outline-none focus:ring-4 focus:ring-pink-300" id="logoutBtn">
+     <i class="fas fa-sign-out-alt"></i>
+     <span>Logout</span>
+    </button>
+   </nav>
+   <main class="flex-grow p-8 max-w-7xl mx-auto">
+    <h2 class="text-3xl font-extrabold text-indigo-700 mb-6">
+     Welcome to NexaApp
+    </h2>
+    <p class="text-gray-700 text-lg max-w-3xl leading-relaxed">
+     This is your main page after the splash screen. Here you can add your app content, features, and more.
+    </p>
+    <section class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+     <article class="bg-indigo-50 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+      <h3 class="text-xl font-semibold text-indigo-800 mb-3">
+       Feature One
+      </h3>
+      <p class="text-indigo-700">
+       Discover the power of seamless integration and lightning-fast performance.
+      </p>
+     </article>
+     <article class="bg-indigo-50 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+      <h3 class="text-xl font-semibold text-indigo-800 mb-3">
+       Feature Two
+      </h3>
+      <p class="text-indigo-700">
+       Customize your workflow with intuitive tools designed for modern users.
+      </p>
+     </article>
+     <article class="bg-indigo-50 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+      <h3 class="text-xl font-semibold text-indigo-800 mb-3">
+       Feature Three
+      </h3>
+      <p class="text-indigo-700">
+       Stay connected and productive with real-time collaboration features.
+      </p>
+     </article>
+    </section>
+   </main>
+   <footer class="bg-indigo-700 text-white text-center py-4">
+    © 2024 NexaApp. All rights reserved.
+   </footer>
+  </div>
+  <script>
+    const splash = document.getElementById("splash");
+    const mainPage = document.getElementById("mainPage");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Duration of splash screen in milliseconds (3 seconds)
+    const splashDuration = 3000;
+
+    // After splashDuration, fade out splash and show main page
+    setTimeout(() => {
+      splash.style.animation = "fadeOutScale 0.8s ease forwards";
+      setTimeout(() => {
+        splash.classList.add("hidden");
+        mainPage.classList.remove("hidden");
+        logoutBtn.classList.remove("hidden");
+      }, 800);
+    }, splashDuration);
+
+    logoutBtn.addEventListener("click", () => {
+      mainPage.classList.add("hidden");
+      splash.classList.remove("hidden");
+      splash.style.animation = "none";
+      // Reset splash animations
+      const logo = splash.querySelector("img");
+      const title = document.getElementById("splashTitle");
+      const subtitle = document.getElementById("splashSubtitle");
+      logo.style.animation = "logoBounce 2.5s ease-in-out infinite";
+      title.style.animation = "fadeInUp 1.2s ease forwards 0.5s";
+      subtitle.style.animation = "fadeInUp 1.2s ease forwards 1.2s";
+      logoutBtn.classList.add("hidden");
+
+      // Restart splash auto transition
+      setTimeout(() => {
+        splash.style.animation = "";
+        setTimeout(() => {
+          splash.style.animation = "fadeOutScale 0.8s ease forwards";
+          setTimeout(() => {
+            splash.classList.add("hidden");
+            mainPage.classList.remove("hidden");
+            logoutBtn.classList.remove("hidden");
+          }, 800);
+        }, splashDuration);
+      }, 50);
+    });
+  </script>
+ </body>
+</html>

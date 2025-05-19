@@ -1,0 +1,165 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Admin Access</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+   rel="stylesheet"
+  />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+   rel="stylesheet"
+  />
+  <style>
+   body {
+    font-family: "Inter", sans-serif;
+    background-color: #e0f7f7;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+   }
+   @keyframes fadeInUp {
+    0% {
+     opacity: 0;
+     transform: translateY(20px);
+    }
+    100% {
+     opacity: 1;
+     transform: translateY(0);
+    }
+   }
+   .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease forwards;
+   }
+  </style>
+ </head>
+ <body>
+  <main
+   id="nameVerification"
+   class="bg-white rounded-lg shadow-md p-8 max-w-md w-full text-center animate-fadeInUp"
+   role="main"
+  >
+   <h1 class="text-2xl font-semibold text-[#30cfcf] mb-6">Verifikasi Nama</h1>
+   <form id="nameForm" class="space-y-6" novalidate>
+    <div>
+     <label
+      for="userName"
+      class="block text-sm font-medium text-gray-700 mb-1 text-left"
+      >Masukkan Nama Anda</label
+     >
+     <input
+      type="text"
+      id="userName"
+      name="userName"
+      autocomplete="off"
+      required
+      class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none"
+      placeholder="Nama Anda"
+      aria-describedby="nameHelp"
+     />
+    </div>
+    <button
+     type="submit"
+     class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1"
+    >
+     Buka Halaman Admin
+    </button>
+   </form>
+  </main>
+
+  <main
+   id="adminLogin"
+   class="bg-white rounded-lg shadow-md p-8 max-w-md w-full text-center hidden"
+   role="main"
+  >
+   <h1 class="text-2xl font-semibold text-[#30cfcf] mb-6">Admin Login</h1>
+   <form id="adminLoginForm" class="space-y-6" novalidate>
+    <div>
+     <label
+      for="specialId"
+      class="block text-sm font-medium text-gray-700 mb-1 text-left"
+      >ID Khusus</label
+     >
+     <input
+      type="text"
+      id="specialId"
+      name="specialId"
+      autocomplete="off"
+      required
+      class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none"
+      placeholder="Masukkan ID Khusus"
+     />
+    </div>
+    <div>
+     <label
+      for="codeId"
+      class="block text-sm font-medium text-gray-700 mb-1 text-left"
+      >Kode ID</label
+     >
+     <input
+      type="text"
+      id="codeId"
+      name="codeId"
+      autocomplete="off"
+      required
+      pattern="^\d{4}-\d{4}-\d{4}$"
+      placeholder="Masukkan Kode ID"
+      class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none"
+     />
+    </div>
+    <button
+     type="submit"
+     class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1"
+    >
+     Login
+    </button>
+   </form>
+  </main>
+
+  <script>
+   const nameVerification = document.getElementById("nameVerification");
+   const adminLogin = document.getElementById("adminLogin");
+   const nameForm = document.getElementById("nameForm");
+   const adminLoginForm = document.getElementById("adminLoginForm");
+
+   nameForm.addEventListener("submit", (e) => {
+     e.preventDefault();
+     const userName = nameForm.userName.value.trim();
+     if (userName !== "bxdStore") {
+       window.location.href = "mainmenu.html";
+       return;
+     }
+     nameVerification.classList.add("hidden");
+     adminLogin.classList.remove("hidden");
+     adminLogin.classList.add("animate-fadeInUp");
+     adminLoginForm.specialId.focus();
+   });
+
+   adminLoginForm.addEventListener("submit", (e) => {
+     e.preventDefault();
+     const specialIdInput = adminLoginForm.specialId.value.trim();
+     const codeIdInput = adminLoginForm.codeId.value.trim();
+
+     const validSpecialId = "0xb20s525t03re";
+     const validCodeId = "3252-0252-0400";
+
+     if (specialIdInput !== validSpecialId) {
+       alert("Bukan admin");
+       return;
+     }
+     if (codeIdInput !== validCodeId) {
+       alert("Salah");
+       return;
+     }
+     alert("Login berhasil!");
+     window.location.href = "admin-dashboard.html";
+   });
+  </script>
+ </body>
+</html>
