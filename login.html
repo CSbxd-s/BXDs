@@ -28,6 +28,17 @@
       margin-top: 0.25rem;
       font-weight: 600;
     }
+    .link-button {
+      cursor: pointer;
+      color: #30cfcf;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .link-button:hover,
+    .link-button:focus {
+      color: #2bbaba;
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -61,17 +72,24 @@
           <input type="password" id="password" name="password" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan password" />
           <p class="error-message hidden" id="errorPassword"></p>
         </div>
-        <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
-          Masuk
-        </button>
+        <div class="flex justify-between items-center">
+          <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
+            Masuk
+          </button>
+        </div>
       </form>
       <p class="mt-4 text-center text-gray-700">
         Belum punya akun?
         <button id="goSignup" class="text-[#30cfcf] font-semibold hover:underline focus:outline-none" type="button">Daftar di sini</button>
       </p>
+      <p class="mt-2 text-center">
+        <button id="forgotPassword" class="link-button" type="button">Lupa Password</button>
+      </p>
     </section>
   </main>
   <script>
+    const waNumber = '6283132420423';
+
     document.getElementById('backButton').addEventListener('click', () => {
       window.location.href = 'mainmenu.html';
     });
@@ -119,16 +137,13 @@
 
     const phoneInput = document.getElementById('phone');
 
-    // Prevent user from entering +62 in input, since prefix is fixed outside input
     phoneInput.addEventListener('input', () => {
-      // Remove any + or 62 if user tries to type it inside input
       let val = phoneInput.value;
       val = val.replace(/^\+?62/, '');
       phoneInput.value = val;
     });
 
     phoneInput.addEventListener('keydown', (e) => {
-      // Prevent space and plus sign inside input
       if (e.key === ' ' || e.key === '+') {
         e.preventDefault();
       }
@@ -160,7 +175,6 @@
       }
       if (hasError) return;
 
-      // Add prefix +62 automatically for validation and matching
       phone = '+62' + phone;
 
       const users = getUsers();
@@ -181,6 +195,30 @@
 
       alert(`Login berhasil! Selamat datang, ${user.name}.`);
       window.location.href = 'profil.html';
+    });
+
+    // Lupa Password button handler
+    document.getElementById('forgotPassword').addEventListener('click', () => {
+      const email = loginForm.email.value.trim();
+      const phoneRaw = loginForm.phone.value.trim();
+      const name = ''; // We don't have a name input on login form, so empty string
+
+      // Compose message with entered data or placeholders
+      const nameText = name || '[Nama belum diisi]';
+      const emailText = email || '[Email belum diisi]';
+      const phoneText = phoneRaw ? '+62' + phoneRaw : '[Nomor Telepon belum diisi]';
+
+      const message = encodeURIComponent(
+        `Halo, Min saya mau ganti/lupa password, dengan Nama: ${nameText}, Email: ${emailText}, Nomor Telepon: ${phoneText}`
+      );
+      const waUrl = `https://wa.me/${waNumber}?text=${message}`;
+      window.open(waUrl, '_blank');
+    });
+    document.getElementById('forgotPassword').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('forgotPassword').click();
+      }
     });
   </script>
 </body>

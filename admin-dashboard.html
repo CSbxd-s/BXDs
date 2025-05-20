@@ -1,19 +1,16 @@
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>BOI XD Store - Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   BOI XD Store - Admin Dashboard
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
   <style>
-    body {
+   body {
       font-family: "Inter", sans-serif;
       background-color: #e0f7f7;
       margin: 0;
@@ -90,86 +87,164 @@
       color: #6b7280; /* Tailwind gray-500 */
       white-space: nowrap;
     }
+    /* Password text styling */
+    .password-text {
+      font-family: monospace;
+      font-size: 0.875rem;
+      color: #374151; /* Tailwind gray-700 */
+      white-space: nowrap;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* Profile button styling */
+    #profileBtn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+      transition: color 0.2s ease;
+    }
+    #profileBtn:hover,
+    #profileBtn:focus {
+      color: #238383;
+      outline: none;
+    }
+    /* Profile image styling */
+    #profileBtn img {
+      width: 32px;
+      height: 32px;
+      border-radius: 9999px;
+      object-fit: cover;
+      border: 2px solid white;
+    }
   </style>
-</head>
-<body>
+ </head>
+ <body>
   <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-      <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" id="backButton" type="button">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-      </button>
-      <h1 class="text-2xl font-semibold text-white text-center flex-grow">Admin Dashboard</h1>
-      <div class="w-8"></div>
-    </div>
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" id="backButton" type="button">
+     <i aria-hidden="true" class="fas fa-arrow-left">
+     </i>
+    </button>
+    <h1 class="text-2xl font-semibold text-white text-center flex-grow">
+     Admin Dashboard
+    </h1>
+    <button aria-label="Profile and History" id="profileBtn" title="Profile and History" type="button">
+     <img alt="User profile avatar icon, round shape with letter U on blue background" height="32" src="https://storage.googleapis.com/a1aa/image/2dd538f9-e876-4deb-c4f7-3fc72b74339f.jpg" width="32"/>
+    </button>
+   </div>
   </header>
   <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <section class="bg-white rounded-lg shadow-md p-6">
-      <h2 class="text-xl font-semibold text-[#30cfcf] mb-4">User Management</h2>
-      <div class="overflow-x-auto user-list border border-gray-300 rounded-md">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead>
-            <tr>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Name</th>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Email</th>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Phone</th>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Keterangan</th>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Dibuat Pada</th>
-              <th scope="col" class="px-4 py-2 text-center text-sm font-semibold text-gray-700">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="userTableBody" class="divide-y divide-gray-200">
-            <!-- User rows inserted here -->
-          </tbody>
-        </table>
-      </div>
-      <button id="addUserBtn" class="mt-6 w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="button">
-        <i class="fas fa-user-plus mr-2"></i>Tambah User Baru
-      </button>
-    </section>
-  </main>
-
-  <!-- Modal backdrop -->
-  <div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal" role="document">
-      <button id="modalCloseBtn" class="close-btn" aria-label="Close modal" type="button">&times;</button>
-      <h2 id="modalTitle" class="text-xl font-semibold text-[#30cfcf] mb-4 text-center">Tambah User Baru</h2>
-      <form id="userForm" class="space-y-4" novalidate>
-        <div>
-          <label for="userName" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-          <input type="text" id="userName" name="userName" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan nama lengkap" />
-          <p class="error-message hidden" id="errorUserName"></p>
-        </div>
-        <div>
-          <label for="userEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" id="userEmail" name="userEmail" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan email" />
-          <p class="error-message hidden" id="errorUserEmail"></p>
-        </div>
-        <div>
-          <label for="userPhone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
-          <div class="flex rounded-md border border-gray-300 focus-within:ring focus-within:ring-[#30cfcf]/50 focus-within:border-[#30cfcf]">
-            <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">+62</span>
-            <input type="tel" id="userPhone" name="userPhone" required class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" placeholder="Masukkan nomor telepon tanpa +62" aria-describedby="errorUserPhone" />
-          </div>
-          <p class="error-message hidden" id="errorUserPhone"></p>
-        </div>
-        <div>
-          <label for="userAddress" class="block text-sm font-medium text-gray-700 mb-1">Keterangan</label>
-          <textarea id="userAddress" name="userAddress" rows="3" class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan keterangan"></textarea>
-        </div>
-        <div>
-          <label for="userPassword" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input type="password" id="userPassword" name="userPassword" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan password" />
-          <p class="error-message hidden" id="errorUserPassword"></p>
-        </div>
-        <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
-          Simpan User
-        </button>
-      </form>
+   <section class="bg-white rounded-lg shadow-md p-6 overflow-x-auto">
+    <h2 class="text-xl font-semibold text-[#30cfcf] mb-4">
+     User Management
+    </h2>
+    <div class="user-list border border-gray-300 rounded-md">
+     <table class="min-w-full divide-y divide-gray-200 table-auto">
+      <thead>
+       <tr>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
+         Name
+        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
+         Email
+        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
+         Phone
+        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
+         Keterangan
+        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
+         Password
+        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
+         Dibuat Pada
+        </th>
+        <th class="px-4 py-2 text-center text-sm font-semibold text-gray-700" scope="col">
+         Actions
+        </th>
+       </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200" id="userTableBody">
+       <!-- User rows inserted here -->
+      </tbody>
+     </table>
     </div>
+    <button class="mt-6 w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" id="addUserBtn" type="button">
+     <i class="fas fa-user-plus mr-2">
+     </i>
+     Tambah User Baru
+    </button>
+   </section>
+  </main>
+  <!-- Modal backdrop -->
+  <div aria-labelledby="modalTitle" aria-modal="true" class="modal-backdrop hidden" id="modalBackdrop" role="dialog">
+   <div class="modal" role="document">
+    <button aria-label="Close modal" class="close-btn" id="modalCloseBtn" type="button">
+     ×
+    </button>
+    <h2 class="text-xl font-semibold text-[#30cfcf] mb-4 text-center" id="modalTitle">
+     Tambah User Baru
+    </h2>
+    <form class="space-y-4" id="userForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userName">
+       Nama Lengkap
+      </label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userName" name="userName" placeholder="Masukkan nama lengkap" required="" type="text"/>
+      <p class="error-message hidden" id="errorUserName">
+      </p>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userEmail">
+       Email
+      </label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userEmail" name="userEmail" placeholder="Masukkan email" required="" type="email"/>
+      <p class="error-message hidden" id="errorUserEmail">
+      </p>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPhone">
+       Nomor Telepon
+      </label>
+      <div class="flex rounded-md border border-gray-300 focus-within:ring focus-within:ring-[#30cfcf]/50 focus-within:border-[#30cfcf]">
+       <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">
+        +62
+       </span>
+       <input aria-describedby="errorUserPhone" class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" id="userPhone" name="userPhone" placeholder="Masukkan nomor telepon tanpa +62" required="" type="tel"/>
+      </div>
+      <p class="error-message hidden" id="errorUserPhone">
+      </p>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userAddress">
+       Keterangan
+      </label>
+      <textarea class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userAddress" name="userAddress" placeholder="Masukkan keterangan" rows="3"></textarea>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPassword">
+       Password
+      </label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userPassword" name="userPassword" placeholder="Masukkan password" required="" type="password"/>
+      <p class="error-message hidden" id="errorUserPassword">
+      </p>
+     </div>
+     <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="submit">
+      Simpan User
+     </button>
+    </form>
+   </div>
   </div>
-
   <script>
-    // Utility functions for localStorage users
+   // Utility functions for localStorage users
     function getUsers() {
       const usersJSON = localStorage.getItem('boi_xd_users');
       if (!usersJSON) return [];
@@ -204,6 +279,7 @@
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const userForm = document.getElementById('userForm');
+    const profileBtn = document.getElementById('profileBtn');
 
     // Form inputs and error elements
     const userNameInput = document.getElementById('userName');
@@ -254,7 +330,7 @@
       const users = getUsers();
       userTableBody.innerHTML = '';
       if (users.length === 0) {
-        userTableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-gray-500">Belum ada user terdaftar.</td></tr>`;
+        userTableBody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-gray-500">Belum ada user terdaftar.</td></tr>`;
         return;
       }
       users.forEach((user, index) => {
@@ -265,6 +341,7 @@
           <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.email}</td>
           <td class="px-4 py-2 text-sm text-gray-700">${user.phone}</td>
           <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.address || '-'}</td>
+          <td class="px-4 py-2 text-sm password-text" title="Password: ${user.password || '-'}">${user.password ? user.password : '-'}</td>
           <td class="px-4 py-2 text-sm text-gray-500 created-at">${formatDateTime(user.createdAt)}</td>
           <td class="px-4 py-2 text-center text-sm">
             <button aria-label="Edit user ${user.name}" class="text-[#30cfcf] hover:text-[#238383] focus:outline-none mr-3 edit-btn" data-index="${index}" type="button">
@@ -449,8 +526,13 @@
       }
     });
 
+    // Profile button click: open profilhistory.html in new page
+    document.getElementById('profileBtn').addEventListener('click', () => {
+      window.location.href = 'profilhistory.html';
+    });
+
     // Initial render
     renderUsers();
   </script>
-</body>
+ </body>
 </html>

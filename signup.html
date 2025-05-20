@@ -20,9 +20,8 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 0; /* removed space for bottom nav */
+      padding-bottom: 0;
     }
-    /* Phone input container */
     .phone-input-container {
       display: flex;
       align-items: center;
@@ -55,9 +54,8 @@
       box-shadow: 0 0 0 3px rgba(48, 207, 207, 0.3);
       outline: none;
     }
-    /* Error message styling */
     .error-message {
-      color: #dc2626; /* red-600 */
+      color: #dc2626;
       font-size: 0.875rem;
       margin-top: 0.25rem;
       font-weight: 600;
@@ -112,7 +110,6 @@
     </section>
   </main>
   <script>
-    // Back button to main menu
     document.getElementById('backButton').addEventListener('click', () => {
       window.location.href = 'mainmenu.html';
     });
@@ -123,7 +120,6 @@
       }
     });
 
-    // Helper: get users from localStorage
     function getUsers() {
       const usersJSON = localStorage.getItem('boi_xd_users');
       if (!usersJSON) return [];
@@ -133,14 +129,11 @@
         return [];
       }
     }
-    // Helper: save users to localStorage
     function saveUsers(users) {
       localStorage.setItem('boi_xd_users', JSON.stringify(users));
     }
 
-    // Password validation function
     function validatePassword(password) {
-      // 8-16 chars, at least one uppercase, one lowercase, one digit, one special char
       const lengthCheck = /^.{8,16}$/;
       const uppercaseCheck = /[A-Z]/;
       const lowercaseCheck = /[a-z]/;
@@ -155,7 +148,6 @@
       );
     }
 
-    // Show error message helper
     function showError(inputId, message) {
       const errorEl = document.getElementById('error' + inputId);
       if (errorEl) {
@@ -163,7 +155,6 @@
         errorEl.classList.remove('hidden');
       }
     }
-    // Hide error message helper
     function hideError(inputId) {
       const errorEl = document.getElementById('error' + inputId);
       if (errorEl) {
@@ -172,29 +163,26 @@
       }
     }
 
-    // Signup form submission
     const signupForm = document.getElementById('signupForm');
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Clear all errors first
       ['Name', 'Email', 'Phone', 'Password', 'ConfirmPassword'].forEach(hideError);
 
       const name = signupForm.name.value.trim();
       const email = signupForm.email.value.trim().toLowerCase();
-      const phone = signupForm.phone.value.trim();
+      const phoneRaw = signupForm.phone.value.trim();
+      const phone = phoneRaw ? '+62' + phoneRaw : '';
       const password = signupForm.password.value;
       const confirmPassword = signupForm.confirmPassword.value;
 
       let hasError = false;
 
-      // Name validation
       if (!name) {
         showError('Name', `Yang terisi (Nama Lengkap) tidak sesuai karena tidak boleh kosong.`);
         hasError = true;
       }
 
-      // Email validation
       if (!email) {
         showError('Email', `Yang terisi (Email) tidak sesuai karena tidak boleh kosong.`);
         hasError = true;
@@ -203,16 +191,14 @@
         hasError = true;
       }
 
-      // Phone validation (optional)
-      if (phone) {
+      if (phoneRaw) {
         const phoneRegex = /^[1-9][0-9]{5,14}$/;
-        if (!phoneRegex.test(phone)) {
+        if (!phoneRegex.test(phoneRaw)) {
           showError('Phone', `Yang terisi (Nomor Telepon) tidak sesuai karena harus berupa angka tanpa 0 di depan dan minimal 6 digit.`);
           hasError = true;
         }
       }
 
-      // Password validation
       if (!password) {
         showError('Password', `Yang terisi (Password) tidak sesuai karena tidak boleh kosong.`);
         hasError = true;
@@ -221,7 +207,6 @@
         hasError = true;
       }
 
-      // Confirm password validation
       if (!confirmPassword) {
         showError('ConfirmPassword', `Yang terisi (Konfirmasi Password) tidak sesuai karena tidak boleh kosong.`);
         hasError = true;
@@ -233,18 +218,37 @@
       if (hasError) return;
 
       const users = getUsers();
-      const existingUser = users.find(u => u.email === email);
-      if (existingUser) {
-        alert(`Yang terisi (Email) tidak sesuai karena sudah terdaftar, silakan gunakan email lain atau login.`);
+
+      const emailExists = users.some(u => u.email === email);
+      if (emailExists) {
+        showError('Email', `${email} telah memiliki akun, harap Log In`);
+        alert(`${email} telah memiliki akun, harap Log In`);
         return;
       }
 
-      // Save new user
-      users.push({ name, email, phone: phone ? '+62' + phone : '', password });
+      if (phone) {
+        const phoneExists = users.some(u => u.phone === phone);
+        if (phoneExists) {
+          showError('Phone', `${phone} telah memiliki akun, harap Log In`);
+          alert(`${phone} telah memiliki akun, harap Log In`);
+          return;
+        }
+      }
+
+      // Add createdAt timestamp
+      users.push({ name, email, phone, password, createdAt: new Date().toISOString() });
       saveUsers(users);
 
-      alert('Pendaftaran berhasil! Silakan login.');
-      window.location.href = 'login.html';
+      // Compose WhatsApp message with name, email, phone
+      const waNumber = '6283132420423';
+      const message = encodeURIComponent(
+        `Halo, saya ingin mendaftarkan atas nama: ${name}, Email: ${email}, Nomor Telepon: ${phone}`
+      );
+      const waUrl = `https://wa.me/${waNumber}?text=${message}`;
+      window.open(waUrl, '_blank');
+
+      alert('Pendaftaran berhasil! Silakan lanjutkan di WhatsApp.');
+      // Optionally clear form or redirect here
     });
   </script>
 </body>
