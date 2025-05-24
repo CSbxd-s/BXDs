@@ -36,6 +36,7 @@
       transform: translateY(30px);
       animation: fadeInUp 0.8s ease forwards;
       animation-delay: 0.2s;
+      z-index: 10;
     }
     @keyframes fadeInUp {
       to {
@@ -65,7 +66,7 @@
       line-height: 1.6;
     }
     button {
-      background-color: #e0f7f7; /* same as body background */
+      background-color: #e0f7f7;
       color: #30cfcf;
       font-weight: 600;
       padding: 0.75rem 2rem;
@@ -100,6 +101,75 @@
         font-size: 1rem;
       }
     }
+    /* Cookie Consent Banner Styles */
+    #cookie-consent-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(31, 41, 55, 0.95); /* dark slate with opacity */
+      color: #f9fafb; /* light text */
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      z-index: 1000;
+      gap: 0.75rem;
+    }
+    #cookie-consent-banner p {
+      flex: 1 1 250px;
+      margin: 0;
+      line-height: 1.4;
+    }
+    #cookie-consent-banner a {
+      color: #38bdf8; /* sky-400 */
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    #cookie-consent-banner button {
+      background-color: transparent;
+      border: 2px solid #38bdf8;
+      color: #38bdf8;
+      font-weight: 600;
+      padding: 0.5rem 1.25rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      min-width: 80px;
+    }
+    #cookie-consent-banner button:hover,
+    #cookie-consent-banner button:focus {
+      background-color: #38bdf8;
+      color: #1e293b; /* slate-900 */
+      outline: none;
+    }
+    @media (max-width: 480px) {
+      #cookie-consent-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.9rem;
+        padding: 1rem;
+      }
+      #cookie-consent-banner p {
+        flex: 1 1 100%;
+        margin-bottom: 0.75rem;
+      }
+      #cookie-consent-banner .buttons {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        gap: 0.75rem;
+      }
+      #cookie-consent-banner button {
+        flex: 1 1 45%;
+        min-width: auto;
+        padding: 0.5rem 0;
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -116,5 +186,83 @@
     </p>
     <button type="button" aria-label="Enter main menu" onclick="location.href='mainmenu.html'">Masuk</button>
   </main>
+
+  <div id="cookie-consent-banner" role="region" aria-label="Cookie consent banner" hidden>
+    <p>
+      Kami menggunakan cookies untuk meningkatkan pengalaman pengguna. Apakah kamu setuju? 
+      <a href="kebijakanprivasi.html" target="_blank" rel="noopener noreferrer" aria-label="Buka halaman Kebijakan Privasi">Kebijakan Privasi</a>
+    </p>
+    <div class="buttons flex gap-3">
+      <button id="accept-cookies" type="button" aria-label="Terima cookies">Terima</button>
+      <button id="reject-cookies" type="button" aria-label="Tolak cookies">Tolak</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const banner = document.getElementById('cookie-consent-banner');
+      const acceptBtn = document.getElementById('accept-cookies');
+      const rejectBtn = document.getElementById('reject-cookies');
+      const storageKey = 'boixdstore_cookie_consent';
+
+      function setConsent(value) {
+        try {
+          localStorage.setItem(storageKey, value);
+        } catch(e) {
+          // fallback to cookie if localStorage not available
+          document.cookie = storageKey + '=' + value + ';path=/;max-age=' + 60*60*24*365;
+        }
+      }
+
+      function getConsent() {
+        try {
+          return localStorage.getItem(storageKey);
+        } catch(e) {
+          // fallback to cookie
+          const match = document.cookie.match(new RegExp('(^| )' + storageKey + '=([^;]+)'));
+          return match ? match[2] : null;
+        }
+      }
+
+      function disableTracking() {
+        // Placeholder for disabling tracking scripts or cookies
+        // For example, if you have Google Analytics or other trackers, disable them here.
+        // Since no tracking scripts are included, this is just a placeholder.
+        // console.log('Tracking disabled due to cookie rejection.');
+      }
+
+      function hideBanner() {
+        banner.setAttribute('hidden', '');
+      }
+
+      function showBanner() {
+        banner.removeAttribute('hidden');
+      }
+
+      // On page load, check consent
+      document.addEventListener('DOMContentLoaded', () => {
+        const consent = getConsent();
+        if (consent === 'accepted') {
+          hideBanner();
+        } else if (consent === 'rejected') {
+          disableTracking();
+          hideBanner();
+        } else {
+          showBanner();
+        }
+      });
+
+      acceptBtn.addEventListener('click', () => {
+        setConsent('accepted');
+        hideBanner();
+      });
+
+      rejectBtn.addEventListener('click', () => {
+        setConsent('rejected');
+        disableTracking();
+        hideBanner();
+      });
+    })();
+  </script>
 </body>
 </html>

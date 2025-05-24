@@ -1,0 +1,468 @@
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Laporkan - BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    /* Tooltip container */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      color: #30cfcf;
+    }
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 240px;
+      background-color: #30cfcf;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 100;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.875rem;
+      line-height: 1.2;
+      box-shadow: 0 2px 8px rgba(48, 207, 207, 0.4);
+      pointer-events: none;
+    }
+    /* Tooltip arrow */
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #30cfcf transparent transparent transparent;
+    }
+    /* Show tooltip on hover and focus */
+    .tooltip:focus .tooltiptext,
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* For keyboard accessibility */
+    .tooltip:focus {
+      outline: none;
+    }
+    /* Drag and drop area */
+    .dropzone {
+      border: 2px dashed #30cfcf;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      color: #30cfcf;
+      cursor: pointer;
+      transition: background-color 0.3s, border-color 0.3s;
+      user-select: none;
+    }
+    .dropzone.dragover {
+      background-color: #d1f0f0;
+      border-color: #238383;
+    }
+    .dropzone input[type="file"] {
+      display: none;
+    }
+    .file-list {
+      margin-top: 0.75rem;
+      text-align: left;
+      font-size: 0.875rem;
+      color: #374151; /* gray-700 */
+    }
+    .file-list-item {
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .file-list-item i {
+      color: #30cfcf;
+    }
+    /* Validation error styles */
+    .error-message {
+      color: #dc2626; /* red-600 */
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .input-error {
+      border-color: #dc2626 !important;
+    }
+    /* Character count */
+    .char-count {
+      font-size: 0.875rem;
+      color: #6b7280; /* gray-500 */
+      text-align: right;
+      margin-top: 0.25rem;
+      user-select: none;
+    }
+    /* FadeInUp animation */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      opacity: 0;
+      animation-name: fadeInUp;
+      animation-duration: 0.6s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30 fade-in-up" style="animation-delay: 0s;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+      <button aria-label="Kembali ke Main Menu" id="backButton" class="text-white text-2xl mr-4 focus:outline-none" type="button">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="text-2xl font-semibold text-white">Laporkan</h1>
+    </div>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full fade-in-up" style="animation-delay: 0.15s;">
+    <form id="reportForm" class="bg-white rounded-lg shadow-md p-6" novalidate>
+      <div class="mb-5">
+        <label for="name" class="block text-gray-700 font-semibold mb-2">Nama Lengkap</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          aria-required="true"
+          placeholder="Masukkan nama lengkap Anda"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#30cfcf]"
+        />
+        <p id="nameError" class="error-message hidden">Nama lengkap harus diisi.</p>
+      </div>
+      <div class="mb-5">
+        <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          aria-required="true"
+          placeholder="Masukkan email Anda (harus @gmail.com)"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#30cfcf]"
+        />
+        <p id="emailError" class="error-message hidden">Email harus diisi dan berakhiran @gmail.com.</p>
+      </div>
+      <div class="mb-5">
+        <label for="reportType" class="block text-gray-700 font-semibold mb-2">Jenis Laporan</label>
+        <select
+          id="reportType"
+          name="reportType"
+          required
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#30cfcf]"
+          aria-required="true"
+        >
+          <option value="" disabled selected>Pilih jenis laporan</option>
+          <option value="Bug / Masalah Teknis">Bug / Masalah Teknis</option>
+          <option value="Pelanggaran Kebijakan">Pelanggaran Kebijakan</option>
+          <option value="Pelanggaran/Kekerasan terhadap Anggota">Pelanggaran/Kekerasan terhadap Anggota</option>
+          <option value="Penipuan atau Kecurangan">Penipuan atau Kecurangan</option>
+          <option value="Masalah Pembayaran">Masalah Pembayaran</option>
+          <option value="Konten Tidak Pantas">Konten Tidak Pantas</option>
+          <option value="Spam atau Iklan">Spam atau Iklan</option>
+          <option value="Masalah Akun">Masalah Akun</option>
+          <option value="Permintaan Fitur">Permintaan Fitur</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+      <div class="mb-5">
+        <label for="description" class="block text-gray-700 font-semibold mb-2">Deskripsi Laporan</label>
+        <textarea
+          id="description"
+          name="description"
+          rows="5"
+          aria-required="true"
+          placeholder="Jelaskan laporan Anda secara detail (minimal 10 karakter, maksimal 1000 karakter)"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#30cfcf]"
+          maxlength="1000"
+        ></textarea>
+        <div class="flex justify-between items-center mt-1">
+          <p id="descriptionError" class="error-message hidden">Deskripsi harus berisi minimal 10 karakter.</p>
+          <p id="charCount" class="char-count">0/1000 karakter</p>
+        </div>
+      </div>
+      <div class="mb-5">
+        <label for="evidence" class="block text-gray-700 font-semibold mb-2 flex items-center">
+          Bukti (opsional)
+          <button type="button" tabindex="0" class="tooltip ml-2 p-1 rounded-full border border-[#30cfcf] text-[#30cfcf] focus:outline-none" aria-label="Informasi bukti" aria-describedby="tooltip-info">
+            <i class="fas fa-info-circle"></i>
+            <span role="tooltip" id="tooltip-info" class="tooltiptext">
+              Anda dapat melampirkan link, foto, atau video sebagai bukti pendukung untuk memperkuat laporan Anda.
+            </span>
+          </button>
+        </label>
+        <input
+          type="url"
+          id="evidence"
+          name="evidence"
+          placeholder="Masukkan link bukti (misal: URL screenshot atau video)"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#30cfcf]"
+          aria-describedby="tooltip-info"
+        />
+      </div>
+      <div class="mb-5">
+        <label class="block text-gray-700 font-semibold mb-2">Unggah File Bukti (opsional)</label>
+        <div id="dropzone" class="dropzone" tabindex="0" aria-label="Area unggah file bukti, bisa drag & drop atau klik untuk memilih file">
+          <p>Tarik dan lepas file di sini, atau klik untuk memilih foto/video</p>
+          <input type="file" id="fileInput" name="files" accept="image/*,video/*" multiple aria-label="Pilih file foto atau video" />
+        </div>
+        <div id="fileList" class="file-list" aria-live="polite" aria-relevant="additions"></div>
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-md hover:bg-[#2bbaba] focus:outline-none focus:ring-4 focus:ring-[#2bbaba]"
+      >
+        Kirim Laporan
+      </button>
+    </form>
+  </main>
+  <script>
+    // Back button to main menu
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'mainmenu.html';
+    });
+    document.getElementById('backButton').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('backButton').click();
+      }
+    });
+
+    // Drag & drop file upload
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    let selectedFiles = [];
+
+    function updateFileList() {
+      fileList.innerHTML = '';
+      if (selectedFiles.length === 0) {
+        fileList.textContent = 'Belum ada file yang dipilih.';
+        return;
+      }
+      selectedFiles.forEach((file, index) => {
+        const item = document.createElement('div');
+        item.className = 'file-list-item';
+        const icon = document.createElement('i');
+        if (file.type.startsWith('image/')) {
+          icon.className = 'fas fa-file-image';
+        } else if (file.type.startsWith('video/')) {
+          icon.className = 'fas fa-file-video';
+        } else {
+          icon.className = 'fas fa-file';
+        }
+        const text = document.createElement('span');
+        text.textContent = file.name;
+        item.appendChild(icon);
+        item.appendChild(text);
+        fileList.appendChild(item);
+      });
+    }
+
+    dropzone.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    dropzone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileInput.click();
+      }
+    });
+
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+
+    dropzone.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        for (const file of e.dataTransfer.files) {
+          if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+            selectedFiles.push(file);
+          }
+        }
+        updateFileList();
+        e.dataTransfer.clearData();
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (fileInput.files && fileInput.files.length > 0) {
+        for (const file of fileInput.files) {
+          if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+            selectedFiles.push(file);
+          }
+        }
+        updateFileList();
+        fileInput.value = '';
+      }
+    });
+
+    // Description character count and limit
+    const description = document.getElementById('description');
+    const charCount = document.getElementById('charCount');
+    const descriptionError = document.getElementById('descriptionError');
+
+    function updateCharCount() {
+      let text = description.value;
+      let chars = text.length;
+      if (chars > 1000) {
+        description.value = text.slice(0, 1000);
+        chars = 1000;
+        alert('Deskripsi maksimal 1000 karakter.');
+      }
+      charCount.textContent = `${chars}/1000 karakter`;
+      if (chars < 10) {
+        descriptionError.classList.remove('hidden');
+        description.classList.add('input-error');
+      } else {
+        descriptionError.classList.add('hidden');
+        description.classList.remove('input-error');
+      }
+    }
+
+    description.addEventListener('input', updateCharCount);
+    updateCharCount();
+
+    // Validation helpers
+    function showError(input, errorElem, message) {
+      errorElem.textContent = message;
+      errorElem.classList.remove('hidden');
+      input.classList.add('input-error');
+    }
+    function hideError(input, errorElem) {
+      errorElem.classList.add('hidden');
+      input.classList.remove('input-error');
+    }
+    function validateEmail(email) {
+      // Check if email ends with @gmail.com (case insensitive)
+      return /^[^\s@]+@gmail\.com$/i.test(email);
+    }
+
+    // Form submission handler to send data to WhatsApp
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+
+      const nameInput = form.name;
+      const emailInput = form.email;
+      const descriptionInput = form.description;
+
+      let valid = true;
+
+      // Validate name
+      if (!nameInput.value.trim()) {
+        showError(nameInput, document.getElementById('nameError'), 'Nama lengkap harus diisi.');
+        valid = false;
+      } else {
+        hideError(nameInput, document.getElementById('nameError'));
+      }
+
+      // Validate email
+      if (!emailInput.value.trim()) {
+        showError(emailInput, document.getElementById('emailError'), 'Email harus diisi.');
+        valid = false;
+      } else if (!validateEmail(emailInput.value.trim())) {
+        showError(emailInput, document.getElementById('emailError'), 'Email harus berakhiran @gmail.com.');
+        valid = false;
+      } else {
+        hideError(emailInput, document.getElementById('emailError'));
+      }
+
+      // Validate description character count
+      const descChars = descriptionInput.value.length;
+      if (descChars < 10) {
+        showError(descriptionInput, descriptionError, 'Deskripsi harus berisi minimal 10 karakter.');
+        valid = false;
+      } else if (descChars > 1000) {
+        showError(descriptionInput, descriptionError, 'Deskripsi maksimal 1000 karakter.');
+        valid = false;
+      } else {
+        hideError(descriptionInput, descriptionError);
+      }
+
+      if (!valid) {
+        return;
+      }
+
+      const name = encodeURIComponent(nameInput.value.trim());
+      const email = encodeURIComponent(emailInput.value.trim());
+      const reportType = encodeURIComponent(form.reportType.value);
+      const descriptionText = encodeURIComponent(descriptionInput.value.trim());
+      const evidenceRaw = form.evidence.value.trim();
+      const evidence = evidenceRaw ? encodeURIComponent(evidenceRaw) : null;
+
+      let message = `Laporan dari BOI XD Store:%0A` +
+                    `Nama: ${name}%0A` +
+                    `Email: ${email}%0A` +
+                    `Jenis Laporan: ${reportType}%0A` +
+                    `Deskripsi:%0A${descriptionText}`;
+      if (evidence) {
+        message += `%0A%Bukti (link):%0A${evidence}`;
+      }
+      if (selectedFiles.length > 0) {
+        message += `%0A%Bukti (file):%0A`;
+        selectedFiles.forEach((file, i) => {
+          message += `${i + 1}. ${encodeURIComponent(file.name)}%0A`;
+        });
+        message += `%0A*Silakan kirim file bukti secara terpisah melalui WhatsApp jika memungkinkan.*`;
+      }
+
+      // WhatsApp number in international format without plus sign and spaces
+      const phoneNumber = '6283132420423';
+
+      // Open WhatsApp chat with pre-filled message in new tab
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+
+      // Reset form and file list
+      form.reset();
+      selectedFiles = [];
+      updateFileList();
+      updateCharCount();
+    });
+  </script>
+</body>
+</html>
