@@ -9,7 +9,7 @@
     rel="stylesheet"
   />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto+Slab:wght@700&display=swap"
     rel="stylesheet"
   />
   <style>
@@ -50,6 +50,59 @@
         transform: translateY(0);
       }
     }
+    .ketentuan-title {
+      font-weight: 700;
+      color: #30cfcf;
+      font-size: 1.125rem; /* text-lg */
+      margin-bottom: 0.75rem; /* mb-3 */
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .section-title {
+      font-weight: 600;
+      color: #30cfcf;
+      margin-bottom: 0.75rem;
+    }
+    .topup-warning-title {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 700;
+      font-size: 1.5rem; /* text-2xl */
+      color: #1a4b4b;
+      margin-bottom: 1.25rem; /* mb-5 */
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .catatan-box {
+      border-left: 4px solid #d63333;
+      background-color: #ffe5e5;
+      padding: 1rem 1.25rem;
+      margin-top: 1.5rem;
+      border-radius: 0.375rem;
+      color: #9b2c2c;
+      font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .bullet-sub {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .bullet-sub li::before {
+      content: "•";
+      color: #30cfcf;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+      font-weight: 600;
+    }
+    .bullet-sub li {
+      margin-left: 1.25rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+      color: #374151;
+    }
   </style>
 </head>
 <body>
@@ -63,40 +116,76 @@
   </header>
   <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <article class="bg-white rounded-lg shadow-md p-6 space-y-6">
+      <div class="text-sm font-semibold text-gray-700 mb-4">Terakhir Diperbarui: 25 Mei 2025</div>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">1. Umum</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">1. PERSYARATAN UMUM</h2>
         <p>Persyaratan TopUp ini mengatur tata cara dan ketentuan dalam melakukan pengisian saldo (TopUp) pada BOI XD Store. Dengan melakukan TopUp, pengguna dianggap telah menyetujui semua syarat dan ketentuan yang berlaku.</p>
+        <ul class="bullet-sub">
+          <li>Pengguna wajib membaca dan memahami seluruh ketentuan sebelum melakukan TopUp.</li>
+          <li>TopUp hanya dapat dilakukan oleh pengguna yang terdaftar dan memiliki akun aktif di BOI XD Store.</li>
+          <li>BOI XD Store berhak menolak TopUp yang tidak memenuhi persyaratan ini.</li>
+          <li>Pengguna bertanggung jawab atas keabsahan data yang diberikan saat TopUp.</li>
+          <li>Setiap pelanggaran terhadap ketentuan umum dapat berakibat pada pembatasan layanan.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">2. Metode Pembayaran</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">2. METODE PEMBAYARAN SAH</h2>
         <ul class="list-disc list-inside space-y-1">
           <li>Pengguna dapat melakukan TopUp melalui metode pembayaran yang tersedia di aplikasi atau website.</li>
           <li>Pastikan metode pembayaran yang digunakan valid dan dapat diproses.</li>
           <li>BOI XD Store tidak bertanggung jawab atas kesalahan pembayaran yang disebabkan oleh pengguna.</li>
         </ul>
+        <ul class="bullet-sub">
+          <li>Metode pembayaran yang tidak terdaftar atau tidak resmi tidak akan diproses.</li>
+          <li>Pengguna bertanggung jawab memastikan saldo dan limit pada metode pembayaran yang digunakan.</li>
+          <li>BOI XD Store tidak bertanggung jawab atas kegagalan transaksi akibat gangguan pihak ketiga.</li>
+          <li>Pengguna wajib memastikan data pembayaran sesuai dengan instruksi yang diberikan.</li>
+          <li>Setiap metode pembayaran dapat memiliki syarat dan ketentuan tambahan yang harus dipatuhi.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">3. Proses TopUp</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">3. PROSES TOPUP JELAS</h2>
         <ul class="list-disc list-inside space-y-1">
           <li>TopUp akan diproses setelah pembayaran berhasil diverifikasi.</li>
           <li>Waktu proses TopUp dapat bervariasi tergantung metode pembayaran yang digunakan.</li>
           <li>Jika TopUp tidak berhasil dalam waktu 24 jam, pengguna dapat menghubungi layanan pelanggan.</li>
         </ul>
+        <ul class="bullet-sub">
+          <li>Verifikasi pembayaran dilakukan secara otomatis dan manual oleh tim BOI XD Store.</li>
+          <li>Pengguna wajib menyimpan bukti pembayaran hingga TopUp berhasil.</li>
+          <li>Jika terjadi keterlambatan, pengguna harus segera menghubungi layanan pelanggan.</li>
+          <li>Proses TopUp dapat tertunda jika terdapat masalah pada sistem pembayaran.</li>
+          <li>BOI XD Store tidak bertanggung jawab atas keterlambatan yang disebabkan oleh pihak ketiga.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">4. Refund dan Pembatalan</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">4. REFUND & PEMBATALAN</h2>
         <ul class="list-disc list-inside space-y-1">
           <li>Refund hanya diberikan jika terdapat kesalahan dari pihak BOI XD Store.</li>
           <li>Pengguna tidak dapat membatalkan TopUp setelah pembayaran berhasil.</li>
           <li>Pengajuan refund harus disertai bukti transaksi yang valid.</li>
         </ul>
+        <ul class="bullet-sub">
+          <li>Pengajuan refund harus dilakukan dalam waktu maksimal 7 hari kerja setelah transaksi.</li>
+          <li>Refund tidak berlaku untuk kesalahan input data oleh pengguna.</li>
+          <li>Proses refund dapat memakan waktu hingga 14 hari kerja tergantung metode pembayaran.</li>
+          <li>Refund tidak berlaku jika TopUp sudah digunakan untuk pembelian produk atau layanan.</li>
+          <li>Keputusan refund sepenuhnya berada di tangan BOI XD Store setelah verifikasi.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">5. Keamanan dan Privasi</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">5. KEAMANAN & PRIVASI</h2>
         <p>BOI XD Store menjaga keamanan data pengguna dan transaksi TopUp sesuai dengan kebijakan privasi yang berlaku.</p>
+        <ul class="bullet-sub">
+          <li>Data pengguna dienkripsi dan hanya digunakan untuk keperluan transaksi TopUp.</li>
+          <li>Pengguna wajib menjaga kerahasiaan akun dan tidak membagikan informasi login.</li>
+          <li>BOI XD Store tidak bertanggung jawab atas kerugian akibat kelalaian pengguna menjaga keamanan data.</li>
+          <li>Pengguna harus segera melaporkan jika terjadi akses tidak sah pada akun.</li>
+          <li>BOI XD Store berkomitmen untuk tidak membagikan data pengguna kepada pihak ketiga tanpa izin.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">6. Pelanggaran dan Informasi Penting</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">6. PELANGGARAN & TINDAKAN</h2>
         <ul class="list-disc list-inside space-y-1">
           <li>Segala bentuk penyalahgunaan layanan TopUp, termasuk penggunaan metode pembayaran palsu atau tidak sah, akan ditindak tegas sesuai hukum yang berlaku.</li>
           <li>Pengguna dilarang melakukan TopUp dengan tujuan penipuan, pencucian uang, atau aktivitas ilegal lainnya.</li>
@@ -104,109 +193,161 @@
           <li>Pengguna wajib menjaga kerahasiaan akun dan informasi pembayaran untuk menghindari penyalahgunaan.</li>
           <li>Jika menemukan aktivitas mencurigakan, segera laporkan ke layanan pelanggan BOI XD Store.</li>
         </ul>
+        <ul class="bullet-sub">
+          <li>Pelanggaran akan dicatat dan dapat berakibat pada pembatasan atau pemblokiran akun.</li>
+          <li>BOI XD Store berhak melakukan investigasi atas setiap laporan pelanggaran.</li>
+          <li>Pengguna yang terbukti melanggar dapat dikenakan sanksi administratif maupun hukum.</li>
+          <li>Setiap tindakan hukum yang diperlukan dapat diambil sesuai dengan tingkat pelanggaran.</li>
+          <li>Pengguna bertanggung jawab atas segala konsekuensi hukum akibat pelanggaran yang dilakukan.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-3">7. Ketentuan Lain</h2>
+        <h2 class="section-title text-xl font-semibold text-[#30cfcf] mb-3">7. PERUBAHAN SYARAT</h2>
         <ul class="list-disc list-inside space-y-1">
           <li>BOI XD Store berhak mengubah syarat dan ketentuan TopUp sewaktu-waktu tanpa pemberitahuan terlebih dahulu.</li>
           <li>Pengguna disarankan untuk selalu memeriksa syarat dan ketentuan terbaru sebelum melakukan TopUp.</li>
           <li>Segala bentuk penyalahgunaan TopUp akan ditindak sesuai dengan hukum yang berlaku.</li>
         </ul>
+        <ul class="bullet-sub">
+          <li>Perubahan syarat berlaku efektif sejak diumumkan di platform resmi BOI XD Store.</li>
+          <li>Pengguna yang melanjutkan TopUp setelah perubahan dianggap menyetujui syarat terbaru.</li>
+          <li>BOI XD Store tidak bertanggung jawab atas kerugian akibat perubahan syarat yang tidak dipatuhi pengguna.</li>
+          <li>Pengguna dapat menghubungi layanan pelanggan untuk klarifikasi perubahan syarat.</li>
+          <li>Perubahan syarat tidak berlaku surut untuk transaksi yang sudah selesai.</li>
+        </ul>
       </section>
       <section>
-        <h2 class="text-xl font-semibold text-[#30cfcf] mb-5">Ketentuan Top-up dan Konsekuensi Pelanggaran</h2>
+        <h2 class="topup-warning-title">KETENTUAN TOP-UP & SANKSI PELANGGARAN</h2>
         <div class="space-y-8">
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 1: Validitas Metode Pembayaran</h3>
+            <h3 class="ketentuan-title">1. VALIDITAS METODE BAYAR</h3>
             <p>Pengguna wajib menggunakan metode pembayaran yang sah dan valid saat melakukan TopUp. Penggunaan metode pembayaran palsu atau tidak sah dilarang keras.</p>
             <div class="mt-3 space-y-2 pl-5">
               <p><strong>1.1</strong> Metode pembayaran harus terdaftar dan diakui oleh BOI XD Store.</p>
               <p><strong>1.2</strong> Pengguna tidak diperbolehkan menggunakan rekening atau kartu milik pihak lain tanpa izin.</p>
               <p><strong>1.3</strong> Setiap transaksi yang mencurigakan akan ditinjau ulang oleh tim keamanan.</p>
+              <p><strong>1.4</strong> Penggunaan metode pembayaran ilegal akan berakibat pada pemblokiran akun.</p>
+              <p><strong>1.5</strong> BOI XD Store berhak menolak transaksi dari metode pembayaran yang tidak valid.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Pengguna yang melanggar akan dikenakan denda administratif dan pembekuan sementara akun hingga penyelidikan selesai.</p>
+            <p class="mt-3 font-semibold">Sanksi: Denda administratif dan pembekuan sementara akun hingga penyelidikan selesai.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 2: Larangan Penipuan dan Pencucian Uang</h3>
-            <p>TopUp tidak boleh digunakan untuk tujuan penipuan, pencucian uang, atau aktivitas ilegal lainnya. Semua transaksi akan diawasi secara ketat.</p>
+            <h3 class="ketentuan-title">2. LARANGAN PENIPUAN & PENCUCIAN UANG</h3>
+            <p>TopUp tidak boleh digunakan untuk tujuan penipuan, pencucian uang, atau aktivitas ilegal lainnya. Semua transaksi diawasi ketat.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>2.1</strong> Pengguna dilarang melakukan transaksi yang bertujuan menyembunyikan asal dana.</p>
-              <p><strong>2.2</strong> Setiap aktivitas mencurigakan akan dilaporkan ke otoritas terkait.</p>
-              <p><strong>2.3</strong> Pengguna wajib memberikan informasi yang benar dan lengkap saat diminta oleh tim BOI XD Store.</p>
+              <p><strong>2.1</strong> Dilarang melakukan transaksi untuk menyembunyikan asal dana.</p>
+              <p><strong>2.2</strong> Aktivitas mencurigakan akan dilaporkan ke otoritas terkait.</p>
+              <p><strong>2.3</strong> Pengguna wajib memberikan informasi benar dan lengkap saat diminta.</p>
+              <p><strong>2.4</strong> Penipuan dalam bentuk apapun akan berujung pada pemblokiran permanen.</p>
+              <p><strong>2.5</strong> BOI XD Store berkomitmen bekerja sama dengan pihak berwajib dalam penanganan kasus.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Pelanggaran akan berakibat pada pemblokiran permanen akun dan pelaporan ke pihak berwajib.</p>
+            <p class="mt-3 font-semibold">Sanksi: Pemblokiran permanen akun dan pelaporan ke pihak berwajib.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 3: Kerahasiaan Akun dan Informasi Pembayaran</h3>
-            <p>Pengguna bertanggung jawab menjaga kerahasiaan akun dan informasi pembayaran. Penyalahgunaan akun oleh pihak ketiga akibat kelalaian pengguna menjadi tanggung jawab pengguna.</p>
+            <h3 class="ketentuan-title">3. RAHASIA AKUN & INFORMASI</h3>
+            <p>Pengguna bertanggung jawab menjaga kerahasiaan akun dan informasi pembayaran. Kelalaian menjadi tanggung jawab pengguna.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>3.1</strong> Jangan membagikan password atau kode OTP kepada siapapun.</p>
-              <p><strong>3.2</strong> Segera laporkan jika ada aktivitas mencurigakan pada akun Anda.</p>
-              <p><strong>3.3</strong> BOI XD Store tidak bertanggung jawab atas kerugian akibat kelalaian pengguna menjaga kerahasiaan data.</p>
+              <p><strong>3.1</strong> Jangan bagikan password atau kode OTP kepada siapapun.</p>
+              <p><strong>3.2</strong> Segera laporkan aktivitas mencurigakan pada akun Anda.</p>
+              <p><strong>3.3</strong> BOI XD Store tidak bertanggung jawab atas kerugian akibat kelalaian pengguna.</p>
+              <p><strong>3.4</strong> Pengguna wajib mengganti password secara berkala untuk keamanan.</p>
+              <p><strong>3.5</strong> Penggunaan akun oleh pihak ketiga tanpa izin dianggap pelanggaran berat.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Jika ditemukan penyalahgunaan, akun dapat dikenakan suspend sementara dan investigasi lebih lanjut.</p>
+            <p class="mt-3 font-semibold">Sanksi: Suspend sementara akun dan investigasi lebih lanjut.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 4: Ketepatan Data TopUp</h3>
+            <h3 class="ketentuan-title">4. DATA TOPUP AKURAT</h3>
             <p>Pengguna wajib memasukkan data TopUp dengan benar, termasuk nominal dan metode pembayaran.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>4.1</strong> Kesalahan pengisian nominal tidak dapat diklaim pengembalian dana.</p>
-              <p><strong>4.2</strong> Pastikan nomor rekening atau ID pembayaran sesuai dengan instruksi.</p>
-              <p><strong>4.3</strong> Data yang tidak lengkap atau salah dapat menyebabkan penundaan proses TopUp.</p>
+              <p><strong>4.1</strong> Kesalahan input nominal tidak dapat diklaim pengembalian dana.</p>
+              <p><strong>4.2</strong> Pastikan nomor rekening atau ID pembayaran sesuai instruksi.</p>
+              <p><strong>4.3</strong> Data tidak lengkap atau salah dapat menunda proses TopUp.</p>
+              <p><strong>4.4</strong> Pengguna bertanggung jawab atas kebenaran data yang dimasukkan.</p>
+              <p><strong>4.5</strong> BOI XD Store tidak bertanggung jawab atas kerugian akibat data yang salah.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Tidak ada pengembalian dana untuk kesalahan input data yang bukan kesalahan sistem.</p>
+            <p class="mt-3 font-semibold">Sanksi: Tidak ada pengembalian dana untuk kesalahan input data yang bukan kesalahan sistem.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 5: Batas Waktu Konfirmasi Pembayaran</h3>
-            <p>Pengguna harus melakukan konfirmasi pembayaran dalam waktu maksimal 24 jam setelah melakukan TopUp.</p>
+            <h3 class="ketentuan-title">5. KONFIRMASI BAYAR TEPAT WAKTU</h3>
+            <p>Konfirmasi pembayaran harus dilakukan maksimal 24 jam setelah TopUp.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>5.1</strong> Konfirmasi dapat dilakukan melalui aplikasi, website, atau layanan pelanggan.</p>
-              <p><strong>5.2</strong> Keterlambatan konfirmasi dapat menyebabkan pembatalan otomatis TopUp.</p>
-              <p><strong>5.3</strong> Pastikan bukti pembayaran jelas dan valid saat konfirmasi.</p>
+              <p><strong>5.1</strong> Konfirmasi dapat melalui aplikasi, website, atau layanan pelanggan.</p>
+              <p><strong>5.2</strong> Keterlambatan konfirmasi dapat membatalkan TopUp otomatis.</p>
+              <p><strong>5.3</strong> Bukti pembayaran harus jelas dan valid saat konfirmasi.</p>
+              <p><strong>5.4</strong> Konfirmasi yang tidak lengkap dapat menyebabkan penolakan.</p>
+              <p><strong>5.5</strong> Pengguna wajib menyimpan bukti konfirmasi hingga proses selesai.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Jika konfirmasi tidak dilakukan tepat waktu, TopUp akan dibatalkan secara otomatis tanpa pengembalian dana.</p>
+            <p class="mt-3 font-semibold">Sanksi: Pembatalan otomatis tanpa pengembalian dana jika konfirmasi terlambat.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 6: Penggunaan Promo dan Diskon</h3>
-            <p>Promo dan diskon hanya berlaku sesuai syarat dan ketentuan yang ditetapkan oleh BOI XD Store.</p>
+            <h3 class="ketentuan-title">6. PENGGUNAAN PROMO SAH</h3>
+            <p>Promo dan diskon berlaku sesuai syarat dan ketentuan BOI XD Store.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>6.1</strong> Promo tidak dapat digabungkan kecuali dinyatakan lain.</p>
-              <p><strong>6.2</strong> Penggunaan promo secara tidak sah atau manipulasi akan dianggap pelanggaran.</p>
-              <p><strong>6.3</strong> Promo hanya berlaku untuk periode dan produk yang ditentukan.</p>
+              <p><strong>6.1</strong> Promo tidak dapat digabung kecuali dinyatakan lain.</p>
+              <p><strong>6.2</strong> Manipulasi promo dianggap pelanggaran.</p>
+              <p><strong>6.3</strong> Promo berlaku untuk periode dan produk tertentu.</p>
+              <p><strong>6.4</strong> Penggunaan promo secara tidak sah dapat berakibat pada pembatalan transaksi.</p>
+              <p><strong>6.5</strong> BOI XD Store berhak membatalkan promo jika ditemukan penyalahgunaan.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Pengguna yang melanggar akan kehilangan hak menggunakan promo dan dapat dikenakan denda administratif.</p>
+            <p class="mt-3 font-semibold">Sanksi: Kehilangan hak promo dan denda administratif.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 7: Kewajiban Melaporkan Kesalahan Sistem</h3>
-            <p>Jika pengguna menemukan kesalahan atau bug dalam proses TopUp, wajib melaporkan ke layanan pelanggan secepatnya.</p>
+            <h3 class="ketentuan-title">7. LAPORKAN KESALAHAN SISTEM</h3>
+            <p>Wajib melaporkan bug atau kesalahan proses TopUp ke layanan pelanggan segera.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>7.1</strong> Laporan harus disertai bukti yang jelas dan detail.</p>
-              <p><strong>7.2</strong> Pengguna diharapkan bersabar selama proses investigasi berlangsung.</p>
-              <p><strong>7.3</strong> Klaim refund hanya berlaku jika kesalahan berasal dari sistem BOI XD Store.</p>
+              <p><strong>7.1</strong> Laporan harus disertai bukti jelas dan detail.</p>
+              <p><strong>7.2</strong> Harap bersabar selama investigasi berlangsung.</p>
+              <p><strong>7.3</strong> Klaim refund berlaku jika kesalahan dari sistem BOI XD Store.</p>
+              <p><strong>7.4</strong> Pengguna tidak diperbolehkan menyalahgunakan laporan untuk keuntungan pribadi.</p>
+              <p><strong>7.5</strong> BOI XD Store berhak menolak klaim tanpa bukti yang cukup.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Kegagalan melaporkan kesalahan yang menyebabkan kerugian dapat berakibat pada penolakan klaim refund.</p>
+            <p class="mt-3 font-semibold">Sanksi: Penolakan klaim refund jika gagal melapor kesalahan yang merugikan.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-3">Ketentuan 8: Larangan Membagikan Grup, Email, Password, Spam, Iklan, dan Promosi Tanpa Izin</h3>
-            <p>Anggota dalam grup dilarang keras untuk membagikan grup lain, email, password, spam, iklan, promosi, dan konten serupa tanpa izin resmi dari pihak BOI XD Store.</p>
+            <h3 class="ketentuan-title">8. LARANGAN BAGI-BAGI & SPAM</h3>
+            <p>Dilarang membagikan grup, email, password, spam, iklan, promosi tanpa izin resmi BOI XD Store.</p>
             <div class="mt-3 space-y-2 pl-5">
-              <p><strong>8.1</strong> Dilarang membagikan tautan grup lain yang tidak resmi atau tidak berhubungan dengan BOI XD Store.</p>
-              <p><strong>8.2</strong> Dilarang membagikan email, password, atau informasi akun pribadi kepada anggota lain atau pihak ketiga.</p>
-              <p><strong>8.3</strong> Dilarang melakukan spam berupa pesan berulang, iklan, promosi produk/jasa tanpa izin.</p>
-              <p><strong>8.4</strong> Dilarang menyebarkan konten yang mengganggu kenyamanan anggota lain atau merusak reputasi grup.</p>
-              <p><strong>8.5</strong> Semua aktivitas promosi harus mendapatkan persetujuan resmi dari admin BOI XD Store.</p>
+              <p><strong>8.1</strong> Dilarang membagikan tautan grup tidak resmi atau tidak terkait.</p>
+              <p><strong>8.2</strong> Dilarang membagikan informasi akun pribadi kepada pihak lain.</p>
+              <p><strong>8.3</strong> Dilarang spam pesan berulang, iklan, promosi tanpa izin.</p>
+              <p><strong>8.4</strong> Dilarang menyebarkan konten yang mengganggu kenyamanan atau merusak reputasi grup.</p>
+              <p><strong>8.5</strong> Semua promosi harus mendapat persetujuan admin BOI XD Store.</p>
             </div>
-            <p class="mt-3 font-semibold">Konsekuensi: Pelanggaran terhadap ketentuan ini akan berakibat pada kehilangan afinitas sebagai Member Bronze Anggota BXD Store, pembekuan sementara atau permanen akses grup, penghapusan konten yang melanggar, serta potensi denda administratif dan sanksi lain sesuai kebijakan BOI XD Store.</p>
+            <p class="mt-3 font-semibold">Sanksi: Kehilangan afinitas Member Bronze, pembekuan akses grup, penghapusan konten, denda administratif, dan sanksi lain sesuai kebijakan.</p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-4">Tabel Klasifikasi Pelanggaran</h3>
+            <h3 class="ketentuan-title">9. KEWAJIBAN PENGGUNA</h3>
+            <p>Pengguna wajib mematuhi semua ketentuan dan menjaga integritas layanan BOI XD Store.</p>
+            <div class="mt-3 space-y-2 pl-5">
+              <p><strong>9.1</strong> Pengguna harus menggunakan layanan sesuai dengan tujuan yang sah.</p>
+              <p><strong>9.2</strong> Dilarang menggunakan layanan untuk aktivitas ilegal atau merugikan pihak lain.</p>
+              <p><strong>9.3</strong> Pengguna wajib menjaga kerahasiaan data pribadi dan akun.</p>
+              <p><strong>9.4</strong> Pengguna bertanggung jawab atas semua aktivitas yang terjadi pada akunnya.</p>
+              <p><strong>9.5</strong> Pengguna harus segera melaporkan jika terjadi pelanggaran atau penyalahgunaan.</p>
+            </div>
+            <p class="mt-3 font-semibold">Sanksi: Pembatasan atau penghentian layanan sesuai tingkat pelanggaran.</p>
+          </div>
+          <div>
+            <h3 class="ketentuan-title">10. TANGGUNG JAWAB BOI XD STORE</h3>
+            <p>BOI XD Store berkomitmen memberikan layanan terbaik dan bertanggung jawab atas proses TopUp.</p>
+            <div class="mt-3 space-y-2 pl-5">
+              <p><strong>10.1</strong> Menjamin keamanan data dan transaksi pengguna.</p>
+              <p><strong>10.2</strong> Menyediakan layanan pelanggan untuk bantuan dan pengaduan.</p>
+              <p><strong>10.3</strong> Memproses TopUp sesuai dengan ketentuan yang berlaku.</p>
+              <p><strong>10.4</strong> Memberikan informasi yang jelas dan transparan terkait layanan.</p>
+              <p><strong>10.5</strong> Berhak melakukan tindakan preventif untuk menjaga integritas layanan.</p>
+            </div>
+            <p class="mt-3 font-semibold">Sanksi: Tidak berlaku, ini adalah tanggung jawab dan komitmen BOI XD Store.</p>
+          </div>
+          <div>
+            <h3 class="ketentuan-title mb-4">TABEL KLASIFIKASI PELANGGARAN</h3>
             <div class="overflow-x-auto">
               <table class="min-w-full border border-gray-300 text-left text-sm">
                 <thead class="bg-[#30cfcf] text-white">
                   <tr>
                     <th class="px-4 py-2 border border-gray-300">Klasifikasi</th>
                     <th class="px-4 py-2 border border-gray-300">Contoh Pelanggaran</th>
-                    <th class="px-4 py-2 border border-gray-300">Konsekuensi</th>
+                    <th class="px-4 py-2 border border-gray-300">Sanksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -229,19 +370,9 @@
               </table>
             </div>
           </div>
-          <div>
-            <h3 class="text-lg font-semibold text-[#30cfcf] mb-4">Template Pesan Pelanggaran via WhatsApp</h3>
-            <div class="bg-gray-100 rounded-md p-4 font-mono text-sm whitespace-pre-wrap text-gray-800">
-              <p>Halo,</p>
-              <p>Kami dari tim BOI XD Store ingin memberitahukan bahwa kami telah mendeteksi pelanggaran terkait TopUp Anda dengan rincian sebagai berikut:</p>
-              <p><strong>Klasifikasi Pelanggaran:</strong> [Ringan/Sedang/Berat]</p>
-              <p><strong>Deskripsi Pelanggaran:</strong> [Deskripsi singkat pelanggaran]</p>
-              <p><strong>Konsekuensi:</strong> [Penjelasan sanksi yang dikenakan]</p>
-              <p>Mohon untuk segera melakukan perbaikan dan mematuhi ketentuan yang berlaku agar tidak terjadi pelanggaran berulang.</p>
-              <p>Terima kasih atas perhatian dan kerjasamanya.</p>
-              <p>Salam,<br />Tim BOI XD Store</p>
-            </div>
-          </div>
+        </div>
+        <div class="catatan-box" role="note" aria-label="Catatan penting">
+          <strong>Catatan:</strong> Sistem dan pihak BOI XD Store berhak mengambil tindakan tegas tanpa pemberitahuan terlebih dahulu apabila ditemukan pelanggaran serius demi menjaga keamanan dan integritas layanan.
         </div>
       </section>
     </article>
