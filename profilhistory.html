@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Profil History - BOI XD Store</title>
+  <title>WhatsApp Business Template - BOI XD Store</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -20,120 +20,552 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 0;
+      align-items: center;
+      padding: 1rem;
     }
-    thead th {
-      position: sticky;
-      top: 0;
+    main {
       background: white;
-      z-index: 10;
-      border-bottom: 2px solid #30cfcf;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 1.5rem 2rem;
     }
-    .created-at {
-      font-size: 0.875rem;
-      color: #6b7280; /* Tailwind gray-500 */
-      white-space: nowrap;
-    }
-    .no-history {
-      color: #6b7280;
-      font-style: italic;
-      padding: 2rem;
+    h1 {
+      color: #25d366;
+      font-weight: 700;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
       text-align: center;
+    }
+    label {
+      font-weight: 600;
+      color: #374151;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    textarea, input[type="text"], input[type="password"] {
+      width: 100%;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      font-family: "Inter", sans-serif;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    textarea:focus, input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #25d366;
+      outline: none;
+      box-shadow: 0 0 6px #25d366aa;
+    }
+    .section {
+      margin-bottom: 1.5rem;
+    }
+    .btn-copy, .btn-verify {
+      background-color: #25d366;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      justify-content: center;
+      width: 100%;
+      font-size: 1rem;
+    }
+    .btn-copy:hover, .btn-copy:focus,
+    .btn-verify:hover, .btn-verify:focus {
+      background-color: #128c4a;
+      outline: none;
+    }
+    .btn-copy:disabled {
+      background-color: #a5d6a7;
+      cursor: not-allowed;
+    }
+    .output {
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 120px;
+      margin-top: 0.5rem;
+      border: 1.5px solid #d1d5db;
+    }
+    .footer {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: center;
+    }
+    /* Overlay styles */
+    #verificationOverlay, #wifiOverlay, #loadingOverlay, #blurTextOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(224, 247, 247, 0.95);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    #verificationOverlay.hidden, #wifiOverlay.hidden, #loadingOverlay.hidden, #blurTextOverlay.hidden {
+      display: none;
+    }
+    .overlayBox {
+      background: white;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .overlayBox h2 {
+      color: #25d366;
+      font-weight: 700;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .overlayBox p {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #374151;
+    }
+    /* Blur text with strong blur and hard difficulty style */
+    #blurTextContainer {
+      margin-top: 1rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #374151;
+      user-select: none;
+      letter-spacing: 0.3em;
+      margin-bottom: 1rem;
+      font-family: monospace;
+      filter: blur(12px) contrast(0.8) brightness(0.7);
+      -webkit-user-select: none;
+      user-select: none;
+      text-shadow:
+        0 0 2px rgba(0,0,0,0.3),
+        1px 1px 1px rgba(255,255,255,0.2);
+    }
+    #blurInput {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1.2rem;
+      border: 2px solid #25d366;
+      border-radius: 8px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+      font-family: monospace;
+      letter-spacing: 0.15em;
+    }
+    #blurInput:focus {
+      border-color: #128c4a;
+      box-shadow: 0 0 6px #128c4aaa;
+      outline: none;
+    }
+    #blurError {
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    /* WiFi styles */
+    .wifi-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .wifi-item {
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+      user-select: none;
+    }
+    .wifi-item:hover, .wifi-item:focus {
+      background: #d1fae5;
+      outline: none;
+    }
+    .wifi-item.selected {
+      border-color: #25d366;
+      background: #a7f3d0;
+    }
+    .wifi-icon {
+      font-size: 1.5rem;
+      color: #25d366;
+      flex-shrink: 0;
+    }
+    #wifiPasswordInput {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+    }
+    #wifiPasswordInput:focus {
+      border-color: #25d366;
+      box-shadow: 0 0 6px #25d366aa;
+      outline: none;
+    }
+    #wifiError {
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    .btn-wifi-connect {
+      background-color: #25d366;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      font-size: 1rem;
+    }
+    .btn-wifi-connect:hover, .btn-wifi-connect:focus {
+      background-color: #128c4a;
+      outline: none;
+    }
+    /* Loading bar container */
+    #loadingBarContainer {
+      width: 100%;
+      background-color: #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: 1rem;
+    }
+    /* Loading bar fill */
+    #loadingBarFill {
+      height: 100%;
+      width: 0%;
+      background-color: #25d366;
+      transition: width 0.2s ease;
+    }
+    /* Loading text */
+    #loadingText {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    /* Loading spinner */
+    #loadingSpinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #25d366;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
   </style>
 </head>
 <body>
-  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
-      <button aria-label="Back to Admin Dashboard" id="backButton" class="text-white text-2xl focus:outline-none hover:text-[#238383]" type="button">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+  <!-- Initial Verification Overlay -->
+  <div id="verificationOverlay" role="dialog" aria-modal="true" aria-labelledby="verifyTitle">
+    <div class="overlayBox">
+      <h2 id="verifyTitle">Verifikasi Akses Admin</h2>
+      <p>Silakan verifikasi koneksi WiFi atau internet Anda untuk melanjutkan ke template pesan WhatsApp Business.</p>
+      <button id="btnVerifyAccess" class="btn-verify" type="button" aria-label="Verifikasi akses internet admin">
+        <i class="fas fa-wifi"></i> Verifikasi Akses
       </button>
-      <h1 class="text-2xl font-semibold text-white text-center flex-grow">
-        Profil History
-      </h1>
-      <div class="w-8"></div>
     </div>
-  </header>
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <section class="bg-white rounded-lg shadow-md p-6 overflow-x-auto">
-      <h2 class="text-xl font-semibold text-[#30cfcf] mb-4">History Login User</h2>
-      <div class="overflow-x-auto border border-gray-300 rounded-md">
-        <table class="min-w-full divide-y divide-gray-200 table-auto">
-          <thead>
-            <tr>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Nama User</th>
-              <th scope="col" class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Waktu Login</th>
-            </tr>
-          </thead>
-          <tbody id="historyTableBody" class="divide-y divide-gray-200">
-            <!-- History rows inserted here -->
-          </tbody>
-        </table>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="hidden" role="alert" aria-live="assertive" aria-label="Loading">
+    <div class="overlayBox" style="display:flex; flex-direction: column; align-items: center;">
+      <div id="loadingSpinner" aria-hidden="true"></div>
+      <p>Memverifikasi koneksi, mohon tunggu...</p>
+    </div>
+  </div>
+
+  <!-- Blur Text Verification Overlay -->
+  <div id="blurTextOverlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="blurTitle">
+    <div class="overlayBox">
+      <h2 id="blurTitle">Verifikasi Teks</h2>
+      <p>Silakan ketik ulang teks yang buram di bawah ini untuk melanjutkan.</p>
+      <div id="blurTextContainer" tabindex="0" aria-label="Teks verifikasi">VWIFI</div>
+      <input type="text" id="blurInput" placeholder="Ketik ulang teks di atas" aria-describedby="blurError" autocomplete="off" />
+      <p id="blurError" role="alert">Teks yang Anda masukkan salah. Silakan coba lagi.</p>
+      <button id="blurSubmit" class="btn-verify" type="button" style="margin-top:1rem;">Verifikasi</button>
+    </div>
+  </div>
+
+  <!-- WiFi Selection Overlay -->
+  <div id="wifiOverlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="wifiTitle">
+    <div class="overlayBox">
+      <h2 id="wifiTitle">Pilih Jaringan WiFi</h2>
+      <p>Silakan pilih jaringan WiFi yang ingin Anda hubungkan dan masukkan password.</p>
+      <div class="wifi-list" role="list" tabindex="0" aria-label="Daftar jaringan WiFi">
+        <div class="wifi-item" tabindex="0" data-ssid="Cafe_WiFi" data-correct="false" role="listitem" aria-label="Jaringan Cafe WiFi">
+          <i class="fas fa-wifi wifi-icon" aria-hidden="true"></i> Cafe_WiFi
+        </div>
+        <div class="wifi-item" tabindex="0" data-ssid="BOI_Admin" data-correct="true" role="listitem" aria-label="Jaringan BOI Admin">
+          <i class="fas fa-wifi wifi-icon" aria-hidden="true"></i> BOI_Admin
+        </div>
+        <div class="wifi-item" tabindex="0" data-ssid="Guest_Network" data-correct="false" role="listitem" aria-label="Jaringan Guest Network">
+          <i class="fas fa-wifi wifi-icon" aria-hidden="true"></i> Guest_Network
+        </div>
       </div>
-      <p id="noHistoryMessage" class="no-history hidden">Belum ada history login user.</p>
-    </section>
+      <label for="wifiPasswordInput" class="mt-4 block text-sm font-semibold text-gray-700 text-left">Password WiFi</label>
+      <input type="password" id="wifiPasswordInput" placeholder="Masukkan password WiFi" autocomplete="off" aria-describedby="wifiError" />
+      <p id="wifiError" role="alert">Password salah atau jaringan belum dipilih.</p>
+      <button id="wifiConnectBtn" class="btn-wifi-connect" type="button" aria-label="Hubungkan ke WiFi" disabled>
+        Hubungkan
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading Bar Overlay -->
+  <div id="connectLoadingOverlay" class="hidden" role="alert" aria-live="assertive" aria-label="Loading connection">
+    <div class="overlayBox" style="text-align:center;">
+      <h2 style="color:#25d366; font-weight:700; font-size:1.5rem; margin-bottom:1rem;">Menghubungkan ke WiFi</h2>
+      <div id="loadingBarContainer" aria-hidden="true">
+        <div id="loadingBarFill"></div>
+      </div>
+      <div id="loadingText" style="margin-top:0.5rem; font-weight:600; color:#374151;">0%</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="mainContent" style="display:none;">
+    <h1>WhatsApp Business Message Template</h1>
+
+    <div class="section">
+      <label for="customerName">Nama Customer</label>
+      <input type="text" id="customerName" placeholder="Masukkan nama customer" autocomplete="off" />
+    </div>
+
+    <div class="section">
+      <label for="orderId">Nomor Pesanan</label>
+      <input type="text" id="orderId" placeholder="Masukkan nomor pesanan" autocomplete="off" />
+    </div>
+
+    <div class="section">
+      <label for="productName">Nama Produk</label>
+      <input type="text" id="productName" placeholder="Masukkan nama produk" autocomplete="off" />
+    </div>
+
+    <div class="section">
+      <label for="deliveryDate">Tanggal Pengiriman</label>
+      <input type="text" id="deliveryDate" placeholder="Misal: 25 Juni 2024" autocomplete="off" />
+    </div>
+
+    <div class="section">
+      <label for="customMessage">Pesan Tambahan (opsional)</label>
+      <textarea id="customMessage" rows="3" placeholder="Masukkan pesan tambahan"></textarea>
+    </div>
+
+    <button class="btn-copy" id="generateBtn" type="button" aria-label="Generate WhatsApp message" disabled>
+      <i class="fas fa-copy"></i> Generate & Copy
+    </button>
+
+    <div class="section">
+      <label for="outputMessage">Pesan WhatsApp yang dihasilkan</label>
+      <pre id="outputMessage" class="output" aria-live="polite" aria-atomic="true"></pre>
+    </div>
   </main>
 
+  <div class="footer">
+    Template pesan ini dapat digunakan untuk WhatsApp Business agar komunikasi dengan customer lebih cepat dan profesional.
+  </div>
+
   <script>
-    // Utility functions for localStorage history
-    function getHistory() {
-      const historyJSON = localStorage.getItem('boi_xd_login_history');
-      if (!historyJSON) return [];
-      try {
-        return JSON.parse(historyJSON);
-      } catch {
-        return [];
+    const verificationOverlay = document.getElementById('verificationOverlay');
+    const btnVerifyAccess = document.getElementById('btnVerifyAccess');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const blurTextOverlay = document.getElementById('blurTextOverlay');
+    const blurTextContainer = document.getElementById('blurTextContainer');
+    const blurInput = document.getElementById('blurInput');
+    const blurError = document.getElementById('blurError');
+    const blurSubmit = document.getElementById('blurSubmit');
+    const wifiOverlay = document.getElementById('wifiOverlay');
+    const wifiItems = wifiOverlay.querySelectorAll('.wifi-item');
+    const wifiPasswordInput = document.getElementById('wifiPasswordInput');
+    const wifiConnectBtn = document.getElementById('wifiConnectBtn');
+    const wifiError = document.getElementById('wifiError');
+    const connectLoadingOverlay = document.getElementById('connectLoadingOverlay');
+    const loadingBarFill = document.getElementById('loadingBarFill');
+    const loadingText = document.getElementById('loadingText');
+    const mainContent = document.getElementById('mainContent');
+
+    const customerNameInput = document.getElementById('customerName');
+    const orderIdInput = document.getElementById('orderId');
+    const productNameInput = document.getElementById('productName');
+    const deliveryDateInput = document.getElementById('deliveryDate');
+    const customMessageInput = document.getElementById('customMessage');
+    const generateBtn = document.getElementById('generateBtn');
+    const outputMessage = document.getElementById('outputMessage');
+
+    // Enable generate button only if required fields are filled
+    function checkInputs() {
+      const enabled = customerNameInput.value.trim() !== '' &&
+                      orderIdInput.value.trim() !== '' &&
+                      productNameInput.value.trim() !== '' &&
+                      deliveryDateInput.value.trim() !== '';
+      generateBtn.disabled = !enabled;
+    }
+
+    [customerNameInput, orderIdInput, productNameInput, deliveryDateInput].forEach(input => {
+      input.addEventListener('input', checkInputs);
+    });
+
+    btnVerifyAccess.addEventListener('click', () => {
+      btnVerifyAccess.disabled = true;
+      btnVerifyAccess.textContent = 'Memverifikasi...';
+      verificationOverlay.style.display = 'none';
+      loadingOverlay.classList.remove('hidden');
+
+      setTimeout(() => {
+        loadingOverlay.classList.add('hidden');
+        blurTextContainer.textContent = 'VWIFI';
+        blurInput.value = '';
+        blurError.style.display = 'none';
+        blurTextOverlay.classList.remove('hidden');
+        blurInput.focus();
+        btnVerifyAccess.disabled = false;
+        btnVerifyAccess.textContent = 'Verifikasi Akses';
+      }, 2000);
+    });
+
+    blurSubmit.addEventListener('click', () => {
+      if (blurInput.value.trim().toUpperCase() === 'VWIFI') {
+        blurTextOverlay.classList.add('hidden');
+        wifiOverlay.classList.remove('hidden');
+        wifiPasswordInput.value = '';
+        wifiError.style.display = 'none';
+        wifiConnectBtn.disabled = true;
+        selectedWifi = null;
+      } else {
+        blurError.style.display = 'block';
       }
-    }
+    });
 
-    // Format date to readable string with time
-    function formatDateTime(dateString) {
-      const d = new Date(dateString);
-      if (isNaN(d)) return '-';
-      return d.toLocaleString('id-ID', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
+    let selectedWifi = null;
+
+    wifiItems.forEach(item => {
+      item.addEventListener('click', () => {
+        wifiItems.forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+        selectedWifi = item;
+        wifiError.style.display = 'none';
+        wifiConnectBtn.disabled = wifiPasswordInput.value.trim() === '' || !selectedWifi;
+        wifiPasswordInput.value = '';
+        wifiPasswordInput.focus();
       });
-    }
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+      });
+    });
 
-    const historyTableBody = document.getElementById('historyTableBody');
-    const noHistoryMessage = document.getElementById('noHistoryMessage');
-    const backButton = document.getElementById('backButton');
+    wifiPasswordInput.addEventListener('input', () => {
+      wifiError.style.display = 'none';
+      wifiConnectBtn.disabled = wifiPasswordInput.value.trim() === '' || !selectedWifi;
+    });
 
-    function renderHistory() {
-      const history = getHistory();
-      historyTableBody.innerHTML = '';
-      if (history.length === 0) {
-        noHistoryMessage.classList.remove('hidden');
+    wifiConnectBtn.addEventListener('click', () => {
+      if (!selectedWifi) {
+        wifiError.textContent = 'Silakan pilih jaringan WiFi terlebih dahulu.';
+        wifiError.style.display = 'block';
         return;
       }
-      noHistoryMessage.classList.add('hidden');
-      history.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.classList.add('hover:bg-gray-50');
-        tr.innerHTML = `
-          <td class="px-4 py-2 text-sm text-gray-700">${item.name || '-'}</td>
-          <td class="px-4 py-2 text-sm text-gray-500 created-at">${formatDateTime(item.loginAt)}</td>
-        `;
-        historyTableBody.appendChild(tr);
-      });
+      if (wifiPasswordInput.value !== 'Admin') {
+        wifiError.textContent = 'Password salah. Silakan coba lagi.';
+        wifiError.style.display = 'block';
+        wifiPasswordInput.value = '';
+        wifiPasswordInput.focus();
+        return;
+      }
+      // Success: hide wifi overlay and show loading bar overlay
+      wifiOverlay.classList.add('hidden');
+      connectLoadingOverlay.classList.remove('hidden');
+      startLoadingBar();
+    });
+
+    function startLoadingBar() {
+      let progress = 0;
+      loadingBarFill.style.width = '0%';
+      loadingText.textContent = '0%';
+
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 7) + 3; // increment 3-9%
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          loadingText.textContent = 'Berhasil terhubung!';
+          setTimeout(() => {
+            connectLoadingOverlay.classList.add('hidden');
+            mainContent.style.display = 'block';
+          }, 1500);
+        } else {
+          loadingBarFill.style.width = progress + '%';
+          loadingText.textContent = progress + '%';
+        }
+      }, 150);
     }
 
-    backButton.addEventListener('click', () => {
-      window.location.href = 'mainmenu.html';
-    });
-    backButton.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        backButton.click();
-      }
-    });
+    function generateMessage() {
+      const name = customerNameInput.value.trim() || "[Nama Customer]";
+      const orderId = orderIdInput.value.trim() || "[Nomor Pesanan]";
+      const product = productNameInput.value.trim() || "[Nama Produk]";
+      const deliveryDate = deliveryDateInput.value.trim() || "[Tanggal Pengiriman]";
+      const customMsg = customMessageInput.value.trim();
 
-    renderHistory();
+      let message = `Halo ${name},\n\nTerima kasih telah melakukan pemesanan di BOI XD Store.\n\nNomor pesanan Anda adalah *${orderId}* untuk produk *${product}*.\nEstimasi pengiriman adalah pada tanggal *${deliveryDate}*.\n`;
+
+      if(customMsg) {
+        message += `\nCatatan tambahan:\n${customMsg}\n`;
+      }
+
+      message += `\nJika ada pertanyaan atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.\n\nSalam hangat,\nTim BOI XD Store`;
+
+      return message;
+    }
+
+    generateBtn.addEventListener('click', () => {
+      const msg = generateMessage();
+      outputMessage.textContent = msg;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(msg).then(() => {
+        generateBtn.textContent = '✔️ Tersalin!';
+        setTimeout(() => {
+          generateBtn.innerHTML = '<i class="fas fa-copy"></i> Generate & Copy';
+        }, 2000);
+      }).catch(() => {
+        alert('Gagal menyalin pesan ke clipboard.');
+      });
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,334 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Layanan - BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #1f2937;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    header {
+      background: #2563eb;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 64px;
+      padding: 0 1.5rem;
+      color: #e0e7ff;
+      font-weight: 700;
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+      position: relative;
+      user-select: none;
+      text-transform: uppercase;
+    }
+    button.back-button {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #e0e7ff;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s ease;
+      border-radius: 0.5rem;
+      width: 44px;
+      height: 44px;
+      filter: drop-shadow(0 0 4px #e0e7ff);
+    }
+    button.back-button:hover,
+    button.back-button:focus {
+      color: #93c5fd;
+      outline: none;
+      background: rgba(147, 197, 253, 0.15);
+      box-shadow:
+        0 0 12px #93c5fd,
+        0 0 24px #93c5fd,
+        0 0 36px #93c5fd;
+      filter: drop-shadow(0 0 8px #93c5fd);
+    }
+    main {
+      flex-grow: 1;
+      max-width: 720px;
+      margin: 3rem auto 4rem;
+      padding: 2rem 2rem 3rem;
+      background: #ffffff;
+      border-radius: 1rem;
+      box-shadow:
+        0 0 20px rgba(37, 99, 235, 0.3);
+      overflow-y: auto;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+      color: #1f2937;
+      user-select: none;
+    }
+    main.visible {
+      opacity: 1;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: #2563eb;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    ul.services-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    li.service-item {
+      background: #e0e7ff;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: default;
+    }
+    li.service-item:hover,
+    li.service-item:focus-within {
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+      transform: translateY(-4px);
+      outline: none;
+      z-index: 10;
+    }
+    li.service-item i {
+      font-size: 2.5rem;
+      color: #2563eb;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    div.service-content {
+      flex: 1;
+    }
+    h3.service-title {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
+    p.service-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #374151;
+      user-select: none;
+      text-align: justify;
+    }
+    .coming-soon {
+      margin-top: 2rem;
+      padding: 1.25rem 2rem;
+      background: linear-gradient(90deg, #facc15, #ca8a04);
+      border-radius: 1rem;
+      box-shadow: 0 0 30px #ca8a04;
+      color: #3f2700;
+      font-weight: 800;
+      font-size: 1.25rem;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    @media (min-width: 640px) {
+      ul.services-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      main {
+        margin: 2rem 1rem 3rem;
+        padding: 1.5rem 1.5rem 2.5rem;
+        border-radius: 0.75rem;
+      }
+      li.service-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      li.service-item i {
+        margin-bottom: 0.75rem;
+      }
+      h3.service-title {
+        font-size: 1.25rem;
+      }
+      p.service-description {
+        font-size: 0.95rem;
+      }
+      .coming-soon {
+        font-size: 1rem;
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button aria-label="Back" class="back-button" onclick="window.location.href='mainmenu.html'">
+      <i aria-hidden="true" class="fas fa-arrow-left"></i>
+    </button>
+    LAYANAN
+  </header>
+  <main>
+    <h2>Layanan WhatsApp Bisnis BOI XD Store</h2>
+    <ul class="services-list" role="list">
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-users-cog" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa JB All Akun</h3>
+          <p class="service-description">
+            Menyediakan jasa jual beli akun game lengkap dan terpercaya, dengan proses cepat dan aman melalui WhatsApp Bisnis kami.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-coins" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Topup All Game Mobile</h3>
+          <p class="service-description">
+            Layanan top-up berbagai game mobile populer dengan harga kompetitif dan proses instan, didukung oleh sistem pembayaran yang aman.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-bullhorn" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Posting</h3>
+          <p class="service-description">
+            Layanan promosi dan posting konten di berbagai platform untuk meningkatkan visibilitas produk dan event Anda.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-comments" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa MC (Multi Chat)</h3>
+          <p class="service-description">
+            Fitur multi chat untuk memudahkan komunikasi dan koordinasi dengan banyak pelanggan secara efisien melalui WhatsApp Bisnis.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-user-shield" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Admin Rekber</h3>
+          <p class="service-description">
+            Jasa admin rekening bersama terpercaya untuk transaksi aman dan nyaman antara pembeli dan penjual.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-gamepad" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Joki Game</h3>
+          <p class="service-description">
+            Layanan joki profesional untuk membantu Anda naik level dan mencapai target dalam berbagai game populer dengan aman dan terpercaya.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-gift" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Gift/Skin</h3>
+          <p class="service-description">
+            Penyediaan berbagai gift dan skin eksklusif untuk game favorit Anda, dengan proses cepat dan harga kompetitif.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-paint-brush" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Edit Logo</h3>
+          <p class="service-description">
+            Layanan desain dan editing logo gaming yang profesional untuk memperkuat identitas tim atau komunitas Anda.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Coach Game</h3>
+          <p class="service-description">
+            Pelatihan dan coaching dari para ahli untuk meningkatkan skill dan strategi bermain game Anda secara efektif.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-cogs" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Jasa Setting Custom Build</h3>
+          <p class="service-description">
+            Pengaturan dan optimasi custom build untuk perangkat gaming Anda agar performa maksimal saat bermain.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-trophy" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Event dan Turnamen</h3>
+          <p class="service-description">
+            Penyelenggaraan event dan turnamen gaming dengan hadiah menarik dan kesempatan berkompetisi secara profesional.
+          </p>
+        </div>
+      </li>
+      <li class="service-item" tabindex="0">
+        <i class="fas fa-fire" aria-hidden="true"></i>
+        <div class="service-content">
+          <h3 class="service-title">Isian</h3>
+          <p class="service-description">
+            Layanan taruhan resmi pada game Free Fire, memberikan pengalaman bertaruh yang aman, mudah, dan terpercaya.
+          </p>
+        </div>
+      </li>
+    </ul>
+    <div class="coming-soon" role="note" aria-live="polite" aria-atomic="true">
+      Layanan Mendatang: Jasa Jual Beli Script, Mod, dan layanan eksklusif lainnya.
+    </div>
+  </main>
+</body>
+</html>

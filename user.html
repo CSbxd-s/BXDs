@@ -1,0 +1,500 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #30cfcf 0%, #238383 100%);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+      color: #1f2937;
+      position: relative;
+      padding-bottom: 5.5rem; /* space for logout button */
+    }
+    header {
+      background: rgba(255 255 255 / 0.15);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      animation: fadeInDown 0.7s ease forwards;
+      border-bottom: 1px solid rgba(255 255 255 / 0.3);
+    }
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.7s ease forwards;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    main {
+      flex-grow: 1;
+      max-width: 480px;
+      margin: 2rem auto 3rem;
+      background: rgba(255 255 255 / 0.95);
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      padding: 2.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    main::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(48,207,207,0.15), transparent 70%);
+      animation: pulse 6s ease-in-out infinite;
+      z-index: 0;
+      border-radius: 50%;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+      }
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #0f172a;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 6px rgba(48,207,207,0.4);
+    }
+    .profile-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .profile-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .profile-label {
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: #14b8a6;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 3px rgba(48,207,207,0.3);
+    }
+    .profile-value {
+      font-size: 1.125rem;
+      color: #334155;
+      background: #f0f9f9;
+      padding: 0.6rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      font-family: 'Courier New', Courier, monospace;
+      user-select: text;
+      word-break: break-word;
+      transition: background-color 0.3s ease;
+    }
+    .profile-value:hover {
+      background-color: #d1f0f0;
+    }
+    .points-badge {
+      align-self: flex-start;
+      background: linear-gradient(135deg, #30cfcf, #238383);
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 15px rgba(35,131,131,0.6);
+      letter-spacing: 0.05em;
+      user-select: none;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      margin-top: 0.25rem;
+      transition: transform 0.3s ease;
+    }
+    .points-badge:hover {
+      transform: scale(1.05);
+    }
+    .decorative-circles {
+      position: absolute;
+      top: -3rem;
+      right: -3rem;
+      width: 150px;
+      height: 150px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .decorative-circles span {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid rgba(48,207,207,0.3);
+      animation: rotate 20s linear infinite;
+    }
+    .decorative-circles span:nth-child(1) {
+      width: 150px;
+      height: 150px;
+      top: 0;
+      left: 0;
+      animation-duration: 25s;
+    }
+    .decorative-circles span:nth-child(2) {
+      width: 100px;
+      height: 100px;
+      top: 25px;
+      left: 25px;
+      animation-duration: 18s;
+      animation-direction: reverse;
+    }
+    .decorative-circles span:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 45px;
+      left: 45px;
+      animation-duration: 30s;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    @media (max-width: 480px) {
+      main {
+        margin: 1rem 1rem 2rem;
+        padding: 2rem 1.5rem 2.5rem;
+      }
+      .profile-card {
+        padding: 1.5rem 1.75rem;
+      }
+    }
+    /* Logout button fixed bottom center */
+    #logoutBtn {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ef4444;
+      color: white;
+      font-weight: 700;
+      padding: 0.75rem 2.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 15px rgba(239,68,68,0.7);
+      cursor: pointer;
+      border: none;
+      font-size: 1.125rem;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+    #logoutBtn:hover,
+    #logoutBtn:focus {
+      background-color: #b91c1c;
+      outline: none;
+    }
+    /* Transaction history table container for scroll */
+    .transaction-scroll-container {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 300px;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      background: white;
+    }
+    /* Transaction history table */
+    #transactionHistory {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 0.75rem;
+      min-width: 720px;
+    }
+    #transactionHistory thead {
+      background: #30cfcf;
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    #transactionHistory thead th {
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    #transactionHistory tbody tr:nth-child(even) {
+      background: #f9fafb;
+    }
+    #transactionHistory tbody td {
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      color: #334155;
+      vertical-align: middle;
+      word-break: break-word;
+      white-space: nowrap;
+    }
+    #transactionHistory tbody td.status {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+    #transactionHistory tbody td.status.Success {
+      color: #16a34a;
+    }
+    #transactionHistory tbody td.status.Pending {
+      color: #ca8a04;
+    }
+    #transactionHistory tbody td.status.Failed {
+      color: #dc2626;
+    }
+    #transactionHistory tbody td.status.Refunded {
+      color: #2563eb;
+    }
+    #transactionHistory tbody td.pointsEarned {
+      font-weight: 700;
+      color: #14b8a6;
+      text-align: center;
+    }
+    #transactionHistoryCaption {
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+      color: #30cfcf;
+      text-align: center;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+      <button id="backButton" aria-label="Back to Login" class="text-white text-3xl focus:outline-none hover:text-[#14b8a6]" type="button" title="Kembali ke Login">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1>Profil User</h1>
+      <div class="w-10"></div>
+    </div>
+  </header>
+  <main>
+    <div class="content">
+      <div class="profile-card" role="region" aria-label="Informasi Profil User">
+        <div class="profile-item">
+          <div class="profile-label">Nama Lengkap</div>
+          <div id="userName" class="profile-value" tabindex="0" aria-live="polite" aria-atomic="true">-</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">Email</div>
+          <div id="userEmail" class="profile-value" tabindex="0" aria-live="polite" aria-atomic="true">-</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">Nomor Telepon</div>
+          <div id="userPhone" class="profile-value" tabindex="0" aria-live="polite" aria-atomic="true">-</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">Password</div>
+          <div id="userPassword" class="profile-value" tabindex="0" aria-live="polite" aria-atomic="true">-</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">Poin Topup</div>
+          <div id="userPoints" class="points-badge" tabindex="0" aria-live="polite" aria-atomic="true">0</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">Tanggal Bergabung</div>
+          <div id="userJoinDate" class="profile-value" tabindex="0" aria-live="polite" aria-atomic="true">-</div>
+        </div>
+      </div>
+
+      <div role="region" aria-label="Riwayat Transaksi" class="mb-6">
+        <div id="transactionHistoryCaption">Riwayat Transaksi</div>
+        <div class="transaction-scroll-container" tabindex="0" aria-label="Tabel riwayat transaksi dengan scroll horizontal dan vertikal">
+          <table id="transactionHistory" aria-live="polite" aria-relevant="additions removals" aria-atomic="true">
+            <thead>
+              <tr>
+                <th scope="col">ID Transaksi</th>
+                <th scope="col">Jenis</th>
+                <th scope="col">Game</th>
+                <th scope="col">Metode Bayar</th>
+                <th scope="col">Harga (IDR)</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Status</th>
+                <th scope="col">Poin Didapat</th>
+                <th scope="col">Catatan</th>
+              </tr>
+            </thead>
+            <tbody id="transactionTableBody">
+              <tr><td colspan="9" class="text-center py-4 text-gray-500">Belum ada riwayat transaksi.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="decorative-circles" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </main>
+
+  <button id="logoutBtn" type="button" aria-label="Logout">LOG OUT</button>
+
+  <script>
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+    document.getElementById('backButton').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('backButton').click();
+      }
+    });
+
+    function formatPhoneDisplay(phone) {
+      if (!phone || !phone.startsWith('+62')) return phone || '';
+      let num = phone.slice(3);
+      if (num.length <= 3) return '+62 ' + num;
+      let formatted = '+62 ' + num.slice(0,3);
+      let rest = num.slice(3);
+      while (rest.length > 0) {
+        formatted += '-' + rest.slice(0,4);
+        rest = rest.slice(4);
+      }
+      return formatted;
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return '-';
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const date = new Date(dateString);
+      if (isNaN(date)) return '-';
+      return date.toLocaleDateString('id-ID', options);
+    }
+
+    function formatDateTime(dateString) {
+      if (!dateString) return '-';
+      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      const date = new Date(dateString);
+      if (isNaN(date)) return '-';
+      return date.toLocaleDateString('id-ID', options);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/[&<>"']/g, function(m) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+      });
+    }
+
+    function maskTransactionID(id) {
+      if (!id) return '-';
+      const len = id.length;
+      if (len <= 6) return '*'.repeat(len);
+      const visiblePart = id.slice(0, len - 6);
+      const maskedPart = '*'.repeat(6);
+      return visiblePart + maskedPart;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const userJSON = localStorage.getItem('boi_xd_current_user');
+      if (!userJSON) {
+        alert('User tidak ditemukan, silakan login terlebih dahulu.');
+        window.location.href = 'login.html';
+        return;
+      }
+      const user = JSON.parse(userJSON);
+
+      document.getElementById('userName').textContent = user.name || '-';
+      document.getElementById('userEmail').textContent = user.email || '-';
+      document.getElementById('userPhone').textContent = formatPhoneDisplay(user.phone) || '-';
+      document.getElementById('userPassword').textContent = user.password || '-';
+      document.getElementById('userPoints').textContent = user.points !== undefined ? user.points : '0';
+      document.getElementById('userJoinDate').textContent = formatDate(user.createdAt);
+
+      // Render transaction history
+      const tbody = document.getElementById('transactionTableBody');
+      tbody.innerHTML = '';
+      if (!user.transactions || user.transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-gray-500">Belum ada riwayat transaksi.</td></tr>`;
+      } else {
+        user.transactions.forEach(tx => {
+          const tr = document.createElement('tr');
+          const statusClass = ['Success','Pending','Failed','Refunded'].includes(tx.status) ? tx.status : '';
+          const jenis = tx.transactionType ? (tx.transactionType === 'topup' ? 'Topup' : (tx.transactionType === 'account_sale' ? 'Penjualan Akun' : tx.transactionType)) : '-';
+          tr.innerHTML = `
+            <td>${escapeHtml(maskTransactionID(tx.transactionID))}</td>
+            <td>${escapeHtml(jenis)}</td>
+            <td>${escapeHtml(tx.game || '-')}</td>
+            <td>${escapeHtml(tx.paymentMethod || '-')}</td>
+            <td>${tx.price !== undefined ? tx.price.toLocaleString('id-ID') : '-'}</td>
+            <td>${formatDateTime(tx.date)}</td>
+            <td class="status ${statusClass}">${escapeHtml(tx.status || '-')}</td>
+            <td class="pointsEarned">${tx.pointsEarned !== undefined ? tx.pointsEarned : '-'}</td>
+            <td>${escapeHtml(tx.notes || '')}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Clear all user-related localStorage keys
+      localStorage.removeItem('boi_xd_current_user');
+      // Optionally clear all users? Usually not, just current user logout
+      // localStorage.removeItem('boi_xd_users');
+
+      // Prompt user to confirm logout and re-login
+      const confirmed = confirm('Anda akan logout dari semua akun. Silakan login ulang untuk mengakses kembali.');
+      if (confirmed) {
+        window.location.href = 'login.html';
+      }
+    });
+    document.getElementById('logoutBtn').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('logoutBtn').click();
+      }
+    });
+  </script>
+</body>
+</html>

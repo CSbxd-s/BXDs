@@ -1,0 +1,293 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Live CS - BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #30cfcf;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    header h1 {
+      color: white;
+      font-weight: 600;
+      font-size: 1.5rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 7xl;
+      margin: 0 auto;
+      padding: 1rem 1rem 4rem;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 64px);
+    }
+    #chatContainer {
+      flex-grow: 1;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      scroll-behavior: smooth;
+    }
+    .message {
+      max-width: 75%;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .message.user {
+      background-color: #30cfcf;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0.25rem;
+    }
+    .message.bot {
+      background-color: #f3f4f6;
+      color: #111827;
+      align-self: flex-start;
+      border-bottom-left-radius: 0.25rem;
+    }
+    #suggestedQuestions {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
+    .suggested-btn {
+      background-color: #30cfcf;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+      user-select: none;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(48, 207, 207, 0.4);
+      align-self: center;
+    }
+    .suggested-btn:hover,
+    .suggested-btn:focus {
+      background-color: #2bbaba;
+      outline: none;
+      box-shadow: 0 6px 12px rgba(43, 186, 186, 0.6);
+    }
+    .suggested-btn:active {
+      background-color: #239999;
+      box-shadow: 0 3px 8px rgba(35, 153, 153, 0.7);
+    }
+    /* Scrollbar styling for suggestedQuestions */
+    #suggestedQuestions::-webkit-scrollbar {
+      width: 6px;
+    }
+    #suggestedQuestions::-webkit-scrollbar-thumb {
+      background-color: rgba(48, 207, 207, 0.5);
+      border-radius: 3px;
+    }
+    #suggestedQuestions::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      main {
+        padding: 1rem 0.5rem 4rem;
+      }
+      #chatContainer {
+        max-width: 100%;
+      }
+      #suggestedQuestions {
+        max-height: 200px;
+        width: 100%;
+        padding-right: 0;
+      }
+      .suggested-btn {
+        max-width: 100%;
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Live CS - BOI XD Store</h1>
+  </header>
+  <main>
+    <div id="chatContainer" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div id="suggestedQuestions" aria-label="Pilihan pertanyaan utama" role="list"></div>
+  </main>
+  <script>
+    const chatContainer = document.getElementById('chatContainer');
+    const suggestedQuestions = document.getElementById('suggestedQuestions');
+
+    // Mapping questions to fixed answers
+    const qaMap = {
+      "Bagaimana cara melakukan TopUp?": "Untuk melakukan TopUp, Anda dapat memilih menu 'Cara TopUp' di aplikasi kami dan mengikuti langkah-langkah yang tertera. Pastikan saldo Anda mencukupi dan metode pembayaran sudah benar.",
+      "Apa promo terbaru saat ini?": "Promo terbaru kami dapat Anda lihat di menu 'Promo & Diskon'. Kami sering memberikan diskon menarik dan bonus khusus untuk pelanggan setia.",
+      "Bagaimana cara menghubungi admin?": "Anda dapat menghubungi admin melalui menu 'Kontak Admin' atau menggunakan tombol WhatsApp yang tersedia di aplikasi untuk chat langsung.",
+      "Buka menu lain": "Silakan pilih salah satu kategori berikut untuk pertanyaan atau laporan lainnya."
+    };
+
+    // Main suggested questions from introduction (3 + 1 lainnya)
+    const mainSuggested = [
+      { text: "Bagaimana cara melakukan TopUp?" },
+      { text: "Apa promo terbaru saat ini?" },
+      { text: "Bagaimana cara menghubungi admin?" },
+      { text: "Buka menu lain" }
+    ];
+
+    // Additional questions for "menu lain" (many)
+    const otherQuestions = [
+      { text: "Apa jadwal operasional BOI XD Store?" },
+      { text: "Bagaimana cara melaporkan masalah?" },
+      { text: "Apa persyaratan untuk TopUp?" },
+      { text: "Bagaimana kebijakan privasi BOI XD Store?" },
+      { text: "Apakah ada event atau turnamen yang sedang berlangsung?" },
+      { text: "Bagaimana cara bergabung dengan grup BOI XD Store?" },
+      { text: "Apa saja layanan yang tersedia di BOI XD Store?" },
+      { text: "Laporan masalah pembayaran" },
+      { text: "Laporan gangguan layanan" },
+      { text: "Pertanyaan tentang kebijakan privasi" },
+      { text: "Kembali ke menu utama" }
+    ];
+
+    // Mapping additional questions to answers
+    const otherQaMap = {
+      "Apa jadwal operasional BOI XD Store?": "Jadwal operasional kami adalah Senin sampai Minggu, pukul 08.00 sampai 22.00 WIB.",
+      "Bagaimana cara melaporkan masalah?": "Anda dapat melaporkan masalah melalui menu 'Laporkan' di aplikasi atau menghubungi admin langsung.",
+      "Apa persyaratan untuk TopUp?": "Persyaratan TopUp dapat Anda lihat di menu 'Persyaratan Topup' yang berisi ketentuan dan panduan lengkap.",
+      "Bagaimana kebijakan privasi BOI XD Store?": "Kebijakan privasi kami tersedia di menu 'Kebijakan Privasi dan Ketentuan'. Kami menjaga data Anda dengan sangat serius.",
+      "Apakah ada event atau turnamen yang sedang berlangsung?": "Informasi event dan turnamen terbaru dapat Anda lihat di menu 'Event & Turnamen'.",
+      "Bagaimana cara bergabung dengan grup BOI XD Store?": "Anda dapat bergabung dengan grup melalui menu 'Grup' di aplikasi untuk mendapatkan update dan diskusi komunitas.",
+      "Apa saja layanan yang tersedia di BOI XD Store?": "Kami menyediakan berbagai layanan seperti TopUp game, promo, layanan pelanggan, dan event menarik.",
+      "Laporan masalah pembayaran": "Mohon maaf atas ketidaknyamanan. Silakan berikan detail masalah pembayaran Anda melalui kontak admin agar kami dapat membantu segera.",
+      "Laporan gangguan layanan": "Kami sedang memantau gangguan layanan. Mohon tunggu sebentar, tim kami akan segera memperbaiki masalah tersebut.",
+      "Pertanyaan tentang kebijakan privasi": "Kebijakan privasi kami dapat Anda baca lengkap di menu 'Kebijakan Privasi dan Ketentuan' pada aplikasi.",
+      "Kembali ke menu utama": "Silakan pilih pertanyaan utama yang ingin Anda tanyakan."
+    };
+
+    let inOtherMenu = false;
+
+    // Function to add message to chat container
+    function addMessage(text, sender) {
+      const messageEl = document.createElement('div');
+      messageEl.classList.add('message', sender);
+      messageEl.textContent = text;
+      chatContainer.appendChild(messageEl);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Initial greeting and introduction from bot with main suggested buttons
+    function initialGreeting() {
+      const greetings = [
+        "Halo! Selamat datang di Live CS BOI XD Store.",
+        "Saya adalah asisten virtual yang siap membantu Anda.",
+        "Silakan pilih salah satu pertanyaan di bawah ini."
+      ];
+      greetings.forEach((text, i) => {
+        setTimeout(() => {
+          addMessage(text, 'bot');
+          if(i === greetings.length - 1) {
+            renderSuggestedQuestions(mainSuggested);
+          }
+        }, i * 700);
+      });
+    }
+
+    // Render suggested question buttons vertically scrollable
+    function renderSuggestedQuestions(questions) {
+      suggestedQuestions.innerHTML = '';
+      questions.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'suggested-btn';
+        btn.textContent = item.text;
+        btn.setAttribute('role', 'listitem');
+        btn.addEventListener('click', () => {
+          addMessage(item.text, 'user');
+          handleQuestion(item.text);
+        });
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+        suggestedQuestions.appendChild(btn);
+      });
+    }
+
+    // Handle question selection and responses
+    function handleQuestion(question) {
+      if (!inOtherMenu) {
+        if (question === "Buka menu lain") {
+          inOtherMenu = true;
+          addMessage(qaMap[question], 'bot');
+          renderSuggestedQuestions(otherQuestions);
+        } else {
+          const answer = qaMap[question] || "Maaf, saya belum memiliki jawaban untuk pertanyaan tersebut.";
+          setTimeout(() => {
+            addMessage(answer, 'bot');
+          }, 800);
+        }
+      } else {
+        if (question === "Kembali ke menu utama") {
+          inOtherMenu = false;
+          addMessage(otherQaMap[question], 'bot');
+          renderSuggestedQuestions(mainSuggested);
+        } else {
+          const answer = otherQaMap[question] || "Maaf, saya belum memiliki jawaban untuk pertanyaan tersebut.";
+          setTimeout(() => {
+            addMessage(answer, 'bot');
+          }, 800);
+        }
+      }
+    }
+
+    // Focus input on page load and show greeting + suggested questions
+    window.onload = () => {
+      initialGreeting();
+    };
+  </script>
+</body>
+</html>

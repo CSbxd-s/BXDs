@@ -1,0 +1,865 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Topup Call of Duty Mobile - BOI XD Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+    }
+    /* Custom radio button styles */
+    input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      border: 2px solid #d1d5db; /* gray-300 */
+      transition: border-color 0.3s, background-color 0.3s;
+      position: relative;
+      outline-offset: 2px;
+    }
+    input[type="radio"]:checked {
+      border-color: #6366f1; /* indigo-500 */
+      background-color: #e0e7ff; /* indigo-100 */
+    }
+    input[type="radio"]:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+    label.radio-label {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      height: 100px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    input[type="radio"]:checked + label.radio-label {
+      border-color: #6366f1;
+      background-color: #e0e7ff;
+    }
+    /* Adjust payment logos for rectangular shape */
+    .payment-logo-rect {
+      width: 48px;
+      height: 24px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    /* Square logos */
+    .payment-logo-square {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    /* Disabled payment container */
+    .payment-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+    /* Button press animation */
+    .btn-press {
+      animation: btnPressAnim 0.2s ease forwards;
+    }
+    @keyframes btnPressAnim {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(0.95);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    /* Container for nominal topup with extra height and border */
+    #nominalContainer {
+      min-height: calc(6 * 100px + 15px);
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      overflow-y: auto;
+      max-height: 650px;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+    <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
+     <i class="fas fa-arrow-left">
+     </i>
+    </a>
+    <h1 class="text-2xl font-semibold text-gray-800">
+     Topup Call of Duty Mobile
+    </h1>
+   </div>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+   <section class="bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
+     <img alt="Logo game Call of Duty Mobile dengan karakter tentara dan latar belakang dinamis, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/DD1btxbs/codm.jpg" width="128"/>
+     <div class="mt-4 sm:mt-0 text-center sm:text-left">
+      <h2 class="text-xl font-semibold text-gray-900">
+       Call of Duty Mobile
+      </h2>
+      <p class="mt-2 text-gray-600">
+       Top up akun Call of Duty Mobile Anda dengan cepat dan aman. Pilih nominal yang diinginkan di bawah dan selesaikan pembelian Anda.
+      </p>
+     </div>
+    </div>
+    <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="userId">
+       ID Pengguna
+      </label>
+      <input aria-describedby="userIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="userId" inputmode="numeric" maxlength="20" minlength="18" name="userId" pattern="^\d{18,20}$" placeholder="Masukkan ID Pengguna (18-20 digit)" required="" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="userIdHelp">
+       ID unik pemain Call of Duty Mobile Anda (18 sampai 20 digit).
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="userIdError" role="alert">
+       Harap masukkan ID Pengguna yang valid (18-20 digit).
+      </p>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="userIdAttention" role="alert">
+       ID Pengguna minimal 18 digit.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Jenis Topup
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedTopupType">
+          Pilih Jenis Topup
+         </span>
+        </div>
+        <button aria-controls="topupTypeOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleTopupTypeBtn" type="button">
+         <span id="toggleTopupTypeText">
+          Sembunyikan
+         </span>
+         <i class="fas fa-chevron-up" id="toggleTopupTypeIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-1 gap-4" id="topupTypeOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="topupCP" name="topupType" type="radio" value="cp" checked/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupCP" tabindex="0">
+          <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-20 h-20 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="80" height="80"/>
+          <span class="text-lg font-semibold text-gray-900">
+           TOPUP CP
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="hidden" id="nominalSection">
+      <label class="block text-sm font-medium text-gray-700 mt-6 mb-2">
+       Pilih Topup
+      </label>
+      <div id="nominalContainer" class="fade-in grid grid-cols-2 sm:grid-cols-3 gap-4 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="pkg31" name="package" type="radio" value="31"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg31" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          31
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 4.175
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg63" name="package" type="radio" value="63"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg63" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          63
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 8.558
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg128" name="package" type="radio" value="128"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg128" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          128
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 17.111
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg321" name="package" type="radio" value="321"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg321" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          321
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 42.770
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg645" name="package" type="radio" value="645"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg645" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          645
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 85.535
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg800" name="package" type="radio" value="800"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg800" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          800
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 102.645
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg1373" name="package" type="radio" value="1373"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg1373" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          1373
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 171.085
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg2060" name="package" type="radio" value="2060"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg2060" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          2060
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 256.614
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg3564" name="package" type="radio" value="3564"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg3564" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          3564
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 427.674
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg5618" name="package" type="radio" value="5618"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg5618" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          5618
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 624.392
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg7656" name="package" type="radio" value="7656"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg7656" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          7656
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 855.323
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg15312" name="package" type="radio" value="15312"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg15312" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          15312
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.667.855
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg38280" name="package" type="radio" value="38280"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg38280" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          38280
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 4.169.602
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg76560" name="package" type="radio" value="76560"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg76560" tabindex="0">
+         <img alt="Logo Call of Duty Mobile berukuran 100x100 piksel" class="mb-1 w-16 h-16 object-contain rounded" src="https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png" width="64" height="64"/>
+         <span class="text-lg font-semibold text-gray-900">
+          76560
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 8.346.765
+         </span>
+        </label>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageError" role="alert">
+       Harap pilih nominal topup.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Metode Pembayaran
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="paymentContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <svg aria-hidden="true" class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8c-1.657 0-3 1.343-3 3v3h6v-3c0-1.657-1.343-3-3-3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+         </svg>
+         <span class="font-semibold text-gray-900" id="selectedPaymentLabel">
+          Pilih Metode
+         </span>
+        </div>
+        <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
+         <span id="toggleDetailsText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payGopay" tabindex="0">
+          <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/9396e7c5-193e-45c1-23fd-39e0d7bc7b88.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           GoPay
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payQris" tabindex="0">
+          <img alt="Logo QRIS hitam putih dengan pola QR code" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/d289858b-f4e0-45af-bb28-72e45f0abdb7.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           QRIS
+          </span>
+          <span class="text-sm text-green-600">
+           Harga Jual + Rp 1
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payOvo" tabindex="0">
+          <img alt="Logo OVO ungu dengan tulisan OVO" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/7b6122b9-3894-4e54-d0b7-f46f32384e14.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           OVO
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payDana" tabindex="0">
+          <img alt="Logo DANA biru dengan tulisan DANA" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/897bb46b-c8ea-4018-9f03-ff612ac39255.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           DANA
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="paySpay" tabindex="0">
+          <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/2029360c-9b38-4043-a875-2c7e7c89fa84.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           ShopeePay
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payLinkaja" tabindex="0">
+          <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/154b85c2-279e-4d9d-bb89-9d10f241e6c7.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           LinkAja
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
+       Pilih nominal terlebih dahulu untuk memilih metode pembayaran.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
+       Harap pilih metode pembayaran.
+      </p>
+     </div>
+     <button class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 text-white font-semibold py-3 rounded-md transition-colors" type="submit">
+      Lanjutkan Topup
+     </button>
+    </form>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0">
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 BOI XD Topup. Semua hak dilindungi.
+   </div>
+  </footer>
+  <script>
+   (() => {
+      const form = document.getElementById('topupForm');
+      const userIdInput = document.getElementById('userId');
+      const topupTypeRadios = form.querySelectorAll('input[name="topupType"]');
+      const nominalSection = document.getElementById('nominalSection');
+      const packageRadios = form.querySelectorAll('input[name="package"]');
+      const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
+      const paymentOptions = document.getElementById('paymentOptions');
+      const paymentContainer = document.getElementById('paymentContainer');
+      const toggleDetailsBtn = document.getElementById('toggleDetailsBtn');
+      const selectedPaymentLabel = document.getElementById('selectedPaymentLabel');
+      const toggleDetailsText = document.getElementById('toggleDetailsText');
+      const toggleDetailsIcon = document.getElementById('toggleDetailsIcon');
+
+      const userIdError = document.getElementById('userIdError');
+      const userIdAttention = document.getElementById('userIdAttention');
+      const packageError = document.getElementById('packageError');
+      const paymentMethodError = document.getElementById('paymentMethodError');
+      const paymentBlockedAttention = document.getElementById('paymentBlockedAttention');
+
+      const selectedTopupType = document.getElementById('selectedTopupType');
+      const topupTypeOptions = document.getElementById('topupTypeOptions');
+      const toggleTopupTypeBtn = document.getElementById('toggleTopupTypeBtn');
+      const toggleTopupTypeText = document.getElementById('toggleTopupTypeText');
+      const toggleTopupTypeIcon = document.getElementById('toggleTopupTypeIcon');
+
+      // Harga Asli (Rp) untuk nominal topup
+      const packageBasePrices = {
+        "31": 4175,
+        "63": 8558,
+        "128": 17111,
+        "321": 42770,
+        "645": 85535,
+        "800": 102645,
+        "1373": 171085,
+        "2060": 256614,
+        "3564": 427674,
+        "5618": 624392,
+        "7656": 855323,
+        "15312": 1667855,
+        "38280": 4169602,
+        "76560": 8346765
+      };
+
+      // Harga Jual (Rp) untuk nominal topup
+      const packageSellPrices = {
+        "31": 4400,
+        "63": 8900,
+        "128": 17700,
+        "321": 44100,
+        "645": 88200,
+        "800": 105800,
+        "1373": 176300,
+        "2060": 264400,
+        "3564": 440600,
+        "5618": 643200,
+        "7656": 881000,
+        "15312": 1717900,
+        "38280": 4294700,
+        "76560": 8597200
+      };
+
+      // Payment method price adjustments
+      // QRIS = Harga Jual + 1
+      // Others = Harga Jual + 2% (except 3% for large nominal packages)
+      const paymentPriceAdjustments = {
+        gopay: (base, pkg) => {
+          if (["3564","5618","7656","15312","38280","76560"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        qris: (base) => base + 1,
+        ovo: (base, pkg) => {
+          if (["3564","5618","7656","15312","38280","76560"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        dana: (base, pkg) => {
+          if (["3564","5618","7656","15312","38280","76560"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        spay: (base, pkg) => {
+          if (["3564","5618","7656","15312","38280","76560"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        linkaja: (base, pkg) => {
+          if (["3564","5618","7656","15312","38280","76560"].includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        }
+      };
+
+      function formatRupiah(number) {
+        return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      function updatePaymentPrices() {
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        if (!selectedPackage) return;
+
+        const nominal = selectedPackage.value;
+        const basePrice = packageSellPrices[nominal];
+        if (!basePrice) return;
+
+        paymentMethodRadios.forEach(radio => {
+          const label = radio.nextElementSibling;
+          let priceSpan = label.querySelector('span.text-sm');
+          if (!priceSpan) {
+            priceSpan = document.createElement('span');
+            priceSpan.className = 'text-sm text-gray-600';
+            label.appendChild(priceSpan);
+          }
+          const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
+          priceSpan.textContent = formatRupiah(adjustedPrice);
+          if (radio.value === 'qris') {
+            priceSpan.classList.remove('text-gray-600');
+            priceSpan.classList.add('text-green-600');
+          } else {
+            priceSpan.classList.remove('text-green-600');
+            priceSpan.classList.add('text-gray-600');
+          }
+        });
+      }
+
+      function validateUserId() {
+        const value = userIdInput.value.trim();
+        const onlyDigits = /^\d*$/.test(value);
+        if (!onlyDigits) {
+          userIdInput.value = value.replace(/\D/g, '');
+          return false;
+        }
+        if (value.length < 18) {
+          userIdAttention.classList.remove('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        } else if (value.length > 20) {
+          userIdInput.value = value.slice(0,20);
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.removeAttribute('aria-invalid');
+          return true;
+        } else if (value.length >= 18 && value.length <= 20) {
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.removeAttribute('aria-invalid');
+          return true;
+        } else {
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.remove('hidden');
+          userIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        }
+      }
+
+      function validatePackage() {
+        let selected = false;
+        packageRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          packageError.classList.remove('hidden');
+        } else {
+          packageError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function validatePaymentMethod() {
+        let selected = false;
+        paymentMethodRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          paymentMethodError.classList.remove('hidden');
+        } else {
+          paymentMethodError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function updatePaymentAvailability() {
+        const packageSelected = validatePackage();
+        if (packageSelected) {
+          paymentContainer.classList.remove('payment-disabled');
+          paymentBlockedAttention.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.disabled = false;
+          });
+        } else {
+          paymentContainer.classList.add('payment-disabled');
+          paymentBlockedAttention.classList.remove('hidden');
+          paymentMethodError.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.checked = false;
+            radio.disabled = true;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        }
+      }
+
+      // Utility to add press animation on buttons
+      function addPressAnimation(button) {
+        button.addEventListener('click', () => {
+          button.classList.add('btn-press');
+          setTimeout(() => {
+            button.classList.remove('btn-press');
+          }, 200);
+        });
+      }
+
+      // Add press animation to all toggle buttons
+      [toggleDetailsBtn, toggleTopupTypeBtn].forEach(btn => {
+        if (btn) addPressAnimation(btn);
+      });
+
+      toggleDetailsBtn.addEventListener('click', () => {
+        const expanded = toggleDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        } else {
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      toggleTopupTypeBtn.addEventListener('click', () => {
+        const expanded = toggleTopupTypeBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          topupTypeOptions.classList.add('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'false');
+          toggleTopupTypeText.textContent = 'Detail';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-up');
+          toggleTopupTypeIcon.classList.add('fa-chevron-down');
+        } else {
+          topupTypeOptions.classList.remove('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'true');
+          toggleTopupTypeText.textContent = 'Sembunyikan';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-down');
+          toggleTopupTypeIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      topupTypeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          selectedTopupType.textContent = radio.nextElementSibling.textContent.trim();
+          if (radio.value === 'cp') {
+            nominalSection.classList.remove('hidden');
+          } else {
+            nominalSection.classList.add('hidden');
+          }
+          // Clear package selection and errors
+          packageRadios.forEach(pkg => pkg.checked = false);
+          packageError.classList.add('hidden');
+
+          // Reset payment method selection and label
+          paymentMethodRadios.forEach(pm => pm.checked = false);
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+
+          updatePaymentAvailability();
+          updatePaymentPrices();
+        });
+      });
+
+      paymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          const label = radio.nextElementSibling.querySelector('span.font-semibold');
+          if (label) {
+            selectedPaymentLabel.textContent = label.textContent;
+          }
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        });
+      });
+
+      packageRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          updatePaymentPrices();
+          paymentMethodRadios.forEach(pmRadio => {
+            pmRadio.checked = false;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+          paymentMethodError.classList.add('hidden');
+
+          updatePaymentAvailability();
+        });
+      });
+
+      userIdInput.addEventListener('input', () => {
+        // Enforce numeric only and max length 20
+        userIdInput.value = userIdInput.value.replace(/\D/g, '').slice(0,20);
+        validateUserId();
+      });
+
+      // Initialize: show nominalSection only if topupCP is checked
+      if (document.getElementById('topupCP').checked) {
+        nominalSection.classList.remove('hidden');
+      } else {
+        nominalSection.classList.add('hidden');
+      }
+
+      // Initialize payment availability on load
+      updatePaymentAvailability();
+      updatePaymentPrices();
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const missingFields = [];
+        if (!validateUserId()) missingFields.push("ID Pengguna");
+        if (!validatePackage()) missingFields.push("Nominal");
+        if (!validatePaymentMethod()) missingFields.push("Metode Pembayaran");
+
+        if (missingFields.length > 0) {
+          alert(`Harap isi ${missingFields.join(", ")}`);
+          return;
+        }
+
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        const packageLabelSpan = selectedPackage.nextElementSibling.querySelector('span.text-lg, span.font-semibold');
+        const packageLabel = packageLabelSpan ? packageLabelSpan.textContent : selectedPackage.value;
+        const basePrice = packageBasePrices[selectedPackage.value];
+        const selectedPayment = Array.from(paymentMethodRadios).find(r => r.checked);
+        const paymentLabel = selectedPayment.nextElementSibling.querySelector('span.font-semibold').textContent;
+        const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+        // Use WhatsApp number without symbols/spaces for URL
+        const phoneNumber = '6283132420423';
+
+        const message = `Halo, saya ingin melakukan topup Call of Duty Mobile dengan detail berikut:%0A` +
+          `ID Pengguna: ${userIdInput.value.trim()}%0A` +
+          `Nominal: ${packageLabel}%0A` +
+          `Metode Pembayaran: ${paymentLabel}%0A` +
+          `Harga: ${formatRupiah(adjustedPrice)}`;
+
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+        // Open WhatsApp chat in new tab
+        window.open(whatsappUrl, '_blank');
+      });
+    })();
+  </script>
+ </body>
+</html>

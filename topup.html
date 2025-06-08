@@ -48,21 +48,6 @@
       box-shadow: 0 25px 35px rgba(99, 102, 241, 0.5);
       transform-origin: center bottom;
     }
-    nav#bottomNav {
-      height: 64px;
-    }
-    nav#bottomNav .floating-topup {
-      position: absolute;
-      top: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 50;
-      box-shadow: 0 10px 15px rgba(99, 102, 241, 0.5);
-      transition: background-color 0.3s ease;
-    }
-    nav#bottomNav .floating-topup:active {
-      background-color: #4338ca;
-    }
     /* Panel hitam di bawah tombol TopUp */
     #bottomOverlay {
       position: fixed;
@@ -110,15 +95,108 @@
         transform: translateY(-8px);
       }
     }
+    /* WhatsApp floating button container */
+    #whatsappContainer {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Popup buttons container */
+    #popupButtons {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    #popupButtons.show {
+      display: flex;
+    }
+    /* Popup button style */
+    .popup-btn {
+      background-color: #25D366;
+      color: white;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      width: max-content;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s ease;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    .popup-btn:first-child {
+      margin-top: 0;
+    }
+    .popup-btn:hover {
+      background-color: #1ebe57;
+    }
+    /* WhatsApp main button style */
+    #whatsappBtn {
+      width: 56px;
+      height: 56px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #whatsappBtn:hover {
+      background-color: #f0f0f0;
+    }
+    #whatsappBtn img {
+      width: 32px;
+      height: 32px;
+      user-select: none;
+      pointer-events: none;
+    }
+    /* Profile button in header */
+    #profileBtnHeader {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4B5563; /* gray-600 */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: color 0.2s ease;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    #profileBtnHeader:hover,
+    #profileBtnHeader:focus {
+      color: #6366f1; /* indigo-500 */
+      outline: none;
+    }
+    /* Add border-radius curve to all images */
+    img {
+      border-radius: 0.75rem; /* Tailwind's rounded-xl */
+    }
   </style>
  </head>
  <body class="bg-gray-50 min-h-screen flex flex-col pb-20">
-  <header class="bg-white shadow-md sticky top-0 z-30">
+  <header class="bg-white shadow-md sticky top-0 z-30 relative">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-center">
     <h1 class="text-2xl font-semibold text-gray-800">
      BOI XD Topup
     </h1>
    </div>
+   <button id="profileBtnHeader" aria-label="Profil" title="Profil" type="button" tabindex="0">
+    <i class="fas fa-user"></i>
+   </button>
   </header>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
    <div class="relative w-full max-w-md mx-auto">
@@ -132,10 +210,10 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
    <div class="relative w-full overflow-hidden rounded-lg shadow-lg" style="padding-top: 56.25%">
     <div class="absolute top-0 left-0 w-full h-full flex transition-transform duration-700 ease-in-out" id="slider">
-     <img alt="Promo banner showing Mobile Legends heroes in action with vibrant colors" class="w-full flex-shrink-0 object-cover" height="720" src="https://storage.googleapis.com/a1aa/image/533e7c7b-abc0-434b-6190-508e75e4475f.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
-     <img alt="Promo banner showing Freefire intense battle royale scene with fiery background" class="w-full flex-shrink-0 object-cover" height="720" src="https://storage.googleapis.com/a1aa/image/35a883a7-26b8-40eb-7516-9dc589debc90.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
-     <img alt="Promo banner showing Genshin Impact anime style characters in fantasy landscape" class="w-full flex-shrink-0 object-cover" height="720" src="https://storage.googleapis.com/a1aa/image/579a3c7f-4abd-40d3-7ce9-3ca219db80c7.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
-     <img alt="Promo banner showing PUBG Mobile soldier in combat gear with urban battlefield" class="w-full flex-shrink-0 object-cover" height="720" src="https://storage.googleapis.com/a1aa/image/af53db1c-7c8c-4752-978d-f79826d75664.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
+     <img alt="Promo banner showing Mobile Legends heroes in action with vibrant colors" class="w-full flex-shrink-0 object-cover" height="720" loading="lazy" src="https://storage.googleapis.com/a1aa/image/533e7c7b-abc0-434b-6190-508e75e4475f.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
+     <img alt="Promo banner showing Freefire intense battle royale scene with fiery background" class="w-full flex-shrink-0 object-cover" height="720" loading="lazy" src="https://storage.googleapis.com/a1aa/image/35a883a7-26b8-40eb-7516-9dc589debc90.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
+     <img alt="Promo banner showing Genshin Impact anime style characters in fantasy landscape" class="w-full flex-shrink-0 object-cover" height="720" loading="lazy" src="https://storage.googleapis.com/a1aa/image/579a3c7f-4abd-40d3-7ce9-3ca219db80c7.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
+     <img alt="Promo banner showing PUBG Mobile soldier in combat gear with urban battlefield" class="w-full flex-shrink-0 object-cover" height="720" loading="lazy" src="https://storage.googleapis.com/a1aa/image/af53db1c-7c8c-4752-978d-f79826d75664.jpg" style="aspect-ratio: 16 / 9" width="1280"/>
     </div>
     <button aria-label="Previous slide" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full p-2 focus:outline-none" id="prevBtn" type="button">
      <i class="fas fa-chevron-left">
@@ -150,7 +228,7 @@
   <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
    <ul aria-live="polite" aria-relevant="additions removals" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6" id="gameList" role="list">
     <li class="bg-white rounded-lg shadow hover:shadow-lg focus:shadow-lg transition-shadow cursor-pointer flex flex-col items-center p-4 opacity-0" data-index="0" data-inti="mobilelegends" style="animation: fadeInUp 0.4s forwards" tabindex="0">
-     <img alt="Logo Mobile Legends game with colorful hero characters in the background" class="w-24 h-24 object-contain mb-3" height="128" loading="lazy" src="https://i.ibb.co.com/fVtwn47D/512x512bb.jpg" width="128"/>
+     <img alt="Logo Mobile Legends game with colorful hero characters in the background" class="w-24 h-24 object-contain mb-3" height="128" loading="lazy" src="https://i.ibb.co/fVtwn47D/512x512bb.jpg" width="128"/>
      <span class="text-center text-gray-800 font-semibold text-sm sm:text-base">
       Mobile Legends
      </span>
@@ -258,7 +336,7 @@
      </span>
     </li>
     <li class="bg-white rounded-lg shadow hover:shadow-lg focus:shadow-lg transition-shadow cursor-pointer flex flex-col items-center p-4 opacity-0" data-index="18" data-inti="metalslug" style="animation: fadeInUp 0.4s forwards 0.9s" tabindex="0">
-     <img alt="Metal Slug game logo with classic pixel art soldiers and tank" class="w-24 h-24 object-contain mb-3" height="128" loading="lazy" src="https://storage.googleapis.com/a1aa/image/034d4492-53d2-4a00-c435-7a0f50dea28f.jpg" width="128"/>
+     <img alt="Metal Slug game logo with classic pixel art soldiers and tank" class="w-24 h-24 object-contain mb-3" height="128" loading="lazy" src="https://storage.googleapis.com/tokogame-img/products/metal-slug-awakening-vng.png" width="128"/>
      <span class="text-center text-gray-800 font-semibold text-sm sm:text-base">
       Metal Slug
      </span>
@@ -334,33 +412,20 @@
     Game Tidak Tersedia
    </p>
   </main>
-  <nav aria-label="Bottom navigation" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-md z-50" id="bottomNav">
-   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex justify-between items-center h-16 relative">
-    <button aria-label="Main Menu" class="flex flex-col items-center justify-center text-gray-600 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 z-40" data-inti="mainmenu" type="button">
-     <i class="fas fa-bars text-xl mb-1">
-     </i>
-     <span class="text-xs font-semibold">
-      Main Menu
-     </span>
-    </button>
-    <button aria-label="TopUp" class="flex flex-col items-center justify-center bg-indigo-600 text-white w-16 h-16 rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 floating-topup" data-inti="topup" type="button">
-     <i class="fas fa-coins text-2xl">
-     </i>
-     <span class="text-xs font-semibold mt-1">
-      TopUp
-     </span>
-    </button>
-    <button aria-label="Profil" class="flex flex-col items-center justify-center text-gray-600 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 z-40" data-inti="profil" type="button">
-     <i class="fas fa-user text-xl mb-1">
-     </i>
-     <span class="text-xs font-semibold">
-      Profil
-     </span>
-    </button>
-   </div>
-  </nav>
   <div id="bottomOverlay">
   </div>
+
+  <div id="whatsappContainer" aria-label="WhatsApp contact buttons">
+    <div id="popupButtons" role="menu" aria-hidden="true" aria-label="WhatsApp contact options">
+      <a href="https://wa.me/6283132420423" target="_blank" rel="noopener noreferrer" class="popup-btn" role="menuitem" tabindex="-1">Contact Owner</a>
+      <a href="https://wa.me/6285694385393" target="_blank" rel="noopener noreferrer" class="popup-btn" role="menuitem" tabindex="-1">Contact Admin</a>
+      <button id="liveCSBtn" class="popup-btn" role="menuitem" tabindex="-1">Live CS</button>
+    </div>
+    <button id="whatsappBtn" aria-haspopup="true" aria-expanded="false" aria-label="Open WhatsApp contact options" type="button">
+      <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp logo green phone icon" />
+    </button>
+  </div>
+
   <script>
    (() => {
       const searchInput = document.getElementById("searchInput");
@@ -488,31 +553,54 @@
         });
       });
 
-      // Bottom nav buttons navigation
-      const bottomNav = document.getElementById("bottomNav");
-      bottomNav.querySelectorAll("button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const inti = btn.getAttribute("data-inti");
-          if (inti) {
-            window.location.href = `${inti}.html`;
-          }
-        });
-        btn.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            btn.click();
-          }
-        });
-      });
-
       // Clear selection if clicking outside the list
       document.body.addEventListener("click", (e) => {
         if (
           !gameList.contains(e.target) &&
-          !bottomNav.contains(e.target) &&
           e.target.id !== "bottomOverlay"
         ) {
           clearSelection();
+        }
+      });
+
+      // WhatsApp button toggle and popup buttons
+      const whatsappBtn = document.getElementById("whatsappBtn");
+      const popupButtons = document.getElementById("popupButtons");
+      const liveCSBtn = document.getElementById("liveCSBtn");
+
+      whatsappBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isShown = popupButtons.classList.toggle("show");
+        whatsappBtn.setAttribute("aria-expanded", isShown ? "true" : "false");
+      });
+
+      // Close popup if clicking outside
+      document.body.addEventListener("click", () => {
+        if (popupButtons.classList.contains("show")) {
+          popupButtons.classList.remove("show");
+          whatsappBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // Prevent popup buttons from closing when clicked inside
+      popupButtons.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+
+      // Live CS button click handler
+      liveCSBtn.addEventListener("click", () => {
+        window.location.href = "livecs.html";
+      });
+
+      // Profile button in header click handler
+      const profileBtnHeader = document.getElementById("profileBtnHeader");
+      profileBtnHeader.addEventListener("click", () => {
+        window.location.href = "profil.html";
+      });
+      profileBtnHeader.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          profileBtnHeader.click();
         }
       });
     })();

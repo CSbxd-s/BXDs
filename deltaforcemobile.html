@@ -1,0 +1,878 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Topup Delta Force Garena - BOI XD Topup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+   rel="stylesheet"
+  />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
+   rel="stylesheet"
+  />
+  <style>
+   body {
+    font-family: "Inter", sans-serif;
+   }
+   input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    transition: border-color 0.3s, background-color 0.3s;
+    position: relative;
+    outline-offset: 2px;
+   }
+   input[type="radio"]:checked {
+    border-color: #6366f1;
+    background-color: #e0e7ff;
+   }
+   input[type="radio"]:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+   }
+   label.radio-label {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    height: 80px;
+    font-size: 1rem;
+    text-align: center;
+   }
+   input[type="radio"]:checked + label.radio-label {
+    border-color: #6366f1;
+    background-color: #e0e7ff;
+   }
+   .payment-logo-rect {
+    width: 48px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 0.25rem;
+   }
+   .payment-logo-square {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 0.25rem;
+   }
+   .payment-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+   }
+   @keyframes fadeIn {
+    from {
+     opacity: 0;
+    }
+    to {
+     opacity: 1;
+    }
+   }
+   .fade-in {
+    animation: fadeIn 0.8s ease forwards;
+   }
+   .btn-press {
+    animation: btnPressAnim 0.2s ease forwards;
+   }
+   @keyframes btnPressAnim {
+    0% {
+     transform: scale(1);
+     opacity: 1;
+    }
+    50% {
+     transform: scale(0.95);
+     opacity: 0.7;
+    }
+    100% {
+     transform: scale(1);
+     opacity: 1;
+    }
+   }
+   #regionWarning {
+    background-color: #fef3c7;
+    border: 1px solid #fbbf24;
+    color: #92400e;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    max-width: 3xl;
+    margin: 1rem auto;
+    text-align: center;
+    font-weight: 600;
+   }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+    <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
+     <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1 class="text-2xl font-semibold text-gray-800">Topup Delta Force Garena</h1>
+   </div>
+  </header>
+  <div id="regionWarning" class="hidden" role="alert" tabindex="0">
+   <p>Perhatian: Layanan ini hanya tersedia untuk pengguna di Indonesia.</p>
+  </div>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+   <section class="bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
+     <img alt="Logo game Delta Force Garena dengan latar belakang berwarna cerah dan karakter utama, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/1Yg2ycKM/gdf.jpg" width="128"/>
+     <div class="mt-4 sm:mt-0 text-center sm:text-left">
+      <h2 class="text-xl font-semibold text-gray-900">Delta Force Garena</h2>
+      <p class="mt-2 text-gray-600">
+       Top up Delta Coins Delta Force Garena Anda dengan cepat dan aman. Masukkan ID pengguna dan pilih jenis serta nominal topup yang diinginkan untuk menyelesaikan pembelian.
+      </p>
+     </div>
+    </div>
+    <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2" for="userId">
+       ID Pengguna (8-18 digit)
+      </label>
+      <input aria-describedby="userIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="userId" inputmode="numeric" maxlength="18" minlength="8" name="userId" pattern="\d{8,18}" placeholder="Masukkan ID Pengguna 8-18 digit" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="userIdHelp">
+       ID unik pemain Delta Force Garena Anda, 8 sampai 18 digit angka.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">Jenis Topup</span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="topupTypeContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedTopupType">Pilih Jenis Topup</span>
+        </div>
+        <button aria-controls="topupTypeOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleTopupTypeBtn" type="button">
+         <span id="toggleTopupTypeText">Detail</span>
+         <i class="fas fa-chevron-down" id="toggleTopupTypeIcon"></i>
+        </button>
+       </div>
+       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-3 gap-4 hidden" id="topupTypeOptions" role="list">
+        <div class="col-span-1" role="listitem">
+         <input class="hidden peer" id="topupDeltaCoins" name="topupType" type="radio" value="deltacoins"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupDeltaCoins" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">Delta Coins</span>
+         </label>
+        </div>
+        <div class="col-span-1" role="listitem">
+         <input class="hidden peer" id="topupBundles" name="topupType" type="radio" value="bundles"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupBundles" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">Bundles</span>
+         </label>
+        </div>
+        <div class="col-span-1" role="listitem">
+         <input class="hidden peer" id="topupSpecial" name="topupType" type="radio" value="special"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupSpecial" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">Special Item</span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-red-600 hidden" id="topupTypeError" role="alert">Harap pilih jenis topup.</p>
+     </div>
+     <div class="hidden" id="deltacoinsSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">Delta Coins</span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleDeltaCoinsDetailsBtn" type="button">Sembunyikan</button>
+      </div>
+      <fieldset aria-describedby="packageErrorDeltaCoins" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="deltacoins18plus1" name="package" type="radio" value="18+1"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins18plus1" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">18+1</span>
+         <span class="text-sm text-gray-600">Rp 4.500</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins30plus2" name="package" type="radio" value="30+2"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins30plus2" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">30+2</span>
+         <span class="text-sm text-gray-600">Rp 6.700</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins60plus3" name="package" type="radio" value="60+3"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins60plus3" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">60+3</span>
+         <span class="text-sm text-gray-600">Rp 13.400</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins300plus36" name="package" type="radio" value="300+36"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins300plus36" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">300+36</span>
+         <span class="text-sm text-gray-600">Rp 66.800</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins420plus62" name="package" type="radio" value="420+62"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins420plus62" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">420+62</span>
+         <span class="text-sm text-gray-600">Rp 91.800</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins680plus105" name="package" type="radio" value="680+105"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins680plus105" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">680+105</span>
+         <span class="text-sm text-gray-600">Rp 128.500</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins1280plus264" name="package" type="radio" value="1280+264"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins1280plus264" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">1280+264</span>
+         <span class="text-sm text-gray-600">Rp 257.000</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins1680plus385" name="package" type="radio" value="1680+385"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins1680plus385" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">1680+385</span>
+         <span class="text-sm text-gray-600">Rp 321.200</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins3280plus834" name="package" type="radio" value="3280+834"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins3280plus834" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">3280+834</span>
+         <span class="text-sm text-gray-600">Rp 642.400</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins6480plus1944" name="package" type="radio" value="6480+1944"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins6480plus1944" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">6480+1944</span>
+         <span class="text-sm text-gray-600">Rp 1.284.700</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins12960plus3888" name="package" type="radio" value="12960+3888"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins12960plus3888" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">12960+3888</span>
+         <span class="text-sm text-gray-600">Rp 2.569.400</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="deltacoins19440plus5832" name="package" type="radio" value="19440+5832"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="deltacoins19440plus5832" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">19440+5832</span>
+         <span class="text-sm text-gray-600">Rp 3.854.100</span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorDeltaCoins" role="alert">Harap pilih paket Delta Coins.</p>
+     </div>
+     <div class="hidden" id="bundlesSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">Bundles</span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleBundlesDetailsBtn" type="button">Sembunyikan</button>
+      </div>
+      <fieldset aria-describedby="packageErrorBundles" aria-required="true" class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="bundlesStarfallSupplies" name="package" type="radio" value="Starfall supplies"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="bundlesStarfallSupplies" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Starfall supplies</span>
+         <span class="text-sm text-gray-600">Rp 14.300</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="bundlesBlackHawkDownAdvanced" name="package" type="radio" value="Black Hawk Down Advanced"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="bundlesBlackHawkDownAdvanced" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Black Hawk Down Advanced</span>
+         <span class="text-sm text-gray-600">Rp 41.300</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="bundlesBlackHawkDownGenesis" name="package" type="radio" value="Black Hawk Down Genesis"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="bundlesBlackHawkDownGenesis" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Black Hawk Down Genesis</span>
+         <span class="text-sm text-gray-600">Rp 41.300</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="bundlesBlackHawkDownReshape" name="package" type="radio" value="Black Hawk Down Reshape"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="bundlesBlackHawkDownReshape" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Black Hawk Down Reshape</span>
+         <span class="text-sm text-gray-600">Rp 83.600</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="bundlesCustomPackage" name="package" type="radio" value="Custom Package"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="bundlesCustomPackage" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Custom Package</span>
+         <span class="text-sm text-gray-600">Rp 4.088.300</span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorBundles" role="alert">Harap pilih paket Bundles.</p>
+     </div>
+     <div class="hidden" id="specialSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">Special Item</span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleSpecialDetailsBtn" type="button">Sembunyikan</button>
+      </div>
+      <fieldset aria-describedby="packageErrorSpecial" aria-required="true" class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="specialUltraSkin" name="package" type="radio" value="Ultra Skin Lucky Chest"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="specialUltraSkin" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Ultra Skin Lucky Chest</span>
+         <span class="text-sm text-gray-600">Rp 5.700</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="specialLevelUpPass" name="package" type="radio" value="Level Up Pass"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="specialLevelUpPass" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Level Up Pass</span>
+         <span class="text-sm text-gray-600">Rp 22.700</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="specialStrikePassElite" name="package" type="radio" value="Strike Pass Elite"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="specialStrikePassElite" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Strike Pass Elite</span>
+         <span class="text-sm text-gray-600">Rp 45.400</span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="specialStrikePassPremium" name="package" type="radio" value="Strike Pass Premium"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="specialStrikePassPremium" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">Strike Pass Premium</span>
+         <span class="text-sm text-gray-600">Rp 102.000</span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorSpecial" role="alert">Harap pilih paket Special Item.</p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">Metode Pembayaran</span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="paymentContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedPaymentLabel">Pilih Metode</span>
+        </div>
+        <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
+         <span id="toggleDetailsText">Detail</span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon"></i>
+        </button>
+       </div>
+       <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payGopay" tabindex="0">
+          <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/ea6ab2a7-d049-4a3c-48d4-275f34d2ac4e.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">GoPay</span>
+          <span class="ml-auto text-sm text-gray-600" id="priceGopay">Harga Jual</span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payQris" tabindex="0">
+          <img alt="Logo QRIS hitam putih dengan pola QR code" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/3720a347-d582-4866-2ffb-c7d21ae8dc32.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">QRIS</span>
+          <span class="ml-auto text-sm text-gray-600" id="priceQris">Harga Jual</span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payOvo" tabindex="0">
+          <img alt="Logo OVO ungu dengan tulisan OVO" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/4aabfc09-4e51-4ed1-aaeb-45c5b31a67f0.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">OVO</span>
+          <span class="ml-auto text-sm text-gray-600" id="priceOvo">Harga Jual</span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payDana" tabindex="0">
+          <img alt="Logo DANA biru dengan tulisan DANA" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/1b8aa5ec-2da1-4b2c-b3cf-17c781c8542f.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">DANA</span>
+          <span class="ml-auto text-sm text-gray-600" id="priceDana">Harga Jual</span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="paySpay" tabindex="0">
+          <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/ed5992ab-82f7-4d71-44a5-a84c63825d67.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">ShopeePay</span>
+          <span class="ml-auto text-sm text-gray-600" id="priceSpay">Harga Jual</span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payLinkaja" tabindex="0">
+          <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/510130dd-5262-4ac5-5fc4-0f56eef1b999.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">LinkAja</span>
+          <span class="ml-auto text-sm text-gray-600" id="priceLinkaja">Harga Jual</span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
+       Pilih jenis topup dan paket terlebih dahulu untuk memilih metode pembayaran.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
+       Harap pilih metode pembayaran.
+      </p>
+     </div>
+     <button class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 text-white font-semibold py-3 rounded-md transition-colors" type="submit">
+      Lanjutkan Topup
+     </button>
+    </form>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0"></div>
+   </section>
+  </main>
+  <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 BOI XD Topup. Semua hak dilindungi.
+   </div>
+  </footer>
+  <script>
+   (() => {
+    const regionWarning = document.getElementById("regionWarning");
+
+    // Detect user region using a free geolocation API
+    fetch("https://ipapi.co/json/")
+     .then((response) => response.json())
+     .then((data) => {
+      if (data && data.country_code !== "ID") {
+       regionWarning.classList.remove("hidden");
+      }
+     })
+     .catch(() => {
+      // If API fails, do not show warning
+     });
+
+    const form = document.getElementById("topupForm");
+    const userIdInput = document.getElementById("userId");
+    const topupTypeRadios = form.querySelectorAll('input[name="topupType"]');
+    const deltacoinsSection = document.getElementById("deltacoinsSection");
+    const bundlesSection = document.getElementById("bundlesSection");
+    const specialSection = document.getElementById("specialSection");
+    const packageRadios = form.querySelectorAll('input[name="package"]');
+    const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
+    const paymentOptions = document.getElementById("paymentOptions");
+    const paymentContainer = document.getElementById("paymentContainer");
+    const toggleDetailsBtn = document.getElementById("toggleDetailsBtn");
+    const selectedPaymentLabel = document.getElementById("selectedPaymentLabel");
+    const toggleDetailsText = document.getElementById("toggleDetailsText");
+    const toggleDetailsIcon = document.getElementById("toggleDetailsIcon");
+    const toggleTopupTypeBtn = document.getElementById("toggleTopupTypeBtn");
+    const topupTypeOptions = document.getElementById("topupTypeOptions");
+    const selectedTopupType = document.getElementById("selectedTopupType");
+
+    const toggleDeltaCoinsDetailsBtn = document.getElementById("toggleDeltaCoinsDetailsBtn");
+    const toggleBundlesDetailsBtn = document.getElementById("toggleBundlesDetailsBtn");
+    const toggleSpecialDetailsBtn = document.getElementById("toggleSpecialDetailsBtn");
+
+    const packageErrorDeltaCoins = document.getElementById("packageErrorDeltaCoins");
+    const packageErrorBundles = document.getElementById("packageErrorBundles");
+    const packageErrorSpecial = document.getElementById("packageErrorSpecial");
+    const topupTypeError = document.getElementById("topupTypeError");
+    const paymentMethodError = document.getElementById("paymentMethodError");
+    const paymentBlockedAttention = document.getElementById("paymentBlockedAttention");
+    const confirmation = document.getElementById("confirmation");
+
+    const packageBasePrices = {
+     "18+1": 4361,
+     "30+2": 6543,
+     "60+3": 13085,
+     "300+36": 65428,
+     "420+62": 89963,
+     "680+105": 125948,
+     "1280+264": 251896,
+     "1680+385": 314870,
+     "3280+834": 629739,
+     "6480+1944": 1259479,
+     "12960+3888": 2518958,
+     "19440+5832": 3778437,
+     "Starfall supplies": 14003,
+     "Black Hawk Down Advanced": 40424,
+     "Black Hawk Down Genesis": 40424,
+     "Black Hawk Down Reshape": 81907,
+     "Custom Package": 4008108,
+    };
+
+    const packageSellPrices = {
+     "18+1": 4500,
+     "30+2": 6700,
+     "60+3": 13400,
+     "300+36": 66800,
+     "420+62": 91800,
+     "680+105": 128500,
+     "1280+264": 257000,
+     "1680+385": 321200,
+     "3280+834": 642400,
+     "6480+1944": 1284700,
+     "12960+3888": 2569400,
+     "19440+5832": 3854100,
+     "Starfall supplies": 14300,
+     "Black Hawk Down Advanced": 41300,
+     "Black Hawk Down Genesis": 41300,
+     "Black Hawk Down Reshape": 83600,
+     "Custom Package": 4088300,
+    };
+
+    const largePackages = ["Custom Package"];
+
+    const paymentPriceAdjustments = {
+     gopay: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     qris: (base) => base + 1,
+     ovo: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     dana: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     spay: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     linkaja: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+    };
+
+    function formatRupiah(number) {
+     return "Rp " + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function updatePaymentPrices() {
+     const selectedPackage = Array.from(packageRadios).find((r) => r.checked);
+     if (!selectedPackage) {
+      [
+       "Gopay",
+       "Qris",
+       "Ovo",
+       "Dana",
+       "Spay",
+       "Linkaja",
+      ].forEach((method) => {
+       const el = document.getElementById("price" + method);
+       if (el) el.textContent = "Harga Jual";
+      });
+      return;
+     }
+
+     const nominal = selectedPackage.value;
+     const basePrice = packageSellPrices[nominal];
+     if (!basePrice) return;
+
+     paymentMethodRadios.forEach((radio) => {
+      const priceSpan = document.getElementById(
+       "price" + radio.value.charAt(0).toUpperCase() + radio.value.slice(1)
+      );
+      if (!priceSpan) return;
+      const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
+      if (radio.value === "qris") {
+       priceSpan.textContent = formatRupiah(adjustedPrice) + " + Rp 1";
+      } else {
+       priceSpan.textContent = formatRupiah(adjustedPrice);
+      }
+     });
+    }
+
+    function validateTopupType() {
+     let selected = false;
+     topupTypeRadios.forEach((radio) => {
+      if (radio.checked) selected = true;
+     });
+     if (!selected) {
+      topupTypeError.classList.remove("hidden");
+     } else {
+      topupTypeError.classList.add("hidden");
+     }
+     return selected;
+    }
+
+    function validatePackage() {
+     let selected = false;
+     packageRadios.forEach((radio) => {
+      if (radio.checked) selected = true;
+     });
+     if (!selected) {
+      if (!deltacoinsSection.classList.contains("hidden")) {
+       packageErrorDeltaCoins.classList.remove("hidden");
+       packageErrorBundles.classList.add("hidden");
+       packageErrorSpecial.classList.add("hidden");
+      } else if (!bundlesSection.classList.contains("hidden")) {
+       packageErrorDeltaCoins.classList.add("hidden");
+       packageErrorBundles.classList.remove("hidden");
+       packageErrorSpecial.classList.add("hidden");
+      } else if (!specialSection.classList.contains("hidden")) {
+       packageErrorDeltaCoins.classList.add("hidden");
+       packageErrorBundles.classList.add("hidden");
+       packageErrorSpecial.classList.remove("hidden");
+      }
+     } else {
+      packageErrorDeltaCoins.classList.add("hidden");
+      packageErrorBundles.classList.add("hidden");
+      packageErrorSpecial.classList.add("hidden");
+     }
+     return selected;
+    }
+
+    function validatePaymentMethod() {
+     let selected = false;
+     paymentMethodRadios.forEach((radio) => {
+      if (radio.checked) selected = true;
+     });
+     if (!selected) {
+      paymentMethodError.classList.remove("hidden");
+     } else {
+      paymentMethodError.classList.add("hidden");
+     }
+     return selected;
+    }
+
+    function validateUserId() {
+     const val = userIdInput.value.trim();
+     const valid = /^\d{8,18}$/.test(val);
+     if (!valid) {
+      userIdInput.classList.add("border-red-600");
+      return false;
+     } else {
+      userIdInput.classList.remove("border-red-600");
+      return true;
+     }
+    }
+
+    function updatePaymentAvailability() {
+     const topupSelected = validateTopupType();
+     const packageSelected = validatePackage();
+     const userIdValid = validateUserId();
+     if (topupSelected && packageSelected && userIdValid) {
+      paymentContainer.classList.remove("payment-disabled");
+      paymentBlockedAttention.classList.add("hidden");
+      paymentMethodRadios.forEach((radio) => {
+       radio.disabled = false;
+      });
+     } else {
+      paymentContainer.classList.add("payment-disabled");
+      paymentBlockedAttention.classList.remove("hidden");
+      paymentMethodError.classList.add("hidden");
+      paymentMethodRadios.forEach((radio) => {
+       radio.checked = false;
+       radio.disabled = true;
+      });
+      selectedPaymentLabel.textContent = "Pilih Metode";
+      paymentOptions.classList.add("hidden");
+      toggleDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleDetailsText.textContent = "Detail";
+      toggleDetailsIcon.classList.remove("fa-chevron-up");
+      toggleDetailsIcon.classList.add("fa-chevron-down");
+      updatePaymentPrices();
+     }
+    }
+
+    function addPressAnimation(button) {
+     button.addEventListener("click", () => {
+      button.classList.add("btn-press");
+      setTimeout(() => {
+       button.classList.remove("btn-press");
+      }, 200);
+     });
+    }
+
+    [toggleTopupTypeBtn, toggleDetailsBtn, toggleDeltaCoinsDetailsBtn, toggleBundlesDetailsBtn, toggleSpecialDetailsBtn].forEach(
+     (btn) => {
+      if (btn) addPressAnimation(btn);
+     }
+    );
+
+    toggleTopupTypeBtn.addEventListener("click", () => {
+     const expanded = toggleTopupTypeBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      topupTypeOptions.classList.add("hidden");
+      toggleTopupTypeBtn.setAttribute("aria-expanded", "false");
+      toggleTopupTypeText.textContent = "Detail";
+      toggleTopupTypeIcon.classList.remove("fa-chevron-up");
+      toggleTopupTypeIcon.classList.add("fa-chevron-down");
+     } else {
+      topupTypeOptions.classList.remove("hidden");
+      toggleTopupTypeBtn.setAttribute("aria-expanded", "true");
+      toggleTopupTypeText.textContent = "Sembunyikan";
+      toggleTopupTypeIcon.classList.remove("fa-chevron-down");
+      toggleTopupTypeIcon.classList.add("fa-chevron-up");
+     }
+    });
+
+    toggleDetailsBtn.addEventListener("click", () => {
+     const expanded = toggleDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      paymentOptions.classList.add("hidden");
+      toggleDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleDetailsText.textContent = "Detail";
+      toggleDetailsIcon.classList.remove("fa-chevron-up");
+      toggleDetailsIcon.classList.add("fa-chevron-down");
+     } else {
+      paymentOptions.classList.remove("hidden");
+      toggleDetailsBtn.setAttribute("aria-expanded", "true");
+      toggleDetailsText.textContent = "Sembunyikan";
+      toggleDetailsIcon.classList.remove("fa-chevron-down");
+      toggleDetailsIcon.classList.add("fa-chevron-up");
+     }
+    });
+
+    toggleDeltaCoinsDetailsBtn.addEventListener("click", () => {
+     const fieldset = deltacoinsSection.querySelector("fieldset");
+     const expanded = toggleDeltaCoinsDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      fieldset.classList.add("hidden");
+      toggleDeltaCoinsDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleDeltaCoinsDetailsBtn.textContent = "Munculkan detail";
+     } else {
+      fieldset.classList.remove("hidden");
+      toggleDeltaCoinsDetailsBtn.setAttribute("aria-expanded", "true");
+      toggleDeltaCoinsDetailsBtn.textContent = "Sembunyikan";
+     }
+    });
+
+    toggleBundlesDetailsBtn.addEventListener("click", () => {
+     const fieldset = bundlesSection.querySelector("fieldset");
+     const expanded = toggleBundlesDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      fieldset.classList.add("hidden");
+      toggleBundlesDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleBundlesDetailsBtn.textContent = "Munculkan detail";
+     } else {
+      fieldset.classList.remove("hidden");
+      toggleBundlesDetailsBtn.setAttribute("aria-expanded", "true");
+      toggleBundlesDetailsBtn.textContent = "Sembunyikan";
+     }
+    });
+
+    toggleSpecialDetailsBtn.addEventListener("click", () => {
+     const fieldset = specialSection.querySelector("fieldset");
+     const expanded = toggleSpecialDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      fieldset.classList.add("hidden");
+      toggleSpecialDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleSpecialDetailsBtn.textContent = "Munculkan detail";
+     } else {
+      fieldset.classList.remove("hidden");
+      toggleSpecialDetailsBtn.setAttribute("aria-expanded", "true");
+      toggleSpecialDetailsBtn.textContent = "Sembunyikan";
+     }
+    });
+
+    topupTypeRadios.forEach((radio) => {
+     radio.addEventListener("change", () => {
+      if (radio.value === "deltacoins") {
+       selectedTopupType.textContent = "Delta Coins";
+       deltacoinsSection.classList.remove("hidden");
+       bundlesSection.classList.add("hidden");
+       specialSection.classList.add("hidden");
+      } else if (radio.value === "bundles") {
+       selectedTopupType.textContent = "Bundles";
+       deltacoinsSection.classList.add("hidden");
+       bundlesSection.classList.remove("hidden");
+       specialSection.classList.add("hidden");
+      } else if (radio.value === "special") {
+       selectedTopupType.textContent = "Special Item";
+       deltacoinsSection.classList.add("hidden");
+       bundlesSection.classList.add("hidden");
+       specialSection.classList.remove("hidden");
+      }
+      packageRadios.forEach((pkg) => (pkg.checked = false));
+      paymentMethodRadios.forEach((pm) => (pm.checked = false));
+      selectedPaymentLabel.textContent = "Pilih Metode";
+      paymentOptions.classList.add("hidden");
+      updatePaymentAvailability();
+      updatePaymentPrices();
+     });
+    });
+
+    packageRadios.forEach((radio) => {
+     radio.addEventListener("change", () => {
+      paymentMethodRadios.forEach((pmRadio) => {
+       pmRadio.checked = false;
+      });
+      selectedPaymentLabel.textContent = "Pilih Metode";
+      paymentOptions.classList.add("hidden");
+      updatePaymentAvailability();
+      updatePaymentPrices();
+     });
+    });
+
+    paymentMethodRadios.forEach((radio) => {
+     radio.addEventListener("change", () => {
+      const selectedLabel = radio.nextElementSibling.querySelector("span.font-semibold");
+      if (selectedLabel) {
+       selectedPaymentLabel.textContent = selectedLabel.textContent;
+      }
+     });
+    });
+
+    userIdInput.addEventListener("input", () => {
+     validateUserId();
+     updatePaymentAvailability();
+    });
+
+    updatePaymentAvailability();
+
+    form.addEventListener("submit", (e) => {
+     e.preventDefault();
+     const missingFields = [];
+     if (!validateUserId()) missingFields.push("ID Pengguna 8-18 digit");
+     if (!validateTopupType()) missingFields.push("Jenis Topup");
+     if (!validatePackage()) missingFields.push("Paket");
+     if (!validatePaymentMethod()) missingFields.push("Metode Pembayaran");
+
+     if (missingFields.length > 0) {
+      alert(`Harap isi ${missingFields.join(", ")}`);
+      return;
+     }
+
+     const selectedPackage = Array.from(packageRadios).find((r) => r.checked);
+     const packageLabel = selectedPackage.nextElementSibling.querySelector("span.text-lg, span.font-semibold").textContent;
+     const basePrice = packageBasePrices[selectedPackage.value];
+     const selectedPayment = Array.from(paymentMethodRadios).find((r) => r.checked);
+     const paymentLabel = selectedPayment.nextElementSibling.querySelector("span.font-semibold").textContent;
+     const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+     const userId = userIdInput.value.trim();
+
+     const message =
+      `Halo, saya ingin melakukan topup Delta Force Garena dengan detail berikut:%0A` +
+      `ID Pengguna: ${userId}%0A` +
+      `Jenis Topup: ${selectedTopupType.textContent}%0A` +
+      `Nominal: ${packageLabel}%0A` +
+      `Metode Pembayaran: ${paymentLabel}%0A` +
+      `Harga: ${formatRupiah(adjustedPrice)}`;
+
+     const whatsappUrl = `https://wa.me/6283132420423?text=${message}`;
+
+     window.open(whatsappUrl, "_blank");
+    });
+   })();
+  </script>
+ </body>
+</html>

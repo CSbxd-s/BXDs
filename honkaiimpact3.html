@@ -1,0 +1,841 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Topup Honkai Impact 3 - BOI XD Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+    }
+    input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      border: 2px solid #d1d5db;
+      transition: border-color 0.3s, background-color 0.3s;
+      position: relative;
+      outline-offset: 2px;
+    }
+    input[type="radio"]:checked {
+      border-color: #6366f1;
+      background-color: #e0e7ff;
+    }
+    input[type="radio"]:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+    label.radio-label {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      height: 80px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    input[type="radio"]:checked + label.radio-label {
+      border-color: #6366f1;
+      background-color: #e0e7ff;
+    }
+    .payment-logo-rect {
+      width: 48px;
+      height: 24px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    .payment-logo-square {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    .payment-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+    .btn-press {
+      animation: btnPressAnim 0.2s ease forwards;
+    }
+    @keyframes btnPressAnim {
+      0% {transform: scale(1);opacity: 1;}
+      50% {transform: scale(0.95);opacity: 0.7;}
+      100% {transform: scale(1);opacity: 1;}
+    }
+    /* Custom styles for package section */
+    #nominalSection fieldset, #topupTypeSection fieldset {
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    #topupTypeSection > div, #nominalSection > fieldset > div {
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+    <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
+     <i class="fas fa-arrow-left">
+     </i>
+    </a>
+    <h1 class="text-2xl font-semibold text-gray-800">
+     Topup Honkai Impact 3
+    </h1>
+   </div>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+   <section class="bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
+     <img alt="Logo game Honkai Impact 3 dengan latar belakang berwarna gelap dan karakter utama, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/ksNS2cd8/images.jpg" width="128"/>
+     <div class="mt-4 sm:mt-0 text-center sm:text-left">
+      <h2 class="text-xl font-semibold text-gray-900 flex items-center space-x-3">
+       <span>
+        Honkai Impact 3
+       </span>
+       <img alt="Gambar B-Chips Honkai Impact 3 berwarna biru dengan bentuk kristal dan efek cahaya" class="w-8 h-8 object-contain rounded" height="32" loading="lazy" src="https://storage.googleapis.com/a1aa/image/824e85ca-ad73-45bf-1fb6-3fff725b51eb.jpg" width="32"/>
+      </h2>
+      <p class="mt-2 text-gray-600">
+       Top up Crystals, B-Chips, dan Monthly Card akun Honkai Impact 3 Anda dengan cepat dan aman. Pilih jenis topup dan nominal yang diinginkan, lalu selesaikan pembelian Anda.
+      </p>
+     </div>
+    </div>
+    <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="userId">
+       ID Pengguna
+      </label>
+      <input aria-describedby="userIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="userId" inputmode="numeric" maxlength="10" name="userId" pattern="^\d{10}$" placeholder="Masukkan ID Pengguna (10 digit)" required="" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="userIdHelp">
+       ID unik pemain Honkai Impact 3 Anda (harus 10 digit).
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="userIdError" role="alert">
+       Harap masukkan ID Pengguna yang valid (10 digit).
+      </p>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="userIdAttention" role="alert">
+       ID Pengguna harus 10 digit.
+      </p>
+     </div>
+     <div id="topupTypeSection" class="border border-gray-300 rounded-md p-4">
+      <div class="flex items-center justify-between mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Jenis Topup
+       </span>
+       <button aria-expanded="false" aria-controls="topupTypeOptions" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm flex items-center space-x-1" id="toggleTopupTypeBtn" type="button">
+        <span id="toggleTopupTypeText">Detail</span>
+        <i class="fas fa-chevron-down" id="toggleTopupTypeIcon"></i>
+       </button>
+      </div>
+      <fieldset aria-required="true" class="grid grid-cols-3 gap-4 hidden" id="topupTypeOptions" role="list">
+       <div role="listitem" class="border border-gray-300 rounded-md">
+        <input class="hidden peer" id="typeCrystals" name="topupType" type="radio" value="crystals"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer h-20 flex items-center justify-center" for="typeCrystals" tabindex="0">
+         Crystals
+        </label>
+       </div>
+       <div role="listitem" class="border border-gray-300 rounded-md">
+        <input class="hidden peer" id="typeBchips" name="topupType" type="radio" value="bchips"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer h-20 flex items-center justify-center" for="typeBchips" tabindex="0">
+         B-Chips
+        </label>
+       </div>
+       <div role="listitem" class="border border-gray-300 rounded-md">
+        <input class="hidden peer" id="typeCard" name="topupType" type="radio" value="card"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer h-20 flex items-center justify-center" for="typeCard" tabindex="0">
+         Monthly Card
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="topupTypeError" role="alert">
+       Harap pilih jenis topup.
+      </p>
+     </div>
+     <div id="nominalSection" class="hidden border border-gray-300 rounded-md p-4 mt-4">
+      <div class="flex items-center justify-between mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Nominal Topup
+       </span>
+       <button aria-expanded="false" aria-controls="nominalOptions" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm flex items-center space-x-1" id="toggleNominalBtn" type="button">
+        <span id="toggleNominalText">Detail</span>
+        <i class="fas fa-chevron-down" id="toggleNominalIcon"></i>
+       </button>
+      </div>
+      <fieldset aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-96 overflow-y-auto hidden" id="nominalOptions" role="list">
+       <!-- Crystals Nominal -->
+       <div data-type="crystals" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="crystals65" name="package" type="radio" value="crystals65"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="crystals65" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          65
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 15.555
+         </span>
+        </label>
+       </div>
+       <div data-type="crystals" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="crystals330" name="package" type="radio" value="crystals330"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="crystals330" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          330
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 76.318
+         </span>
+        </label>
+       </div>
+       <div data-type="crystals" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="crystals710" name="package" type="radio" value="crystals710"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="crystals710" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          710
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 152.637
+         </span>
+        </label>
+       </div>
+       <div data-type="crystals" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="crystals1430" name="package" type="radio" value="crystals1430"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="crystals1430" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          1430
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 315.640
+         </span>
+        </label>
+       </div>
+       <div data-type="crystals" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="crystals3860" name="package" type="radio" value="crystals3860"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="crystals3860" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          3860
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 767.900
+         </span>
+        </label>
+       </div>
+       <div data-type="crystals" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="crystals8088" name="package" type="radio" value="crystals8088"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="crystals8088" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          8088
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.534.844
+         </span>
+        </label>
+       </div>
+       <!-- B-Chips Nominal -->
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips65" name="package" type="radio" value="bchips65"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips65" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          65
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 15.555
+         </span>
+        </label>
+       </div>
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips330" name="package" type="radio" value="bchips330"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips330" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          330
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 76.318
+         </span>
+        </label>
+       </div>
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips990" name="package" type="radio" value="bchips990"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips990" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          990
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 240.267
+         </span>
+        </label>
+       </div>
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips1320" name="package" type="radio" value="bchips1320"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips1320" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          1320
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 315.640
+         </span>
+        </label>
+       </div>
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips1980" name="package" type="radio" value="bchips1980"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips1980" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          1980
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 460.736
+         </span>
+        </label>
+       </div>
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips3300" name="package" type="radio" value="bchips3300"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips3300" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          3300
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 767.900
+         </span>
+        </label>
+       </div>
+       <div data-type="bchips" class="hidden border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="bchips6600" name="package" type="radio" value="bchips6600"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2" for="bchips6600" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          6600
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.534.844
+         </span>
+        </label>
+       </div>
+       <!-- Card Nominal -->
+       <div data-type="card" class="hidden col-span-2 border border-gray-300 rounded-md flex flex-col justify-center items-center" role="listitem">
+        <input class="hidden peer" id="monthlyCard" name="package" type="radio" value="monthlyCard"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer p-2 flex flex-col items-center" for="monthlyCard" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Monthly Card
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 76.318
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageError" role="alert">
+       Harap pilih paket nominal.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Metode Pembayaran
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="paymentContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <svg aria-hidden="true" class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8c-1.657 0-3 1.343-3 3v3h6v-3c0-1.657-1.343-3-3-3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+         </svg>
+         <span class="font-semibold text-gray-900" id="selectedPaymentLabel">
+          Pilih Metode
+         </span>
+        </div>
+        <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
+         <span id="toggleDetailsText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payGopay" tabindex="0">
+          <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/1c4a11c3-0574-46e8-c45a-cefdf07a9b84.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           GoPay
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceGopay">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payQris" tabindex="0">
+          <img alt="Logo QRIS hitam putih dengan pola QR code" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/6828442b-b420-4303-c4ca-f5f222c4237b.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           QRIS
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceQris">
+           Harga Jual + Rp 1
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payOvo" tabindex="0">
+          <img alt="Logo OVO ungu dengan tulisan OVO" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/9325b93f-ba22-4287-0475-07985b535644.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           OVO
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceOvo">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payDana" tabindex="0">
+          <img alt="Logo DANA biru dengan tulisan DANA" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/7df9e1a3-ae6e-4a45-ee82-84e84f71f07f.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           DANA
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceDana">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="paySpay" tabindex="0">
+          <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/5519619f-1a01-4cd3-949e-442f34abdb29.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           ShopeePay
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceSpay">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payLinkaja" tabindex="0">
+          <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/254c40b9-0e39-4c08-af82-7f7d02e25037.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           LinkAja
+          </span>
+          <span class="text-sm text-green-700 font-semibold" id="priceLinkaja">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
+       Pilih jenis topup dan nominal terlebih dahulu untuk memilih metode pembayaran.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
+       Harap pilih metode pembayaran.
+      </p>
+     </div>
+     <button class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 text-white font-semibold py-3 rounded-md transition-colors" type="submit">
+      Lanjutkan Topup
+     </button>
+    </form>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0">
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 BOI XD Topup. Semua hak dilindungi.
+   </div>
+  </footer>
+  <script>
+   (() => {
+      const form = document.getElementById('topupForm');
+      const userIdInput = document.getElementById('userId');
+      const topupTypeRadios = form.querySelectorAll('input[name="topupType"]');
+      const packageRadios = form.querySelectorAll('input[name="package"]');
+      const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
+      const paymentOptions = document.getElementById('paymentOptions');
+      const paymentContainer = document.getElementById('paymentContainer');
+      const toggleDetailsBtn = document.getElementById('toggleDetailsBtn');
+      const selectedPaymentLabel = document.getElementById('selectedPaymentLabel');
+      const toggleDetailsText = document.getElementById('toggleDetailsText');
+      const toggleDetailsIcon = document.getElementById('toggleDetailsIcon');
+      const nominalSection = document.getElementById('nominalSection');
+      const toggleTopupTypeBtn = document.getElementById('toggleTopupTypeBtn');
+      const toggleNominalBtn = document.getElementById('toggleNominalBtn');
+      const topupTypeOptions = document.getElementById('topupTypeOptions');
+      const nominalOptions = document.getElementById('nominalOptions');
+
+      const userIdError = document.getElementById('userIdError');
+      const userIdAttention = document.getElementById('userIdAttention');
+      const topupTypeError = document.getElementById('topupTypeError');
+      const packageError = document.getElementById('packageError');
+      const paymentMethodError = document.getElementById('paymentMethodError');
+      const paymentBlockedAttention = document.getElementById('paymentBlockedAttention');
+
+      // Harga Asli (Rp) untuk paket
+      const packageBasePrices = {
+        "crystals65": 15555,
+        "crystals330": 76318,
+        "crystals710": 152637,
+        "crystals1430": 315640,
+        "crystals3860": 767900,
+        "crystals8088": 1534844,
+        "bchips65": 15555,
+        "bchips330": 76318,
+        "bchips990": 240267,
+        "bchips1320": 315640,
+        "bchips1980": 460736,
+        "bchips3300": 767900,
+        "bchips6600": 1534844,
+        "monthlyCard": 76318
+      };
+
+      // Harga Jual (Rp) untuk paket
+      const packageSellPrices = {
+        "crystals65": 16400,
+        "crystals330": 80200,
+        "crystals710": 160300,
+        "crystals1430": 331500,
+        "crystals3860": 806300,
+        "crystals8088": 1611600,
+        "bchips65": 16400,
+        "bchips330": 80200,
+        "bchips990": 252300,
+        "bchips1320": 331500,
+        "bchips1980": 483800,
+        "bchips3300": 806300,
+        "bchips6600": 1611600,
+        "monthlyCard": 80200
+      };
+
+      const largePackages = ["crystals3860","crystals8088","bchips3300","bchips6600"];
+      const paymentPriceAdjustments = {
+        gopay: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        qris: (base) => base + 1,
+        ovo: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        dana: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        spay: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        linkaja: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        }
+      };
+
+      function formatRupiah(number) {
+        return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      function updateNominalVisibility() {
+        const selectedType = Array.from(topupTypeRadios).find(r => r.checked);
+        if (!selectedType) {
+          nominalSection.classList.add('hidden');
+          packageRadios.forEach(r => r.checked = false);
+          return;
+        }
+        nominalSection.classList.remove('hidden');
+        const type = selectedType.value;
+        packageRadios.forEach(radio => {
+          const label = radio.nextElementSibling;
+          if (label && label.parentElement.dataset.type === type) {
+            label.parentElement.classList.remove('hidden');
+          } else {
+            label.parentElement.classList.add('hidden');
+            radio.checked = false;
+          }
+        });
+      }
+
+      function updatePaymentPrices() {
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        if (!selectedPackage) {
+          ['Gopay','Qris','Ovo','Dana','Spay','Linkaja'].forEach(method => {
+            const el = document.getElementById('price' + method);
+            if(el) el.textContent = 'Harga Jual';
+          });
+          return;
+        }
+
+        const nominal = selectedPackage.value;
+        const basePrice = packageSellPrices[nominal];
+        if (!basePrice) return;
+
+        paymentMethodRadios.forEach(radio => {
+          const priceSpan = document.getElementById('price' + radio.value.charAt(0).toUpperCase() + radio.value.slice(1));
+          if (!priceSpan) return;
+          const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
+          if (radio.value === 'qris') {
+            priceSpan.textContent = formatRupiah(adjustedPrice) + ' + Rp 1';
+          } else {
+            priceSpan.textContent = formatRupiah(adjustedPrice);
+          }
+        });
+      }
+
+      function validateUserId() {
+        const value = userIdInput.value.trim();
+        const onlyDigits = /^\d*$/.test(value);
+        if (!onlyDigits) {
+          userIdInput.value = value.replace(/\D/g, '');
+          return false;
+        }
+        if (value.length !== 10) {
+          userIdAttention.classList.remove('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.setAttribute('aria-invalid', 'true');
+          return false;
+        } else {
+          userIdAttention.classList.add('hidden');
+          userIdError.classList.add('hidden');
+          userIdInput.removeAttribute('aria-invalid');
+          return true;
+        }
+      }
+
+      function validateTopupType() {
+        let selected = false;
+        topupTypeRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          topupTypeError.classList.remove('hidden');
+        } else {
+          topupTypeError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function validatePackage() {
+        let selected = false;
+        packageRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          packageError.classList.remove('hidden');
+        } else {
+          packageError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function validatePaymentMethod() {
+        let selected = false;
+        paymentMethodRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          paymentMethodError.classList.remove('hidden');
+        } else {
+          paymentMethodError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function updatePaymentAvailability() {
+        const topupSelected = validateTopupType();
+        const packageSelected = validatePackage();
+        if (topupSelected && packageSelected) {
+          paymentContainer.classList.remove('payment-disabled');
+          paymentBlockedAttention.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.disabled = false;
+          });
+        } else {
+          paymentContainer.classList.add('payment-disabled');
+          paymentBlockedAttention.classList.remove('hidden');
+          paymentMethodError.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.checked = false;
+            radio.disabled = true;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+          updatePaymentPrices();
+        }
+      }
+
+      function addPressAnimation(button) {
+        button.addEventListener('click', () => {
+          button.classList.add('btn-press');
+          setTimeout(() => {
+            button.classList.remove('btn-press');
+          }, 200);
+        });
+      }
+
+      addPressAnimation(toggleDetailsBtn);
+      addPressAnimation(toggleTopupTypeBtn);
+      addPressAnimation(toggleNominalBtn);
+
+      toggleDetailsBtn.addEventListener('click', () => {
+        const expanded = toggleDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        } else {
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      toggleTopupTypeBtn.addEventListener('click', () => {
+        const expanded = toggleTopupTypeBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          topupTypeOptions.classList.add('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'false');
+          toggleTopupTypeText.textContent = 'Detail';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-up');
+          toggleTopupTypeIcon.classList.add('fa-chevron-down');
+        } else {
+          topupTypeOptions.classList.remove('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'true');
+          toggleTopupTypeText.textContent = 'Sembunyikan';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-down');
+          toggleTopupTypeIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      toggleNominalBtn.addEventListener('click', () => {
+        const expanded = toggleNominalBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          nominalOptions.classList.add('hidden');
+          toggleNominalBtn.setAttribute('aria-expanded', 'false');
+          toggleNominalText.textContent = 'Detail';
+          toggleNominalIcon.classList.remove('fa-chevron-up');
+          toggleNominalIcon.classList.add('fa-chevron-down');
+        } else {
+          nominalOptions.classList.remove('hidden');
+          toggleNominalBtn.setAttribute('aria-expanded', 'true');
+          toggleNominalText.textContent = 'Sembunyikan';
+          toggleNominalIcon.classList.remove('fa-chevron-down');
+          toggleNominalIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      topupTypeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          updateNominalVisibility();
+          packageRadios.forEach(pkg => pkg.checked = false);
+          paymentMethodRadios.forEach(pm => pm.checked = false);
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          updatePaymentAvailability();
+          updatePaymentPrices();
+        });
+      });
+
+      packageRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          paymentMethodRadios.forEach(pmRadio => {
+            pmRadio.checked = false;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          updatePaymentAvailability();
+          updatePaymentPrices();
+        });
+      });
+
+      userIdInput.addEventListener('input', () => {
+        userIdInput.value = userIdInput.value.replace(/\D/g, '').slice(0,10);
+        validateUserId();
+      });
+
+      updateNominalVisibility();
+      updatePaymentAvailability();
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const missingFields = [];
+        if (!validateUserId()) missingFields.push("ID Pengguna");
+        if (!validateTopupType()) missingFields.push("Jenis Topup");
+        if (!validatePackage()) missingFields.push("Nominal");
+        if (!validatePaymentMethod()) missingFields.push("Metode Pembayaran");
+
+        if (missingFields.length > 0) {
+          alert(`Harap isi ${missingFields.join(", ")}`);
+          return;
+        }
+
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        const packageLabel = selectedPackage.nextElementSibling.querySelector('span.text-lg, span.font-semibold').textContent;
+        const basePrice = packageBasePrices[selectedPackage.value];
+        const selectedPayment = Array.from(paymentMethodRadios).find(r => r.checked);
+        const paymentLabel = selectedPayment.nextElementSibling.querySelector('span.font-semibold').textContent;
+        const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+        const userId = userIdInput.value.trim();
+        const selectedTopupType = Array.from(topupTypeRadios).find(r => r.checked).nextElementSibling.textContent.trim();
+
+        const phoneNumber = '6283132420423';
+
+        const message = `Halo, saya ingin melakukan topup Honkai Impact 3 dengan detail berikut:%0A` +
+          `ID Pengguna: ${userId}%0A` +
+          `Jenis Topup: ${selectedTopupType}%0A` +
+          `Nominal: ${packageLabel} (Harga Asli: ${formatRupiah(basePrice)})%0A` +
+          `Metode Pembayaran: ${paymentLabel}%0A` +
+          `Harga: ${formatRupiah(adjustedPrice)}`;
+
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+        window.open(whatsappUrl, '_blank');
+      });
+    })();
+  </script>
+ </body>
+</html>

@@ -1,0 +1,319 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Grup - BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #e0f7f7;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    header {
+      background: #0a3a3a;
+      box-shadow: 0 6px 20px rgba(0, 255, 255, 0.6);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 64px;
+      padding: 0 1.5rem;
+      color: #00fff7;
+      font-weight: 900;
+      font-size: 1.75rem;
+      letter-spacing: 0.1em;
+      position: relative;
+      user-select: none;
+      text-shadow:
+        0 0 8px #00fff7,
+        0 0 20px #00fff7,
+        0 0 30px #00fff7,
+        0 0 40px #00fff7;
+      text-transform: uppercase;
+    }
+    button.back-button {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #00fff7;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s ease;
+      border-radius: 0.5rem;
+      width: 44px;
+      height: 44px;
+      filter: drop-shadow(0 0 4px #00fff7);
+    }
+    button.back-button:hover,
+    button.back-button:focus {
+      color: #00ffff;
+      outline: none;
+      background: rgba(0, 255, 255, 0.15);
+      box-shadow:
+        0 0 12px #00fff7,
+        0 0 24px #00fff7,
+        0 0 36px #00fff7;
+      filter: drop-shadow(0 0 8px #00fff7);
+    }
+    main {
+      flex-grow: 1;
+      max-width: 800px;
+      margin: 3rem auto 4rem;
+      padding: 2rem 2.5rem 3rem;
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 1.5rem;
+      box-shadow:
+        0 0 30px #00fff7,
+        inset 0 0 40px #00fff7;
+      overflow-y: auto;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+      color: #a0f0f0;
+      user-select: none;
+    }
+    main.visible {
+      opacity: 1;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 900;
+      font-size: 2.75rem;
+      color: #00fff7;
+      margin-bottom: 2rem;
+      letter-spacing: 0.15em;
+      text-shadow:
+        0 0 10px #00fff7,
+        0 0 20px #00fff7,
+        0 0 30px #00fff7;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    ul.group-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+      gap: 2rem;
+    }
+    li.group-item {
+      background: linear-gradient(145deg, #003737, #005050);
+      border-radius: 1.25rem;
+      box-shadow:
+        0 0 15px #00fff7,
+        0 0 30px #00fff7 inset;
+      padding: 1.75rem 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: visible;
+      text-align: justify;
+    }
+    li.group-item:hover,
+    li.group-item:focus-within {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow:
+        0 0 30px #00fff7,
+        0 0 60px #00fff7 inset;
+      outline: none;
+      z-index: 10;
+    }
+    li.group-item a {
+      text-decoration: none;
+      color: #00fff7;
+      font-weight: 900;
+      font-size: 1.375rem;
+      margin-top: 1rem;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 6px #00fff7,
+        0 0 12px #00fff7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    li.group-item a .verified-icon {
+      color: #00ffd1;
+      filter: drop-shadow(0 0 6px #00ffd1);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    li.group-item img {
+      width: 96px;
+      height: 96px;
+      border-radius: 9999px;
+      object-fit: cover;
+      box-shadow:
+        0 0 12px #00fff7,
+        0 0 24px #00fff7 inset;
+      transition: box-shadow 0.35s ease;
+      user-select: none;
+    }
+    li.group-item:hover img,
+    li.group-item:focus-within img {
+      box-shadow:
+        0 0 24px #00fff7,
+        0 0 48px #00fff7 inset;
+    }
+    .description {
+      margin-top: 0.75rem;
+      font-size: 1rem;
+      color: #a0f0f0;
+      user-select: none;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 6px #00fff7;
+      max-width: 280px;
+      text-align: justify;
+    }
+    .help-text {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #00fff7;
+      text-shadow:
+        0 0 8px #00fff7,
+        0 0 16px #00fff7;
+      user-select: none;
+      text-align: justify;
+      max-width: 720px;
+      margin-top: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      background: rgba(0, 255, 255, 0.15);
+      box-shadow:
+        0 0 20px #00fff7 inset;
+      letter-spacing: 0.05em;
+    }
+    @media (max-width: 640px) {
+      main {
+        margin: 2rem 1rem 3rem;
+        padding: 1.5rem 1.5rem 2.5rem;
+        border-radius: 1rem;
+      }
+      ul.group-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      li.group-item {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        text-align: justify;
+      }
+      li.group-item img {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 0.75rem;
+      }
+      li.group-item a {
+        font-size: 1.125rem;
+        margin-top: 0;
+        text-align: center;
+        gap: 0.4rem;
+      }
+      .description {
+        text-align: justify;
+        font-size: 0.95rem;
+        max-width: none;
+      }
+      .help-text {
+        font-size: 1rem;
+        max-width: 90vw;
+        margin: 1rem 5vw 0;
+        padding: 0.75rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button aria-label="Back" class="back-button" onclick="window.location.href='mainmenu.html'">
+      <i aria-hidden="true" class="fas fa-arrow-left"></i>
+    </button>
+    GRUP RESMI
+  </header>
+  <main>
+    <h2>Grup &amp; Channel Resmi BOI XD Store</h2>
+    <ul class="group-list" role="list">
+      <li class="group-item" tabindex="0">
+        <img alt="Logo WhatsApp, white phone icon on green background" height="96" src="https://storage.googleapis.com/a1aa/image/72c7559c-00ed-490f-a1f1-77d3584168f3.jpg" width="96"/>
+        <a aria-label="Grup WhatsApp 1 BOI XD Store" href="https://chat.whatsapp.com/KjwcCO7LOEaLQYskyOQgdc" rel="noopener noreferrer" target="_blank">
+          Grup WhatsApp 1
+          <i aria-hidden="true" class="fas fa-check-circle verified-icon" title="Verified Official"></i>
+        </a>
+        <p class="description">
+          Grup utama untuk diskusi komunitas, informasi promo eksklusif, dan dukungan langsung dari tim BOI XD Store.
+        </p>
+      </li>
+      <li class="group-item" tabindex="0">
+        <img alt="Logo WhatsApp, white phone icon on green background" height="96" src="https://storage.googleapis.com/a1aa/image/72c7559c-00ed-490f-a1f1-77d3584168f3.jpg" width="96"/>
+        <a aria-label="Grup WhatsApp 2 BOI XD Store" href="https://chat.whatsapp.com/KjwcCO7LOEaLQYskyOQgdc" rel="noopener noreferrer" target="_blank">
+          Grup WhatsApp 2
+          <i aria-hidden="true" class="fas fa-check-circle verified-icon" title="Verified Official"></i>
+        </a>
+        <p class="description">
+          Grup cadangan untuk komunitas besar, menyediakan ruang diskusi aktif dan berbagi informasi terkini.
+        </p>
+      </li>
+      <li class="group-item" tabindex="0">
+        <img alt="Logo WhatsApp, white phone icon on green background with broadcast waves" height="96" src="https://storage.googleapis.com/a1aa/image/f61dbcc5-94ff-4f43-c1da-dda5b310f7ed.jpg" width="96"/>
+        <a aria-label="Channel WhatsApp BOI XD Store" href="https://chat.whatsapp.com/KjwcCO7LOEaLQYskyOQgdc" rel="noopener noreferrer" target="_blank">
+          Channel WhatsApp
+          <i aria-hidden="true" class="fas fa-check-circle verified-icon" title="Verified Official"></i>
+        </a>
+        <p class="description">
+          Channel resmi untuk menerima update berita, promo, dan pengumuman penting secara langsung dan terpercaya.
+        </p>
+      </li>
+      <li class="group-item" tabindex="0">
+        <img alt="Logo Instagram, white camera icon on gradient background" height="96" src="https://storage.googleapis.com/a1aa/image/947b3990-b4c3-4c4d-9737-98944f2da55d.jpg" width="96"/>
+        <a aria-label="Instagram Official BOI XD Store" href="https://chat.whatsapp.com/KjwcCO7LOEaLQYskyOQgdc" rel="noopener noreferrer" target="_blank">
+          Instagram Official
+          <i aria-hidden="true" class="fas fa-check-circle verified-icon" title="Verified Official"></i>
+        </a>
+        <p class="description">
+          Ikuti akun Instagram resmi kami untuk konten eksklusif, event menarik, dan interaksi langsung dengan komunitas.
+        </p>
+      </li>
+    </ul>
+    <div class="help-text" role="note" aria-live="polite" aria-atomic="true">
+      Kami sangat menghargai dukungan Anda untuk turut memeriahkan dan mengembangkan komunitas ini.
+    </div>
+  </main>
+</body>
+</html>

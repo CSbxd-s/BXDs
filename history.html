@@ -1,0 +1,647 @@
+<html lang="en" class="scroll-smooth" >
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Riwayat Penjualan Akun Game</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Enable dark mode class strategy
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              light: '#7dd3fc', // pastel blue
+              DEFAULT: '#30cfcf', // turquoise
+              dark: '#238383',
+            },
+            backgroundLight: '#e0f7f7',
+            backgroundDark: '#0f172a',
+          },
+        },
+      },
+    };
+  </script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #e0f7f7;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease;
+    }
+    body.dark {
+      background-color: #0f172a;
+    }
+    /* Scrollbar for filters and table */
+    .scrollbar-thin::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #30cfcf;
+      border-radius: 10px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  </style>
+</head>
+<body class="bg-backgroundLight dark:bg-backgroundDark text-gray-800 dark:text-gray-200 min-h-screen flex flex-col">
+  <header class="bg-primary DEFAULT dark:bg-primary-dark shadow-md sticky top-0 z-40">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+    >
+      <h1 class="text-2xl font-semibold text-white flex items-center gap-2">
+        <i class="fas fa-receipt"></i>
+        Riwayat Penjualan Akun Game
+      </h1>
+      <button
+        id="darkModeToggle"
+        aria-label="Toggle Dark Mode"
+        class="text-white focus:outline-none hover:text-primary-light transition-colors"
+        title="Toggle Dark Mode"
+      >
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <!-- Filters and Export -->
+    <section
+      aria-label="Filters and Export Options"
+      class="mb-6 bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+    >
+      <form id="filterForm" class="flex flex-wrap gap-4 items-center w-full md:w-auto" novalidate>
+        <div class="flex flex-col">
+          <label for="filterDate" class="text-sm font-semibold flex items-center gap-1">
+            <i class="fas fa-calendar-alt text-primary DEFAULT dark:text-primary-light"></i>
+            Tanggal
+          </label>
+          <input
+            type="date"
+            id="filterDate"
+            name="filterDate"
+            class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-1.5 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+          />
+        </div>
+        <div class="flex flex-col min-w-[140px]">
+          <label for="filterStatus" class="text-sm font-semibold flex items-center gap-1">
+            <i class="fas fa-info-circle text-primary DEFAULT dark:text-primary-light"></i>
+            Status
+          </label>
+          <select
+            id="filterStatus"
+            name="filterStatus"
+            class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-1.5 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+          >
+            <option value="">Semua</option>
+            <option value="Success">Success</option>
+            <option value="Pending">Pending</option>
+            <option value="Failed">Failed</option>
+            <option value="Refunded">Refunded</option>
+          </select>
+        </div>
+        <div class="flex flex-col min-w-[140px]">
+          <label for="filterGame" class="text-sm font-semibold flex items-center gap-1">
+            <i class="fas fa-gamepad text-primary DEFAULT dark:text-primary-light"></i>
+            Game
+          </label>
+          <select
+            id="filterGame"
+            name="filterGame"
+            class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-1.5 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+          >
+            <option value="">Semua</option>
+            <option value="Mobile Legends">Mobile Legends</option>
+            <option value="Freefire">Freefire</option>
+            <option value="Freefire Max">Freefire Max</option>
+            <option value="Genshin Impact">Genshin Impact</option>
+            <option value="PUBG Mobile">PUBG Mobile</option>
+            <option value="Honor Of Kings">Honor Of Kings</option>
+            <option value="8 Ball Pool">8 Ball Pool</option>
+            <option value="One Punch Man">One Punch Man</option>
+            <option value="Sausage Man">Sausage Man</option>
+            <option value="CODM">CODM</option>
+            <option value="Ace Racer">Ace Racer</option>
+            <option value="Honkai Impact 3">Honkai Impact 3</option>
+            <option value="LOL: WildRift">LOL: WildRift</option>
+            <option value="Stumble Guys">Stumble Guys</option>
+            <option value="LifeAfter">LifeAfter</option>
+            <option value="Marvel Snap">Marvel Snap</option>
+            <option value="Honkai StarRail">Honkai StarRail</option>
+            <option value="Garena Undawn">Garena Undawn</option>
+            <option value="Metal Slug">Metal Slug</option>
+            <option value="FC Mobile">FC Mobile</option>
+            <option value="Eggy Party">Eggy Party</option>
+            <option value="PUBG New State">PUBG New State</option>
+            <option value="Arena Breakout">Arena Breakout</option>
+            <option value="Farlight 84">Farlight 84</option>
+            <option value="Garena Black Cover M">Garena Black Cover M</option>
+            <option value="Blood Strike">Blood Strike</option>
+            <option value="Delta Force Mobile">Delta Force Mobile</option>
+            <option value="Harry Potter Magic Awakened">Harry Potter Magic Awakened</option>
+            <option value="MCGG">MCGG</option>
+            <option value="Zenless Zone Zero">Zenless Zone Zero</option>
+          </select>
+        </div>
+        <button
+          type="button"
+          id="applyFiltersBtn"
+          class="bg-primary DEFAULT dark:bg-primary-dark text-white px-4 py-2 rounded-md shadow hover:bg-primary-light dark:hover:bg-primary-light transition-colors text-sm font-semibold"
+        >
+          <i class="fas fa-filter mr-1"></i> Terapkan
+        </button>
+        <button
+          type="button"
+          id="resetFiltersBtn"
+          class="bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md shadow hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors text-sm font-semibold"
+        >
+          <i class="fas fa-undo mr-1"></i> Reset
+        </button>
+      </form>
+      <div class="flex gap-3 mt-3 md:mt-0">
+        <button
+          type="button"
+          id="exportExcelBtn"
+          class="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 transition-colors text-sm font-semibold flex items-center gap-2"
+          title="Export ke Excel"
+        >
+          <i class="fas fa-file-excel"></i> Excel
+        </button>
+        <button
+          type="button"
+          id="exportPdfBtn"
+          class="bg-red-600 text-white px-4 py-2 rounded-md shadow hover:bg-red-700 transition-colors text-sm font-semibold flex items-center gap-2"
+          title="Export ke PDF"
+        >
+          <i class="fas fa-file-pdf"></i> PDF
+        </button>
+      </div>
+    </section>
+
+    <!-- Transaction Form -->
+    <section
+      aria-label="Form Riwayat Penjualan Akun Game"
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 max-w-4xl mx-auto"
+    >
+      <form id="transactionForm" novalidate class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Registered Account -->
+          <div class="flex flex-col">
+            <label for="accountSelect" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-user-circle"></i> Pilih Akun Terdaftar <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="accountSelect"
+              name="accountSelect"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            >
+              <option value="" disabled selected>Pilih akun</option>
+            </select>
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorAccountSelect">Harap pilih akun.</p>
+          </div>
+
+          <!-- Game -->
+          <div class="flex flex-col">
+            <label for="gameSelect" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-gamepad"></i> Pilih Game <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="gameSelect"
+              name="gameSelect"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            >
+              <option value="" disabled selected>Pilih game</option>
+            </select>
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorGameSelect">Harap pilih game.</p>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="flex flex-col">
+            <label for="paymentMethodSelect" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-credit-card"></i> Metode Pembayaran <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="paymentMethodSelect"
+              name="paymentMethodSelect"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            >
+              <option value="" disabled selected>Pilih metode pembayaran</option>
+              <option value="Transfer Bank">Transfer Bank</option>
+              <option value="OVO">OVO</option>
+              <option value="GoPay">GoPay</option>
+              <option value="Dana">Dana</option>
+              <option value="ShopeePay">ShopeePay</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Paypal">Paypal</option>
+            </select>
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorPaymentMethodSelect">Harap pilih metode pembayaran.</p>
+          </div>
+
+          <!-- Price -->
+          <div class="flex flex-col">
+            <label for="priceInput" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-dollar-sign"></i> Harga <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              id="priceInput"
+              name="priceInput"
+              min="0"
+              step="1"
+              placeholder="Masukkan harga"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            />
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorPriceInput">Harap masukkan harga yang valid.</p>
+          </div>
+
+          <!-- Transaction Date -->
+          <div class="flex flex-col">
+            <label for="transactionDateInput" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-calendar-check"></i> Tanggal Transaksi <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              id="transactionDateInput"
+              name="transactionDateInput"
+              required
+              max=""
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            />
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorTransactionDateInput">Harap pilih tanggal yang valid.</p>
+          </div>
+
+          <!-- Transaction Status -->
+          <div class="flex flex-col">
+            <label for="transactionStatusSelect" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-info-circle"></i> Status Transaksi <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="transactionStatusSelect"
+              name="transactionStatusSelect"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            >
+              <option value="" disabled selected>Pilih status</option>
+              <option value="Success">Success</option>
+              <option value="Pending">Pending</option>
+              <option value="Failed">Failed</option>
+              <option value="Refunded">Refunded</option>
+            </select>
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorTransactionStatusSelect">Harap pilih status transaksi.</p>
+          </div>
+
+          <!-- Buyer Name -->
+          <div class="flex flex-col md:col-span-2">
+            <label for="buyerNameInput" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-user"></i> Nama Pembeli <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="buyerNameInput"
+              name="buyerNameInput"
+              placeholder="Masukkan nama pembeli"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            />
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorBuyerNameInput">Harap masukkan nama pembeli.</p>
+          </div>
+
+          <!-- Optional Notes -->
+          <div class="flex flex-col md:col-span-2">
+            <label for="notesTextarea" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-sticky-note"></i> Catatan (Opsional)
+            </label>
+            <textarea
+              id="notesTextarea"
+              name="notesTextarea"
+              rows="3"
+              placeholder="Masukkan catatan tambahan"
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-y focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            ></textarea>
+          </div>
+
+          <!-- Upload Payment Proof -->
+          <div class="flex flex-col md:col-span-2">
+            <label for="paymentProofInput" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-file-upload"></i> Upload Bukti Pembayaran <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="file"
+              id="paymentProofInput"
+              name="paymentProofInput"
+              accept="image/*"
+              required
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-1.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary DEFAULT dark:focus:ring-primary-light"
+            />
+            <p class="text-red-600 text-sm mt-1 hidden" id="errorPaymentProofInput">Harap upload bukti pembayaran (gambar).</p>
+            <div id="paymentProofPreview" class="mt-2 max-w-xs max-h-48 overflow-hidden rounded-md border border-gray-300 dark:border-gray-600 hidden">
+              <img alt="Preview bukti pembayaran" class="w-full h-auto object-contain" />
+            </div>
+          </div>
+
+          <!-- Auto-generated Transaction ID -->
+          <div class="flex flex-col md:col-span-2">
+            <label for="transactionIdDisplay" class="mb-1 font-semibold flex items-center gap-2 text-primary DEFAULT dark:text-primary-light">
+              <i class="fas fa-hashtag"></i> ID Transaksi (Otomatis)
+            </label>
+            <input
+              type="text"
+              id="transactionIdDisplay"
+              name="transactionIdDisplay"
+              readonly
+              class="rounded-md border border-primary DEFAULT dark:border-primary-light px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 cursor-not-allowed"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full md:w-auto bg-primary DEFAULT dark:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-primary-light dark:hover:bg-primary-light transition-colors flex items-center justify-center gap-2"
+        >
+          <i class="fas fa-save"></i> Simpan Transaksi
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+      // Change icon
+      if (document.documentElement.classList.contains('dark')) {
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    });
+
+    // Populate Registered Account select with dummy data (replace with real data)
+    const accountSelect = document.getElementById('accountSelect');
+    const dummyAccounts = [
+      { id: 1, name: 'Andi Saputra', email: 'andi@example.com' },
+      { id: 2, name: 'Budi Santoso', email: 'budi@example.com' },
+      { id: 3, name: 'Citra Dewi', email: 'citra@example.com' },
+      { id: 4, name: 'Dewi Lestari', email: 'dewi@example.com' },
+      { id: 5, name: 'Eko Prasetyo', email: 'eko@example.com' },
+    ];
+    dummyAccounts.forEach(acc => {
+      const option = document.createElement('option');
+      option.value = acc.id;
+      option.textContent = `${acc.name} (${acc.email})`;
+      accountSelect.appendChild(option);
+    });
+
+    // Populate Game select with gamesList from previous code or static list
+    const gameSelect = document.getElementById('gameSelect');
+    const gamesList = [
+      "Mobile Legends",
+      "Freefire",
+      "Freefire Max",
+      "Genshin Impact",
+      "PUBG Mobile",
+      "Honor Of Kings",
+      "8 Ball Pool",
+      "One Punch Man",
+      "Sausage Man",
+      "CODM",
+      "Ace Racer",
+      "Honkai Impact 3",
+      "LOL: WildRift",
+      "Stumble Guys",
+      "LifeAfter",
+      "Marvel Snap",
+      "Honkai StarRail",
+      "Garena Undawn",
+      "Metal Slug",
+      "FC Mobile",
+      "Eggy Party",
+      "PUBG New State",
+      "Arena Breakout",
+      "Farlight 84",
+      "Garena Black Cover M",
+      "Blood Strike",
+      "Delta Force Mobile",
+      "Harry Potter Magic Awakened",
+      "MCGG",
+      "Zenless Zone Zero"
+    ];
+    gamesList.forEach(game => {
+      const option = document.createElement('option');
+      option.value = game;
+      option.textContent = game;
+      gameSelect.appendChild(option);
+    });
+
+    // Set max date for transaction date input to today
+    const transactionDateInput = document.getElementById('transactionDateInput');
+    const todayISO = new Date().toISOString().split('T')[0];
+    transactionDateInput.setAttribute('max', todayISO);
+
+    // Auto-generate Transaction ID (format: TX-YYYYMMDD-HHMMSS-RANDOM4)
+    function generateTransactionID() {
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, '0');
+      const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
+      const timePart = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const randomPart = Math.floor(1000 + Math.random() * 9000);
+      return `TX-${datePart}-${timePart}-${randomPart}`;
+    }
+    const transactionIdDisplay = document.getElementById('transactionIdDisplay');
+    transactionIdDisplay.value = generateTransactionID();
+
+    // Payment proof preview
+    const paymentProofInput = document.getElementById('paymentProofInput');
+    const paymentProofPreview = document.getElementById('paymentProofPreview');
+    const paymentProofPreviewImg = paymentProofPreview.querySelector('img');
+    paymentProofInput.addEventListener('change', () => {
+      const file = paymentProofInput.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          paymentProofPreviewImg.src = e.target.result;
+          paymentProofPreview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        paymentProofPreviewImg.src = '';
+        paymentProofPreview.classList.add('hidden');
+      }
+    });
+
+    // Form validation and submission
+    const transactionForm = document.getElementById('transactionForm');
+
+    function showError(inputId, message) {
+      const errorEl = document.getElementById('error' + inputId.charAt(0).toUpperCase() + inputId.slice(1));
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+      }
+    }
+    function hideError(inputId) {
+      const errorEl = document.getElementById('error' + inputId.charAt(0).toUpperCase() + inputId.slice(1));
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.add('hidden');
+      }
+    }
+
+    function validateForm() {
+      let valid = true;
+
+      // Account select
+      if (!accountSelect.value) {
+        showError('AccountSelect', 'Harap pilih akun.');
+        valid = false;
+      } else {
+        hideError('AccountSelect');
+      }
+
+      // Game select
+      if (!gameSelect.value) {
+        showError('GameSelect', 'Harap pilih game.');
+        valid = false;
+      } else {
+        hideError('GameSelect');
+      }
+
+      // Payment method select
+      const paymentMethodSelect = document.getElementById('paymentMethodSelect');
+      if (!paymentMethodSelect.value) {
+        showError('PaymentMethodSelect', 'Harap pilih metode pembayaran.');
+        valid = false;
+      } else {
+        hideError('PaymentMethodSelect');
+      }
+
+      // Price input
+      const priceInput = document.getElementById('priceInput');
+      if (!priceInput.value || isNaN(priceInput.value) || Number(priceInput.value) < 0) {
+        showError('PriceInput', 'Harap masukkan harga yang valid.');
+        valid = false;
+      } else {
+        hideError('PriceInput');
+      }
+
+      // Transaction date input
+      if (!transactionDateInput.value) {
+        showError('TransactionDateInput', 'Harap pilih tanggal transaksi.');
+        valid = false;
+      } else {
+        const selectedDate = new Date(transactionDateInput.value);
+        const now = new Date();
+        if (selectedDate > now) {
+          showError('TransactionDateInput', 'Tanggal tidak boleh di masa depan.');
+          valid = false;
+        } else {
+          hideError('TransactionDateInput');
+        }
+      }
+
+      // Transaction status select
+      const transactionStatusSelect = document.getElementById('transactionStatusSelect');
+      if (!transactionStatusSelect.value) {
+        showError('TransactionStatusSelect', 'Harap pilih status transaksi.');
+        valid = false;
+      } else {
+        hideError('TransactionStatusSelect');
+      }
+
+      // Buyer name input
+      const buyerNameInput = document.getElementById('buyerNameInput');
+      if (!buyerNameInput.value.trim()) {
+        showError('BuyerNameInput', 'Harap masukkan nama pembeli.');
+        valid = false;
+      } else {
+        hideError('BuyerNameInput');
+      }
+
+      // Payment proof input
+      if (!paymentProofInput.files.length) {
+        showError('PaymentProofInput', 'Harap upload bukti pembayaran.');
+        valid = false;
+      } else {
+        const file = paymentProofInput.files[0];
+        if (!file.type.startsWith('image/')) {
+          showError('PaymentProofInput', 'File harus berupa gambar.');
+          valid = false;
+        } else {
+          hideError('PaymentProofInput');
+        }
+      }
+
+      return valid;
+    }
+
+    transactionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateForm()) {
+        return;
+      }
+      // Gather form data
+      const formData = new FormData(transactionForm);
+      const transactionData = {
+        transactionId: transactionIdDisplay.value,
+        accountId: formData.get('accountSelect'),
+        game: formData.get('gameSelect'),
+        paymentMethod: formData.get('paymentMethodSelect'),
+        price: Number(formData.get('priceInput')),
+        transactionDate: formData.get('transactionDateInput'),
+        status: formData.get('transactionStatusSelect'),
+        buyerName: formData.get('buyerNameInput').trim(),
+        notes: formData.get('notesTextarea').trim(),
+        paymentProofFile: paymentProofInput.files[0],
+      };
+
+      // Here you would handle saving the transaction data, e.g., send to backend or localStorage
+      // For demo, just alert success and reset form
+
+      alert(`Transaksi berhasil disimpan dengan ID: ${transactionData.transactionId}`);
+
+      // Reset form and generate new transaction ID
+      transactionForm.reset();
+      paymentProofPreviewImg.src = '';
+      paymentProofPreview.classList.add('hidden');
+      transactionIdDisplay.value = generateTransactionID();
+    });
+
+    // Filters buttons (dummy handlers)
+    document.getElementById('applyFiltersBtn').addEventListener('click', () => {
+      alert('Filter diterapkan (demo).');
+    });
+    document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+      document.getElementById('filterForm').reset();
+      alert('Filter direset (demo).');
+    });
+
+    // Export buttons (dummy handlers)
+    document.getElementById('exportExcelBtn').addEventListener('click', () => {
+      alert('Export ke Excel (demo).');
+    });
+    document.getElementById('exportPdfBtn').addEventListener('click', () => {
+      alert('Export ke PDF (demo).');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,847 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Topup Aceracer - BOI XD Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+    }
+    /* Custom radio button styles */
+    input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      border: 2px solid #d1d5db; /* gray-300 */
+      transition: border-color 0.3s, background-color 0.3s;
+      position: relative;
+      outline-offset: 2px;
+    }
+    input[type="radio"]:checked {
+      border-color: #6366f1; /* indigo-500 */
+      background-color: #e0e7ff; /* indigo-100 */
+    }
+    input[type="radio"]:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+    label.radio-label {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      height: 80px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    input[type="radio"]:checked + label.radio-label {
+      border-color: #6366f1;
+      background-color: #e0e7ff;
+    }
+    /* Adjust payment logos for rectangular shape */
+    .payment-logo-rect {
+      width: 48px;
+      height: 24px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    /* Square logos */
+    .payment-logo-square {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 0.25rem;
+    }
+    /* Disabled payment container */
+    .payment-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+    /* Button press animation */
+    .btn-press {
+      animation: btnPressAnim 0.2s ease forwards;
+    }
+    @keyframes btnPressAnim {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(0.95);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+    <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
+     <i class="fas fa-arrow-left">
+     </i>
+    </a>
+    <h1 class="text-2xl font-semibold text-gray-800">
+     Topup Aceracer
+    </h1>
+   </div>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+   <section class="bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
+     <img alt="Logo game Aceracer berupa tulisan Aceracer berwarna hijau dengan latar belakang putih, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/MxrSRhmn/aceracer.jpg" width="128"/>
+     <div class="mt-4 sm:mt-0 text-center sm:text-left">
+      <h2 class="text-xl font-semibold text-gray-900">
+       Aceracer
+      </h2>
+      <p class="mt-2 text-gray-600">
+       Top up akun Aceracer Anda dengan cepat dan aman. Pilih server, paket token yang diinginkan di bawah dan selesaikan pembelian Anda.
+      </p>
+     </div>
+    </div>
+    <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="serverSelect">
+       Pilih Server
+      </label>
+      <div class="relative">
+       <button aria-expanded="false" aria-haspopup="listbox" aria-labelledby="serverSelectLabel serverSelectValue" class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" id="serverSelectBtn" type="button">
+        <span class="block truncate text-gray-400" id="serverSelectValue">
+         Pilih server
+        </span>
+        <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+         <i class="fas fa-chevron-down text-gray-400">
+         </i>
+        </span>
+       </button>
+       <ul aria-labelledby="serverSelectLabel" class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden" id="serverSelectList" role="listbox" tabindex="-1">
+        <li aria-selected="false" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white" data-value="Asia" id="server-asia" role="option" tabindex="0">
+         <span class="flex items-center space-x-3">
+          <img alt="Bendera Asia dengan latar belakang biru dan bintang kuning" class="h-6 w-6 rounded-full object-cover" height="24" src="https://storage.googleapis.com/a1aa/image/501cb4c6-4de7-4a8f-b40d-14cf57da9f5e.jpg" width="24"/>
+          <span>
+           Asia
+          </span>
+         </span>
+         <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 hidden" id="check-asia">
+          <i class="fas fa-check">
+          </i>
+         </span>
+        </li>
+        <li aria-selected="false" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white" data-value="Eropa" id="server-eropa" role="option" tabindex="-1">
+         <span class="flex items-center space-x-3">
+          <img alt="Bendera Eropa dengan lingkaran bintang kuning di latar biru" class="h-6 w-6 rounded-full object-cover" height="24" src="https://storage.googleapis.com/a1aa/image/d8757385-bb2f-4c8d-41ed-8717e23fabc1.jpg" width="24"/>
+          <span>
+           Eropa
+          </span>
+         </span>
+         <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 hidden" id="check-eropa">
+          <i class="fas fa-check">
+          </i>
+         </span>
+        </li>
+        <li aria-selected="false" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white" data-value="Amerika" id="server-amerika" role="option" tabindex="-1">
+         <span class="flex items-center space-x-3">
+          <img alt="Bendera Amerika dengan garis merah putih dan bintang putih di latar biru" class="h-6 w-6 rounded-full object-cover" height="24" src="https://storage.googleapis.com/a1aa/image/0b9b276b-dabd-403b-9911-27ff4d06ddf8.jpg" width="24"/>
+          <span>
+           Amerika
+          </span>
+         </span>
+         <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 hidden" id="check-amerika">
+          <i class="fas fa-check">
+          </i>
+         </span>
+        </li>
+        <li aria-selected="false" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white" data-value="Jepang" id="server-jepang" role="option" tabindex="-1">
+         <span class="flex items-center space-x-3">
+          <img alt="Bendera Jepang dengan lingkaran merah di tengah latar putih" class="h-6 w-6 rounded-full object-cover" height="24" src="https://storage.googleapis.com/a1aa/image/a19f8846-527e-4c0d-35ac-dad0b5c73c90.jpg" width="24"/>
+          <span>
+           Jepang
+          </span>
+         </span>
+         <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 hidden" id="check-jepang">
+          <i class="fas fa-check">
+          </i>
+         </span>
+        </li>
+        <li aria-selected="false" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white" data-value="Korea" id="server-korea" role="option" tabindex="-1">
+         <span class="flex items-center space-x-3">
+          <img alt="Bendera Korea dengan lingkaran merah dan biru di tengah latar putih" class="h-6 w-6 rounded-full object-cover" height="24" src="https://storage.googleapis.com/a1aa/image/7539d04c-5646-4412-68d8-f8d264f9818e.jpg" width="24"/>
+          <span>
+           Korea
+          </span>
+         </span>
+         <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 hidden" id="check-korea">
+          <i class="fas fa-check">
+          </i>
+         </span>
+        </li>
+       </ul>
+      </div>
+      <p class="mt-1 text-xs text-gray-500" id="serverSelectHelp">
+       Pilih server tempat akun Aceracer Anda berada.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="serverSelectError" role="alert">
+       Harap pilih server.
+      </p>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="userId">
+       ID Pengguna
+      </label>
+      <input aria-describedby="userIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="userId" name="userId" placeholder="Masukkan ID Pengguna" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="userIdHelp">
+       ID unik pemain Aceracer Anda.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Jenis Topup
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="topupTypeContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedTopupType">
+          Pilih Jenis Topup
+         </span>
+        </div>
+        <button aria-controls="topupTypeOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleTopupTypeBtn" type="button">
+         <span id="toggleTopupTypeText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleTopupTypeIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-1 gap-4 hidden" id="topupTypeOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="topupTokens" name="topupType" type="radio" value="tokens"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupTokens" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">
+           Tokens
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-red-600 hidden" id="topupTypeError" role="alert">
+       Harap pilih jenis topup.
+      </p>
+     </div>
+     <div class="hidden" id="tokensSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Nominal Topup Tokens
+       </span>
+      </div>
+      <fieldset aria-describedby="packageErrorTokens" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+       <div>
+        <input class="hidden peer" id="pkg1" name="package" type="radio" value="60+5"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg1" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          60+5
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 12.596
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg2" name="package" type="radio" value="250+20"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg2" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          250+20
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 51.155
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg3" name="package" type="radio" value="680+60"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg3" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          680+60
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 128.271
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg4" name="package" type="radio" value="1180+120"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg4" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          1180+120
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 231.087
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg5" name="package" type="radio" value="2880+300"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg5" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          2880+300
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 588.661
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="pkg6" name="package" type="radio" value="5880+650"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100" for="pkg6" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          5880+650
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.154.187
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorTokens" role="alert">
+       Harap pilih nominal token.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Metode Pembayaran
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="paymentContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <svg aria-hidden="true" class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8c-1.657 0-3 1.343-3 3v3h6v-3c0-1.657-1.343-3-3-3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          </path>
+         </svg>
+         <span class="font-semibold text-gray-900" id="selectedPaymentLabel">
+          Pilih Metode
+         </span>
+        </div>
+        <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
+         <span id="toggleDetailsText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payGopay" tabindex="0">
+          <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/64ab1629-e153-43f5-5473-c0c7a74bea14.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           GoPay
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payQris" tabindex="0">
+          <img alt="Logo QRIS hitam putih dengan pola QR code" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/c47b84a5-befa-44d6-c477-d705958d5b85.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           QRIS
+          </span>
+          <span class="text-sm text-green-600">
+           Harga Jual + Rp 1
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payOvo" tabindex="0">
+          <img alt="Logo OVO ungu dengan tulisan OVO" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/f5cb3572-f383-4bf3-529d-866687c937f3.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           OVO
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payDana" tabindex="0">
+          <img alt="Logo DANA biru dengan tulisan DANA" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/a7e0d428-faf1-4386-cb7b-37242936b7b5.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           DANA
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="paySpay" tabindex="0">
+          <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="mb-1 payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/3196180a-9311-44c9-f54b-3c4b46ca77a2.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           ShopeePay
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="payLinkaja" tabindex="0">
+          <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="mb-1 payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/0d3246c7-cdb9-4c43-b5ce-105c7cb3be7f.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           LinkAja
+          </span>
+          <span class="text-sm text-gray-600">
+           Harga Jual + 2%
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
+       Pilih nominal token terlebih dahulu untuk memilih metode pembayaran.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
+       Harap pilih metode pembayaran.
+      </p>
+     </div>
+     <button class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 text-white font-semibold py-3 rounded-md transition-colors" type="submit">
+      Lanjutkan Topup
+     </button>
+    </form>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0">
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 BOI XD Topup. Semua hak dilindungi.
+   </div>
+  </footer>
+  <script>
+   (() => {
+      const form = document.getElementById('topupForm');
+      const userIdInput = document.getElementById('userId');
+      const serverSelectBtn = document.getElementById('serverSelectBtn');
+      const serverSelectValue = document.getElementById('serverSelectValue');
+      const serverSelectList = document.getElementById('serverSelectList');
+      const serverSelectError = document.getElementById('serverSelectError');
+      const packageRadios = form.querySelectorAll('input[name="package"]');
+      const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
+      const paymentOptions = document.getElementById('paymentOptions');
+      const paymentContainer = document.getElementById('paymentContainer');
+      const toggleDetailsBtn = document.getElementById('toggleDetailsBtn');
+      const selectedPaymentLabel = document.getElementById('selectedPaymentLabel');
+      const toggleDetailsText = document.getElementById('toggleDetailsText');
+      const toggleDetailsIcon = document.getElementById('toggleDetailsIcon');
+      const tokensSection = document.getElementById('tokensSection');
+      const toggleTopupTypeBtn = document.getElementById('toggleTopupTypeBtn');
+      const topupTypeOptions = document.getElementById('topupTypeOptions');
+      const selectedTopupType = document.getElementById('selectedTopupType');
+      const topupTypeError = document.getElementById('topupTypeError');
+      const paymentBlockedAttention = document.getElementById('paymentBlockedAttention');
+      const packageErrorTokens = document.getElementById('packageErrorTokens');
+      const paymentMethodError = document.getElementById('paymentMethodError');
+
+      // Harga Asli (Rp) untuk nominal tokens
+      const packageBasePrices = {
+        "60+5": 12596,
+        "250+20": 51155,
+        "680+60": 128271,
+        "1180+120": 231087,
+        "2880+300": 588661,
+        "5880+650": 1154187
+      };
+
+      // Harga Jual (Rp) untuk nominal tokens
+      const packageSellPrices = {
+        "60+5": 13000,
+        "250+20": 52700,
+        "680+60": 132200,
+        "1180+120": 238100,
+        "2880+300": 606400,
+        "5880+650": 1188900
+      };
+
+      // Payment method price adjustments
+      // QRIS = Harga Jual + 1
+      // Others = Harga Jual + 2% (except 3% for large nominal packages)
+      const largePackages = ["1180+120", "2880+300", "5880+650"];
+      const paymentPriceAdjustments = {
+        gopay: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        qris: (base) => base + 1,
+        ovo: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        dana: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        spay: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        },
+        linkaja: (base, pkg) => {
+          if (largePackages.includes(pkg)) {
+            return Math.round(base * 1.03);
+          }
+          return Math.round(base * 1.02);
+        }
+      };
+
+      let selectedServer = null;
+      let selectedTopupTypeValue = null;
+
+      // Server select dropdown logic
+      function closeServerList() {
+        serverSelectList.classList.add('hidden');
+        serverSelectBtn.setAttribute('aria-expanded', 'false');
+      }
+      function openServerList() {
+        serverSelectList.classList.remove('hidden');
+        serverSelectBtn.setAttribute('aria-expanded', 'true');
+      }
+
+      serverSelectBtn.addEventListener('click', () => {
+        if (serverSelectList.classList.contains('hidden')) {
+          openServerList();
+        } else {
+          closeServerList();
+        }
+      });
+
+      serverSelectList.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', () => {
+          selectedServer = item.getAttribute('data-value');
+          serverSelectValue.textContent = item.textContent.trim();
+          serverSelectValue.classList.remove('text-gray-400');
+          serverSelectError.classList.add('hidden');
+          // Update aria-selected and check icons
+          serverSelectList.querySelectorAll('li').forEach(li => {
+            li.setAttribute('aria-selected', 'false');
+            const check = li.querySelector('span.absolute');
+            if (check) check.classList.add('hidden');
+          });
+          item.setAttribute('aria-selected', 'true');
+          const checkIcon = item.querySelector('span.absolute');
+          if (checkIcon) checkIcon.classList.remove('hidden');
+          closeServerList();
+          updatePaymentAvailability();
+        });
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.click();
+          }
+        });
+      });
+
+      // Close server list on outside click
+      document.addEventListener('click', (e) => {
+        if (!serverSelectBtn.contains(e.target) && !serverSelectList.contains(e.target)) {
+          closeServerList();
+        }
+      });
+
+      // Topup type toggle logic
+      toggleTopupTypeBtn.addEventListener('click', () => {
+        const expanded = toggleTopupTypeBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          topupTypeOptions.classList.add('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'false');
+          toggleTopupTypeText.textContent = 'Detail';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-up');
+          toggleTopupTypeIcon.classList.add('fa-chevron-down');
+        } else {
+          topupTypeOptions.classList.remove('hidden');
+          toggleTopupTypeBtn.setAttribute('aria-expanded', 'true');
+          toggleTopupTypeText.textContent = 'Sembunyikan';
+          toggleTopupTypeIcon.classList.remove('fa-chevron-down');
+          toggleTopupTypeIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      // Topup type selection
+      topupTypeOptions.querySelectorAll('input[name="topupType"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          selectedTopupTypeValue = radio.value;
+          selectedTopupType.textContent = radio.nextElementSibling.textContent.trim();
+          topupTypeError.classList.add('hidden');
+          // Show tokens section only if tokens selected
+          if (selectedTopupTypeValue === 'tokens') {
+            tokensSection.classList.remove('hidden');
+          } else {
+            tokensSection.classList.add('hidden');
+          }
+          // Clear package selection and errors
+          packageRadios.forEach(pkg => pkg.checked = false);
+          packageErrorTokens.classList.add('hidden');
+          // Reset payment method selection and label
+          paymentMethodRadios.forEach(pm => pm.checked = false);
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+          updatePaymentAvailability();
+        });
+      });
+
+      function validateServerSelect() {
+        if (!selectedServer) {
+          serverSelectError.classList.remove('hidden');
+          serverSelectBtn.setAttribute('aria-invalid', 'true');
+          return false;
+        } else {
+          serverSelectError.classList.add('hidden');
+          serverSelectBtn.removeAttribute('aria-invalid');
+          return true;
+        }
+      }
+
+      function validateTopupType() {
+        if (!selectedTopupTypeValue) {
+          topupTypeError.classList.remove('hidden');
+          return false;
+        } else {
+          topupTypeError.classList.add('hidden');
+          return true;
+        }
+      }
+
+      function validatePackage() {
+        let selected = false;
+        packageRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          packageErrorTokens.classList.remove('hidden');
+        } else {
+          packageErrorTokens.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function validatePaymentMethod() {
+        let selected = false;
+        paymentMethodRadios.forEach(radio => {
+          if (radio.checked) selected = true;
+        });
+        if (!selected) {
+          paymentMethodError.classList.remove('hidden');
+        } else {
+          paymentMethodError.classList.add('hidden');
+        }
+        return selected;
+      }
+
+      function updatePaymentAvailability() {
+        const serverSelected = validateServerSelect();
+        const topupTypeSelected = validateTopupType();
+        const packageSelected = validatePackage();
+        if (serverSelected && topupTypeSelected && packageSelected) {
+          paymentContainer.classList.remove('payment-disabled');
+          paymentBlockedAttention.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.disabled = false;
+          });
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        } else {
+          paymentContainer.classList.add('payment-disabled');
+          paymentBlockedAttention.classList.remove('hidden');
+          paymentMethodError.classList.add('hidden');
+          paymentMethodRadios.forEach(radio => {
+            radio.checked = false;
+            radio.disabled = true;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        }
+      }
+
+      function formatRupiah(number) {
+        return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      function updatePaymentPrices() {
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        if (!selectedPackage) return;
+
+        const nominal = selectedPackage.value;
+        const basePrice = packageSellPrices[nominal];
+        if (!basePrice) return;
+
+        paymentMethodRadios.forEach(radio => {
+          const label = radio.nextElementSibling;
+          let priceSpan = label.querySelector('span.text-sm');
+          if (!priceSpan) {
+            priceSpan = document.createElement('span');
+            priceSpan.className = 'text-sm text-gray-600';
+            label.appendChild(priceSpan);
+          }
+          const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
+          priceSpan.textContent = formatRupiah(adjustedPrice);
+          if (radio.value === 'qris') {
+            priceSpan.classList.remove('text-gray-600');
+            priceSpan.classList.add('text-green-600');
+          } else {
+            priceSpan.classList.remove('text-green-600');
+            priceSpan.classList.add('text-gray-600');
+          }
+        });
+      }
+
+      // Event listeners
+      packageRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          updatePaymentPrices();
+          paymentMethodRadios.forEach(pmRadio => {
+            pmRadio.checked = false;
+          });
+          selectedPaymentLabel.textContent = 'Pilih Metode';
+          updatePaymentAvailability();
+        });
+      });
+
+      paymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          const label = radio.nextElementSibling.querySelector('span.font-semibold');
+          if (label) {
+            selectedPaymentLabel.textContent = label.textContent;
+          }
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        });
+      });
+
+      toggleDetailsBtn.addEventListener('click', () => {
+        const expanded = toggleDetailsBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          paymentOptions.classList.add('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'false');
+          toggleDetailsText.textContent = 'Detail';
+          toggleDetailsIcon.classList.remove('fa-chevron-up');
+          toggleDetailsIcon.classList.add('fa-chevron-down');
+        } else {
+          paymentOptions.classList.remove('hidden');
+          toggleDetailsBtn.setAttribute('aria-expanded', 'true');
+          toggleDetailsText.textContent = 'Sembunyikan';
+          toggleDetailsIcon.classList.remove('fa-chevron-down');
+          toggleDetailsIcon.classList.add('fa-chevron-up');
+        }
+      });
+
+      userIdInput.addEventListener('input', () => {
+        userIdInput.value = userIdInput.value.trimStart();
+      });
+
+      // Initialize
+      tokensSection.classList.add('hidden');
+      paymentContainer.classList.add('payment-disabled');
+      paymentOptions.classList.add('hidden');
+      selectedPaymentLabel.textContent = 'Pilih Metode';
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const missingFields = [];
+        if (!validateServerSelect()) missingFields.push("Server");
+        if (!validateTopupType()) missingFields.push("Jenis Topup");
+        if (!validatePackage()) missingFields.push("Nominal Token");
+        if (!validatePaymentMethod()) missingFields.push("Metode Pembayaran");
+
+        if (missingFields.length > 0) {
+          alert(`Harap isi ${missingFields.join(", ")}`);
+          return;
+        }
+
+        const selectedPackage = Array.from(packageRadios).find(r => r.checked);
+        const packageLabelSpan = selectedPackage.nextElementSibling.querySelector('span.text-lg, span.font-semibold');
+        const packageLabel = packageLabelSpan ? packageLabelSpan.textContent : selectedPackage.value;
+        const basePrice = packageBasePrices[selectedPackage.value];
+        const selectedPayment = Array.from(paymentMethodRadios).find(r => r.checked);
+        const paymentLabel = selectedPayment.nextElementSibling.querySelector('span.font-semibold').textContent;
+        const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+        // Use WhatsApp number without symbols/spaces for URL
+        const phoneNumber = '6283132420423';
+
+        const message = `Halo, saya ingin melakukan topup Aceracer dengan detail berikut:%0A` +
+          `Server: ${selectedServer}%0A` +
+          `ID Pengguna: ${userIdInput.value.trim()}%0A` +
+          `Jenis Topup: ${selectedTopupType.textContent} (Harga Asli: ${formatRupiah(basePrice)})%0A` +
+          `Nominal: ${packageLabel}%0A` +
+          `Metode Pembayaran: ${paymentLabel}%0A` +
+          `Harga: ${formatRupiah(adjustedPrice)}`;
+
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+        // Open WhatsApp chat in new tab
+        window.open(whatsappUrl, '_blank');
+      });
+    })();
+  </script>
+ </body>
+</html>

@@ -60,10 +60,60 @@
       margin-top: 0.25rem;
       font-weight: 600;
     }
+    .char-counter {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+      text-align: right;
+      font-weight: 500;
+      user-select: none;
+    }
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .password-wrapper input {
+      width: 100%;
+      padding-right: 2.5rem;
+    }
+    .toggle-password-btn {
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #6b7280;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+    .toggle-password-btn:hover,
+    .toggle-password-btn:focus {
+      color: #30cfcf;
+      outline: none;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
   </style>
 </head>
 <body>
-  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30 fade-in-up">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" data-inti="mainmenu" id="backButton" type="button">
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -72,7 +122,7 @@
       <div class="w-8"></div>
     </div>
   </header>
-  <main class="flex-grow max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+  <main class="flex-grow max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full fade-in-up" style="animation-delay: 0.2s;">
     <section class="bg-white rounded-lg shadow-md p-6">
       <form aria-label="Signup form" id="signupForm" class="space-y-6" novalidate>
         <div>
@@ -89,18 +139,29 @@
           <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
           <div class="phone-input-container">
             <span class="phone-prefix">+62</span>
-            <input type="tel" id="phone" name="phone" maxlength="15" placeholder="Masukkan nomor tanpa 0 di depan" class="focus:outline-none" />
+            <input type="tel" id="phone" name="phone" maxlength="14" placeholder="Masukkan nomor tanpa 0 di depan" class="focus:outline-none" />
           </div>
+          <p class="char-counter" id="phoneCounter">0 / 11</p>
           <p class="error-message hidden" id="errorPhone"></p>
         </div>
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input type="password" id="password" name="password" required minlength="8" maxlength="16" class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="8-16 karakter, huruf besar, kecil, angka, simbol" />
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" required minlength="8" maxlength="16" class="block rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="8-16 karakter, huruf besar, kecil, angka, simbol" />
+            <button type="button" aria-label="Toggle password visibility" class="toggle-password-btn" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
           <p class="error-message hidden" id="errorPassword"></p>
         </div>
         <div>
           <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8" maxlength="16" class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Konfirmasi password" />
+          <div class="password-wrapper">
+            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8" maxlength="16" class="block rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Konfirmasi password" />
+            <button type="button" aria-label="Toggle confirm password visibility" class="toggle-password-btn" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
           <p class="error-message hidden" id="errorConfirmPassword"></p>
         </div>
         <button type="submit" class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1">
@@ -111,13 +172,30 @@
   </main>
   <script>
     document.getElementById('backButton').addEventListener('click', () => {
-      window.location.href = 'mainmenu.html';
+      window.location.href = 'topup.html';
     });
     document.getElementById('backButton').addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         document.getElementById('backButton').click();
       }
+    });
+
+    // Toggle password visibility
+    document.querySelectorAll('.password-wrapper').forEach(wrapper => {
+      const input = wrapper.querySelector('input[type="password"], input[type="text"]');
+      const btn = wrapper.querySelector('.toggle-password-btn');
+      btn.addEventListener('click', () => {
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.querySelector('i').classList.remove('fa-eye');
+          btn.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+          input.type = 'password';
+          btn.querySelector('i').classList.remove('fa-eye-slash');
+          btn.querySelector('i').classList.add('fa-eye');
+        }
+      });
     });
 
     function getUsers() {
@@ -163,6 +241,49 @@
       }
     }
 
+    // Format phone input with first group 3 digits, then groups of 4 digits separated by dashes
+    function formatPhoneInput(value) {
+      // Remove all non-digit chars
+      let digits = value.replace(/\D/g, '');
+      // Limit max length 11 digits (without leading 0)
+      if (digits.length > 11) digits = digits.slice(0, 11);
+
+      let formatted = '';
+      if (digits.length <= 3) {
+        formatted = digits;
+      } else {
+        formatted = digits.slice(0, 3);
+        let rest = digits.slice(3);
+        while (rest.length > 0) {
+          formatted += '-' + rest.slice(0, 4);
+          rest = rest.slice(4);
+        }
+      }
+      return formatted;
+    }
+
+    const phoneInput = document.getElementById('phone');
+    const phoneCounter = document.getElementById('phoneCounter');
+
+    phoneInput.addEventListener('input', (e) => {
+      const cursorPos = e.target.selectionStart;
+      const oldValue = e.target.value;
+      const formatted = formatPhoneInput(oldValue);
+      e.target.value = formatted;
+
+      // Update counter (count digits only)
+      const digitsCount = formatted.replace(/\D/g, '').length;
+      phoneCounter.textContent = `${digitsCount} / 11`;
+
+      // Try to restore cursor position reasonably
+      let newCursorPos = cursorPos;
+      // If user typed a dash, move cursor forward
+      if (formatted[cursorPos - 1] === '-' && oldValue[cursorPos - 2] !== '-') {
+        newCursorPos++;
+      }
+      e.target.setSelectionRange(newCursorPos, newCursorPos);
+    });
+
     const signupForm = document.getElementById('signupForm');
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -171,8 +292,7 @@
 
       const name = signupForm.name.value.trim();
       const email = signupForm.email.value.trim().toLowerCase();
-      const phoneRaw = signupForm.phone.value.trim();
-      const phone = phoneRaw ? '+62' + phoneRaw : '';
+      let phoneRaw = signupForm.phone.value.trim();
       const password = signupForm.password.value;
       const confirmPassword = signupForm.confirmPassword.value;
 
@@ -192,9 +312,11 @@
       }
 
       if (phoneRaw) {
-        const phoneRegex = /^[1-9][0-9]{5,14}$/;
-        if (!phoneRegex.test(phoneRaw)) {
-          showError('Phone', `Yang terisi (Nomor Telepon) tidak sesuai karena harus berupa angka tanpa 0 di depan dan minimal 6 digit.`);
+        // Remove dashes and non-digit chars
+        phoneRaw = phoneRaw.replace(/\D/g, '');
+        // Phone must be 10-11 digits including leading 0 (to become 13-14 with +62)
+        if (!/^0\d{9,10}$/.test('0' + phoneRaw.slice(0))) {
+          showError('Phone', `Yang terisi (Nomor Telepon) tidak sesuai karena harus 10-11 digit termasuk 0 di depan.`);
           hasError = true;
         }
       }
@@ -217,6 +339,20 @@
 
       if (hasError) return;
 
+      // Normalize phone to +62 format with leading 0 replaced by +62
+      let normalizedPhone = phoneRaw;
+      if (normalizedPhone.startsWith('0')) {
+        normalizedPhone = normalizedPhone.slice(1);
+      }
+      normalizedPhone = '+62' + normalizedPhone;
+
+      // Check length including +62: must be 13 or 14 digits total (including +62)
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      if (digitsOnly.length < 12 || digitsOnly.length > 13) {
+        showError('Phone', `Nomor Telepon harus total 13-14 digit termasuk kode +62.`);
+        return;
+      }
+
       const users = getUsers();
 
       const emailExists = users.some(u => u.email === email);
@@ -226,29 +362,20 @@
         return;
       }
 
-      if (phone) {
-        const phoneExists = users.some(u => u.phone === phone);
+      if (normalizedPhone) {
+        const phoneExists = users.some(u => u.phone === normalizedPhone);
         if (phoneExists) {
-          showError('Phone', `${phone} telah memiliki akun, harap Log In`);
-          alert(`${phone} telah memiliki akun, harap Log In`);
+          showError('Phone', `${normalizedPhone} telah memiliki akun, harap Log In`);
+          alert(`${normalizedPhone} telah memiliki akun, harap Log In`);
           return;
         }
       }
 
-      // Add createdAt timestamp
-      users.push({ name, email, phone, password, createdAt: new Date().toISOString() });
+      users.push({ name, email, phone: normalizedPhone, password, createdAt: new Date().toISOString() });
       saveUsers(users);
 
-      // Compose WhatsApp message with name, email, phone
-      const waNumber = '6283132420423';
-      const message = encodeURIComponent(
-        `Halo, saya ingin mendaftarkan atas nama: ${name}, Email: ${email}, Nomor Telepon: ${phone}`
-      );
-      const waUrl = `https://wa.me/${waNumber}?text=${message}`;
-      window.open(waUrl, '_blank');
-
-      alert('Pendaftaran berhasil! Silakan lanjutkan di WhatsApp.');
-      // Optionally clear form or redirect here
+      alert('Pendaftaran berhasil! Silakan login.');
+      window.location.href = 'login.html';
     });
   </script>
 </body>

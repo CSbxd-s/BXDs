@@ -1,0 +1,242 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Event - BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    @keyframes slideInFade {
+      0% {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: #121212;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #e0e7ff;
+      animation: slideInFade 0.8s ease forwards;
+    }
+    header {
+      background: #1f2937;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60px;
+      padding: 0 1.5rem;
+      color: #60a5fa;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      position: relative;
+      user-select: none;
+      text-transform: uppercase;
+      text-shadow: 0 0 6px #3b82f6;
+    }
+    button.back-button {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #60a5fa;
+      font-size: 1.75rem;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s ease;
+      border-radius: 0.375rem;
+      width: 40px;
+      height: 40px;
+    }
+    button.back-button:hover,
+    button.back-button:focus {
+      color: #3b82f6;
+      outline: none;
+      background: rgba(59, 130, 246, 0.15);
+      box-shadow: 0 0 8px #3b82f6;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 3rem auto 4rem;
+      padding: 2rem 2rem 3rem;
+      background: #1e293b;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+      overflow-y: auto;
+      animation: slideInFade 0.8s ease forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+      user-select: none;
+    }
+    main.visible {
+      opacity: 1;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 800;
+      font-size: 2.25rem;
+      color: #60a5fa;
+      margin-bottom: 2rem;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 8px #3b82f6;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    section.event {
+      background: #273449;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.75rem;
+      border-left: 6px solid #3b82f6;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: default;
+    }
+    section.event:hover,
+    section.event:focus-within {
+      background: #334155;
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.7);
+      transform: translateY(-6px);
+      outline: none;
+      border-left-color: #60a5fa;
+      z-index: 10;
+    }
+    section.event h3 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #bfdbfe;
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
+    section.event time {
+      display: block;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 0.75rem;
+      user-select: none;
+    }
+    section.event p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+      user-select: none;
+      text-align: justify;
+    }
+    section.event a.register-btn {
+      display: inline-block;
+      background-color: #3b82f6;
+      color: #f9fafb;
+      font-weight: 700;
+      padding: 0.6rem 1.5rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      box-shadow: 0 0 10px #3b82f6;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    section.event a.register-btn:hover,
+    section.event a.register-btn:focus {
+      background-color: #2563eb;
+      box-shadow: 0 0 20px #2563eb;
+      outline: none;
+    }
+    @media (max-width: 640px) {
+      main {
+        margin: 2rem 1rem 3rem;
+        padding: 1.5rem 1.5rem 2.5rem;
+        border-radius: 0.75rem;
+      }
+      h2 {
+        font-size: 1.75rem;
+      }
+      section.event {
+        padding: 1rem 1.25rem;
+        border-left-width: 4px;
+      }
+      section.event h3 {
+        font-size: 1.25rem;
+      }
+      section.event p {
+        font-size: 0.95rem;
+      }
+      section.event a.register-btn {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button aria-label="Back" class="back-button" onclick="window.location.href='mainmenu.html'">
+      <i aria-hidden="true" class="fas fa-arrow-left"></i>
+    </button>
+    EVENT
+  </header>
+  <main>
+    <h2>Event & Turnamen BOI XD Store</h2>
+
+    <section class="event" tabindex="0" aria-label="Turnamen Mobile Legends">
+      <h3>Mobile Legends Championship 2024</h3>
+      <time datetime="2024-07-15T10:00">15 Juli 2024, 10:00 WIB</time>
+      <p>
+        Ikuti turnamen Mobile Legends terbesar tahun ini dan buktikan kemampuan tim Anda. Hadiah menarik menanti para juara, serta kesempatan untuk dikenal di komunitas.
+      </p>
+      <a href="https://boixdstore.com/register/mlcc" class="register-btn" target="_blank" rel="noopener noreferrer">Daftar Sekarang</a>
+    </section>
+
+    <section class="event" tabindex="0" aria-label="Event PUBG Mobile Summer Showdown">
+      <h3>PUBG Mobile Summer Showdown</h3>
+      <time datetime="2024-08-01T12:00">1 Agustus 2024, 12:00 WIB</time>
+      <p>
+        Bergabunglah dalam event PUBG Mobile dengan berbagai tantangan seru dan hadiah eksklusif. Raih skin langka dan bonus menarik selama periode event berlangsung.
+      </p>
+      <a href="https://boixdstore.com/event/pubg-summer" class="register-btn" target="_blank" rel="noopener noreferrer">Ikuti Event</a>
+    </section>
+
+    <section class="event" tabindex="0" aria-label="Turnamen Free Fire Ultimate Battle">
+      <h3>Free Fire Ultimate Battle</h3>
+      <time datetime="2024-09-10T14:00">10 September 2024, 14:00 WIB</time>
+      <p>
+        Kompetisi Free Fire tingkat nasional dengan hadiah utama smartphone dan voucher game. Daftarkan tim Anda dan tunjukkan kehebatan di medan pertempuran.
+      </p>
+      <a href="https://boixdstore.com/register/ff-ultimate" class="register-btn" target="_blank" rel="noopener noreferrer">Daftar Tim</a>
+    </section>
+
+    <section class="event" tabindex="0" aria-label="Event Valorant Champions Cup">
+      <h3>Valorant Champions Cup</h3>
+      <time datetime="2024-10-05T16:00">5 Oktober 2024, 16:00 WIB</time>
+      <p>
+        Saksikan dan ikuti turnamen Valorant bergengsi dengan hadiah menarik dan kesempatan bertemu pro player. Jangan lewatkan kesempatan untuk menjadi juara!
+      </p>
+      <a href="https://boixdstore.com/event/valorant-champions" class="register-btn" target="_blank" rel="noopener noreferrer">Daftar Sekarang</a>
+    </section>
+  </main>
+</body>
+</html>

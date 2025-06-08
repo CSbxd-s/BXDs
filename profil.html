@@ -1,111 +1,29 @@
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   BOI XD Store - Profil
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Profil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
-   body {
+    body {
       font-family: "Inter", sans-serif;
       background-color: #e0f7f7;
       margin: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 64px; /* space for bottom nav */
+      padding-bottom: 0; /* Removed space for bottom nav */
     }
     nav#bottomNav {
-      height: 64px;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: white;
-      border-top: 1px solid #e5e7eb; /* gray-200 */
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-      z-index: 50;
-      padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav#bottomNav button.left-button,
-    nav#bottomNav button.right-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #30cfcf;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.75rem;
-      padding: 0;
-      width: 64px;
-      height: 64px;
-      transition: color 0.3s ease;
-      z-index: 40;
-      text-align: center;
-    }
-    nav#bottomNav button.left-button:hover,
-    nav#bottomNav button.left-button:focus,
-    nav#bottomNav button.right-button:hover,
-    nav#bottomNav button.right-button:focus {
-      color: #238383;
-      outline: none;
-    }
-    nav#bottomNav button.left-button i,
-    nav#bottomNav button.right-button i {
-      font-size: 1.5rem;
-      margin-bottom: 0.25rem;
-      color: #30cfcf;
-    }
-    nav#bottomNav .floating-topup {
-      position: absolute;
-      top: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 60;
-      width: 64px;
-      height: 64px;
-      background-color: #30cfcf;
-      border-radius: 9999px;
-      box-shadow: 0 10px 15px rgba(48, 207, 207, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      border: none;
-      outline-offset: 2px;
-      transition: background-color 0.3s ease;
-      color: white;
-      font-size: 1.5rem;
-    }
-    nav#bottomNav .floating-topup:hover,
-    nav#bottomNav .floating-topup:focus {
-      background-color: #2bbaba;
-      outline: none;
-    }
-    nav#bottomNav .floating-topup:active {
-      background-color: #239999;
-    }
-    nav#bottomNav .topup-label {
-      position: absolute;
-      top: 44px; /* 64px (circle height) - 20px margin */
-      left: 50%;
-      transform: translateX(-50%);
-      color: #30cfcf;
-      font-weight: 600;
-      font-size: 0.75rem;
-      user-select: none;
-      pointer-events: none;
-      white-space: nowrap;
+      display: none; /* Hide bottom navigation */
     }
     /* Modal backdrop */
     .modal-backdrop {
@@ -198,116 +116,106 @@
       outline: none;
       background-color: rgba(255 255 255 / 0.2);
     }
+
+    /* Fade-in-up animation */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
   </style>
- </head>
- <body>
-  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-    <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" data-inti="mainmenu" id="backButton" type="button">
-     <i aria-hidden="true" class="fas fa-arrow-left">
-     </i>
-    </button>
-    <h1 class="text-2xl font-semibold text-white text-center flex-grow">
-     Profil Saya
-    </h1>
-    <button aria-label="Admin Panel" class="hidden" data-inti="admin-user" id="adminHeaderBtn" type="button" title="Admin Panel">
-     <i aria-hidden="true" class="fas fa-user-shield">
-     </i>
-    </button>
-   </div>
-  </header>
-  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-   <section class="hidden bg-white rounded-lg shadow-md p-6" id="profileSection">
-    <div class="flex flex-col items-center">
-     <img alt="User avatar placeholder, a simple round avatar with a generic user silhouette on a light gray background" class="w-30 h-30 rounded-full mb-4" height="120" loading="lazy" src="https://storage.googleapis.com/a1aa/image/baac9663-aee1-4d12-90cc-01d506159489.jpg" width="120"/>
-     <h2 class="text-xl font-semibold text-[#30cfcf] mb-1" id="profileName">
-      John Doe
-     </h2>
-     <p class="text-gray-600 mb-4" id="profileEmail">
-      john.doe@example.com
-     </p>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30 fade-in-up">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" data-inti="mainmenu" id="backButton" type="button">
+        <i aria-hidden="true" class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="text-2xl font-semibold text-white text-center flex-grow">
+        Profil Saya
+      </h1>
+      <button aria-label="Admin Panel" class="hidden" data-inti="admin-user" id="adminHeaderBtn" type="button" title="Admin Panel">
+        <i aria-hidden="true" class="fas fa-user-shield"></i>
+      </button>
     </div>
-    <form aria-label="Edit profile form" class="space-y-6" id="profileForm">
-     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="name">
-       Nama Lengkap
-      </label>
-      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="name" name="name" required="" type="text" value="John Doe"/>
-     </div>
-     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="email">
-       Email
-      </label>
-      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="email" name="email" required="" type="email" value="john.doe@example.com"/>
-     </div>
-     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="phone">
-       Nomor Telepon
-      </label>
-      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="phone" name="phone" type="tel" value="+62 812 3456 7890"/>
-     </div>
-     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="address">
-       Alamat
-      </label>
-      <textarea class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="address" name="address" rows="3">Jl. Merdeka No. 123, Jakarta</textarea>
-     </div>
-     <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="submit">
-      Simpan Perubahan
-     </button>
-    </form>
-   </section>
-   <section class="hidden bg-white rounded-lg shadow-md p-6 max-w-md mx-auto text-center" id="loginSignupSection">
-    <h2 class="text-2xl font-semibold text-[#30cfcf] mb-6">
-     Silakan Login atau Signup
-    </h2>
-    <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1 mb-4" data-inti="login" type="button">
-     Login
-    </button>
-    <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" data-inti="signup" type="button">
-     Signup
-    </button>
-   </section>
-   <section class="hidden bg-white rounded-lg shadow-md p-6 max-w-md mx-auto mt-8" id="adminSection">
-    <h2 class="text-xl font-semibold text-red-500 mb-4 text-center">
-     Khusus Admin
-    </h2>
-    <button class="w-full bg-red-400 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 mb-3" data-inti="admin-user" type="button">
-     Dashboard Admin
-    </button>
-    <button class="w-full bg-red-400 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 mb-3" data-inti="admin-users" type="button">
-     Manajemen User
-    </button>
-    <button class="w-full bg-red-400 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1" data-inti="admin-settings" type="button">
-     Pengaturan Admin
-    </button>
-   </section>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 fade-in-up" style="animation-delay: 0.2s;">
+    <section class="hidden bg-white rounded-lg shadow-md p-6" id="profileSection">
+      <div class="flex flex-col items-center">
+        <img alt="User avatar placeholder, a simple round avatar with a generic user silhouette on a light gray background" class="w-30 h-30 rounded-full mb-4" height="120" loading="lazy" src="https://storage.googleapis.com/a1aa/image/baac9663-aee1-4d12-90cc-01d506159489.jpg" width="120"/>
+        <h2 class="text-xl font-semibold text-[#30cfcf] mb-1" id="profileName">
+          John Doe
+        </h2>
+        <p class="text-gray-600 mb-4" id="profileEmail">
+          john.doe@example.com
+        </p>
+      </div>
+      <form aria-label="Edit profile form" class="space-y-6" id="profileForm">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="name">
+            Nama Lengkap
+          </label>
+          <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="name" name="name" required="" type="text" value="John Doe"/>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="email">
+            Email
+          </label>
+          <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="email" name="email" required="" type="email" value="john.doe@example.com"/>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="phone">
+            Nomor Telepon
+          </label>
+          <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="phone" name="phone" type="tel" value="+62 812 3456 7890"/>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="address">
+            Alamat
+          </label>
+          <textarea class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="address" name="address" rows="3">Jl. Merdeka No. 123, Jakarta</textarea>
+        </div>
+        <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="submit">
+          Simpan Perubahan
+        </button>
+      </form>
+    </section>
+    <section class="hidden bg-white rounded-lg shadow-md p-6 max-w-md mx-auto text-center" id="loginSignupSection">
+      <h2 class="text-2xl font-semibold text-[#30cfcf] mb-6">
+        Silakan Login atau Signup
+      </h2>
+      <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1 mb-4" data-inti="login" type="button">
+        Login
+      </button>
+      <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" data-inti="signup" type="button">
+        Signup
+      </button>
+    </section>
+    <section class="hidden bg-white rounded-lg shadow-md p-6 max-w-md mx-auto mt-8" id="adminSection">
+      <h2 class="text-xl font-semibold text-red-500 mb-4 text-center">
+        Khusus Admin
+      </h2>
+      <button class="w-full bg-red-400 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 mb-3" data-inti="admin-user" type="button">
+        Dashboard Admin
+      </button>
+      <button class="w-full bg-red-400 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 mb-3" data-inti="admin-users" type="button">
+        Manajemen User
+      </button>
+      <button class="w-full bg-red-400 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1" data-inti="admin-settings" type="button">
+        Pengaturan Admin
+      </button>
+    </section>
   </main>
-  <nav aria-label="Bottom navigation" id="bottomNav">
-   <button aria-label="Main Menu" class="left-button" data-inti="mainmenu" tabindex="0" type="button">
-    <i aria-hidden="true" class="fas fa-bars">
-    </i>
-    <span>
-     Main Menu
-    </span>
-   </button>
-   <button aria-describedby="topup-label" aria-label="TopUp" class="floating-topup" data-inti="topup" tabindex="0" type="button">
-    <i aria-hidden="true" class="fas fa-coins">
-    </i>
-   </button>
-   <span aria-hidden="true" class="topup-label" id="topup-label">
-    TopUp
-   </span>
-   <button aria-label="Profil" class="right-button" data-inti="profil" tabindex="0" type="button">
-    <i aria-hidden="true" class="fas fa-user">
-    </i>
-    <span>
-     Profil
-    </span>
-   </button>
-  </nav>
   <script>
-   // Simulated user state
+    // Simulated user state
     // Change these values to test different states:
     // isLoggedIn: true or false
     // isAdmin: true or false
@@ -343,7 +251,7 @@
     showSections();
 
     // Navigation buttons
-    document.querySelectorAll('#bottomNav button, #loginSignupSection button, #adminSection button, #adminHeaderBtn').forEach(button => {
+    document.querySelectorAll('#loginSignupSection button, #adminSection button, #adminHeaderBtn').forEach(button => {
       button.addEventListener('click', () => {
         const inti = button.getAttribute('data-inti');
         if (inti) {
@@ -360,7 +268,7 @@
 
     // Back button to main menu
     document.getElementById('backButton').addEventListener('click', () => {
-      window.location.href = 'mainmenu.html';
+      window.location.href = 'topup.html';
     });
     document.getElementById('backButton').addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -378,5 +286,5 @@
       });
     }
   </script>
- </body>
+</body>
 </html>

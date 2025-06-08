@@ -1,0 +1,203 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Isian Free Fire - BOI XD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #f9fafb;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    header {
+      background: #111827;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 64px;
+      padding: 0 1.5rem;
+      color: #fbbf24;
+      font-weight: 700;
+      font-size: 1.75rem;
+      letter-spacing: 0.1em;
+      position: relative;
+      user-select: none;
+      text-transform: uppercase;
+      text-shadow: 0 0 6px #b45309;
+    }
+    button.back-button {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #fbbf24;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s ease;
+      border-radius: 0.5rem;
+      width: 44px;
+      height: 44px;
+      filter: drop-shadow(0 0 4px #fbbf24);
+    }
+    button.back-button:hover,
+    button.back-button:focus {
+      color: #f59e0b;
+      outline: none;
+      background: rgba(251, 191, 36, 0.15);
+      box-shadow:
+        0 0 12px #fbbf24,
+        0 0 24px #fbbf24,
+        0 0 36px #fbbf24;
+      filter: drop-shadow(0 0 8px #fbbf24);
+    }
+    main {
+      flex-grow: 1;
+      max-width: 720px;
+      margin: 3rem auto 4rem;
+      padding: 2rem 2rem 3rem;
+      background: #1e293b;
+      border-radius: 1rem;
+      box-shadow:
+        0 0 20px rgba(251, 191, 36, 0.5);
+      overflow-y: auto;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+      color: #f9fafb;
+      user-select: none;
+    }
+    main.visible {
+      opacity: 1;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 800;
+      font-size: 2.5rem;
+      color: #fbbf24;
+      margin-bottom: 2rem;
+      letter-spacing: 0.1em;
+      text-shadow:
+        0 0 10px #b45309;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    p.description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: #f3f4f6;
+      text-align: justify;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+    ol.steps {
+      list-style: decimal;
+      padding-left: 1.5rem;
+      color: #fbbf24;
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      user-select: none;
+    }
+    ol.steps li {
+      margin-bottom: 1rem;
+    }
+    a.cta-button {
+      display: inline-block;
+      background-color: #fbbf24;
+      color: #1f2937;
+      font-weight: 700;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      box-shadow:
+        0 0 12px #fbbf24;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    a.cta-button:hover,
+    a.cta-button:focus {
+      background-color: #d97706;
+      box-shadow:
+        0 0 24px #d97706;
+      outline: none;
+    }
+    @media (max-width: 640px) {
+      main {
+        margin: 2rem 1rem 3rem;
+        padding: 1.5rem 1.5rem 2.5rem;
+        border-radius: 0.75rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      p.description {
+        font-size: 1rem;
+      }
+      ol.steps {
+        font-size: 1rem;
+        padding-left: 1.25rem;
+      }
+      a.cta-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button aria-label="Back" class="back-button" onclick="window.location.href='mainmenu.html'">
+      <i aria-hidden="true" class="fas fa-arrow-left"></i>
+    </button>
+    ISIAN
+  </header>
+  <main>
+    <h2>Isian Free Fire</h2>
+    <p class="description">
+      Isian Free Fire adalah layanan taruhan resmi yang memungkinkan Anda bertaruh pada pertandingan Free Fire dengan aman dan terpercaya melalui platform BOI XD Store. Nikmati pengalaman bertaruh yang mudah, cepat, dan transparan dengan berbagai pilihan taruhan menarik.
+    </p>
+    <ol class="steps">
+      <li>Buat akun dan lakukan verifikasi pada platform BOI XD Store.</li>
+      <li>Isi saldo akun Anda melalui metode pembayaran yang tersedia.</li>
+      <li>Pilih pertandingan Free Fire yang ingin Anda pasang taruhan.</li>
+      <li>Tentukan nominal taruhan dan konfirmasi transaksi.</li>
+      <li>Ikuti perkembangan pertandingan dan cek hasil taruhan Anda secara real-time.</li>
+    </ol>
+    <a href="isian-register.html" class="cta-button" target="_blank" rel="noopener noreferrer">Daftar Isian Sekarang</a>
+  </main>
+</body>
+</html>

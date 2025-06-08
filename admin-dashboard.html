@@ -2,13 +2,10 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   BOI XD Store - Admin Dashboard
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+  <title>BOI XD Store - Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
    body {
       font-family: "Inter", sans-serif;
@@ -123,128 +120,554 @@
       object-fit: cover;
       border: 2px solid white;
     }
+    /* Verification overlay */
+    #verificationOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(224, 247, 247, 0.95);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    #verificationBox {
+      background: white;
+      border-radius: 0.5rem;
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    #verificationBox h2 {
+      color: #30cfcf;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    #verificationBox p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #374151;
+    }
+    #verificationButtons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .verify-btn {
+      background-color: #30cfcf;
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+      flex: 1 1 140px;
+      max-width: 180px;
+    }
+    .verify-btn:hover,
+    .verify-btn:focus {
+      background-color: #2bbaba;
+      outline: none;
+    }
+    /* Text with line-through for verification */
+    #blurTextContainer {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #374151;
+      user-select: none;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      text-decoration: line-through;
+    }
+    #blurInput {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 2px solid #30cfcf;
+      border-radius: 0.5rem;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+    }
+    #blurInput:focus {
+      border-color: #2bbaba;
+    }
+    #blurError {
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    /* Image matching verification */
+    #imageMatchVerification {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    #imageMatchGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .match-image {
+      width: 90px;
+      height: 90px;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .match-image.selected {
+      border-color: #30cfcf;
+    }
+    #imageMatchError {
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    #imageMatchSubmit {
+      margin-top: 1rem;
+      background-color: #30cfcf;
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    #imageMatchSubmit:hover,
+    #imageMatchSubmit:focus {
+      background-color: #2bbaba;
+      outline: none;
+    }
+    /* Styles for transaction input section */
+    #transactionSection {
+      margin-top: 2rem;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1rem 1.5rem;
+    }
+    #transactionSection h3 {
+      font-weight: 600;
+      color: #30cfcf;
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+    }
+    #transactionForm {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      #transactionForm {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    #transactionForm > div {
+      display: flex;
+      flex-direction: column;
+    }
+    #transactionForm label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #transactionForm label i {
+      color: #30cfcf;
+      min-width: 1.25rem;
+      text-align: center;
+    }
+    #transactionForm select,
+    #transactionForm input[type="number"],
+    #transactionForm input[type="date"],
+    #transactionForm input[type="text"],
+    #transactionForm textarea,
+    #transactionForm input[type="file"] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 2px solid #30cfcf;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+      background-color: white;
+      color: #374151;
+    }
+    #transactionForm select:focus,
+    #transactionForm input[type="number"]:focus,
+    #transactionForm input[type="date"]:focus,
+    #transactionForm input[type="text"]:focus,
+    #transactionForm textarea:focus,
+    #transactionForm input[type="file"]:focus {
+      border-color: #2bbaba;
+      outline: none;
+    }
+    #transactionForm textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    #transactionForm input[readonly] {
+      background-color: #e5e7eb;
+      cursor: not-allowed;
+      color: #6b7280;
+    }
+    #transactionError {
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: none;
+      grid-column: 1 / -1;
+    }
+    #transactionSuccess {
+      color: #16a34a;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: none;
+      grid-column: 1 / -1;
+    }
+    #saveTransactionBtn {
+      grid-column: 1 / -1;
+      background-color: #30cfcf;
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1.125rem;
+    }
+    #saveTransactionBtn:hover,
+    #saveTransactionBtn:focus {
+      background-color: #2bbaba;
+      outline: none;
+    }
+    #paymentProofPreview {
+      margin-top: 0.5rem;
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 0.5rem;
+      object-fit: contain;
+      border: 1px solid #30cfcf;
+      display: none;
+    }
+    /* Stylish Nominal Topup Input */
+    .input-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+    }
+    .input-container input {
+      width: 100%;
+      padding: 1.25rem 1rem 0.5rem 3.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      border: 2px solid #30cfcf;
+      background-color: #e0f7f7;
+      color: #0f172a;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgb(48 207 207 / 0.3);
+    }
+    .input-container input:focus {
+      border-color: #238383;
+      background-color: #cffafe;
+      box-shadow: 0 6px 10px rgb(35 131 131 / 0.5);
+    }
+    .input-container label {
+      position: absolute;
+      top: 1.25rem;
+      left: 3.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #30cfcf;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    .input-container input:focus + label,
+    .input-container input:not(:placeholder-shown) + label {
+      top: 0.3rem;
+      left: 3.5rem;
+      font-size: 0.875rem;
+      color: #238383;
+      font-weight: 700;
+    }
+    .input-container .icon-left {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      color: #30cfcf;
+      font-size: 1.5rem;
+      pointer-events: none;
+      transition: color 0.3s ease;
+    }
+    .input-container input:focus ~ .icon-left {
+      color: #238383;
+    }
+    @media (max-width: 400px) {
+      .input-container {
+        max-width: 100%;
+      }
+    }
   </style>
  </head>
  <body>
-  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+  <div aria-labelledby="verificationTitle" aria-modal="true" id="verificationOverlay" role="dialog">
+   <div id="verificationBox">
+    <h2 id="verificationTitle">Verifikasi Keamanan</h2>
+    <p>Silakan pilih metode verifikasi untuk melanjutkan ke halaman admin.</p>
+    <div id="verificationButtons">
+     <button aria-describedby="descBlurText" class="verify-btn" id="btnBlurText" type="button">Verifikasi Teks</button>
+     <button aria-describedby="descImageMatch" class="verify-btn" id="btnImageMatch" type="button">Pencocokan Gambar</button>
+    </div>
+    <p class="sr-only" id="descBlurText">Verifikasi dengan mengetik ulang teks yang dicoret.</p>
+    <p class="sr-only" id="descImageMatch">Verifikasi dengan memilih gambar yang benar.</p>
+    <div id="blurTextVerification" style="display:none; margin-top:1.5rem;">
+     <div aria-label="Teks dicoret untuk verifikasi" id="blurTextContainer" tabindex="0"></div>
+     <input aria-describedby="blurError" autocomplete="off" id="blurInput" placeholder="Ketik ulang teks di atas" type="text"/>
+     <p id="blurError" role="alert" style="display:none; color:#dc2626; font-weight:600; margin-top:0.5rem;">Teks yang Anda masukkan salah. Silakan coba lagi.</p>
+     <button class="verify-btn" id="blurSubmit" style="margin-top:1rem;" type="button">Verifikasi</button>
+    </div>
+    <div aria-label="Pilih gambar yang benar untuk verifikasi" id="imageMatchVerification" style="display:none; margin-top:1.5rem;">
+     <p>Pilih gambar yang sesuai dengan pola berikut:</p>
+     <div id="imageMatchGrid" role="list" style="display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem; max-width:300px; margin:0 auto;">
+      <img alt="Gambar A: pola biru dengan garis putih" class="match-image" data-correct="false" height="90" role="listitem" src="https://storage.googleapis.com/a1aa/image/b971461a-2fe9-4970-792e-5518450b3070.jpg" tabindex="0" width="90"/>
+      <img alt="Gambar B: pola merah dengan titik putih" class="match-image" data-correct="true" height="90" role="listitem" src="https://storage.googleapis.com/a1aa/image/f2e1d375-2270-4927-dcd8-4711b1462d3f.jpg" tabindex="0" width="90"/>
+      <img alt="Gambar C: pola hijau dengan garis diagonal" class="match-image" data-correct="false" height="90" role="listitem" src="https://storage.googleapis.com/a1aa/image/5e2b515a-e46c-4750-9534-19317fa320d1.jpg" tabindex="0" width="90"/>
+      <img alt="Gambar D: pola kuning dengan lingkaran putih" class="match-image" data-correct="false" height="90" role="listitem" src="https://storage.googleapis.com/a1aa/image/42330e6c-3697-469d-2e47-5a7a83e1bd6c.jpg" tabindex="0" width="90"/>
+      <img alt="Gambar E: pola ungu dengan bintang putih" class="match-image" data-correct="false" height="90" role="listitem" src="https://storage.googleapis.com/a1aa/image/a79c098a-abc0-44c4-213b-162ca2026afb.jpg" tabindex="0" width="90"/>
+      <img alt="Gambar F: pola oranye dengan garis vertikal" class="match-image" data-correct="false" height="90" role="listitem" src="https://storage.googleapis.com/a1aa/image/5902fa96-b325-4890-1322-fa1f7e123c36.jpg" tabindex="0" width="90"/>
+     </div>
+     <p id="imageMatchError" role="alert" style="display:none; color:#dc2626; font-weight:600; margin-top:0.5rem;">Silakan pilih gambar yang benar sebelum melanjutkan.</p>
+     <button class="verify-btn" id="imageMatchSubmit" type="button" style="margin-top:1rem;">Verifikasi</button>
+    </div>
+   </div>
+  </div>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30" id="mainHeader" style="display:none;">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
     <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" id="backButton" type="button">
-     <i aria-hidden="true" class="fas fa-arrow-left">
-     </i>
+     <i aria-hidden="true" class="fas fa-arrow-left"></i>
     </button>
-    <h1 class="text-2xl font-semibold text-white text-center flex-grow">
-     Admin Dashboard
-    </h1>
+    <h1 class="text-2xl font-semibold text-white text-center flex-grow">Admin Dashboard</h1>
     <button aria-label="Profile and History" id="profileBtn" title="Profile and History" type="button">
      <img alt="User profile avatar icon, round shape with letter U on blue background" height="32" src="https://storage.googleapis.com/a1aa/image/2dd538f9-e876-4deb-c4f7-3fc72b74339f.jpg" width="32"/>
     </button>
    </div>
   </header>
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6" id="mainContent" style="display:none;">
    <section class="bg-white rounded-lg shadow-md p-6 overflow-x-auto">
-    <h2 class="text-xl font-semibold text-[#30cfcf] mb-4">
-     User Management
-    </h2>
+    <h2 class="text-xl font-semibold text-[#30cfcf] mb-4">User Management</h2>
     <div class="user-list border border-gray-300 rounded-md">
      <table class="min-w-full divide-y divide-gray-200 table-auto">
       <thead>
        <tr>
-        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-         Name
-        </th>
-        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-         Email
-        </th>
-        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-         Phone
-        </th>
-        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-         Keterangan
-        </th>
-        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-         Password
-        </th>
-        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-         Dibuat Pada
-        </th>
-        <th class="px-4 py-2 text-center text-sm font-semibold text-gray-700" scope="col">
-         Actions
-        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">Name</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">Email</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">Phone</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">Poin</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">Password</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">Dibuat Pada</th>
+        <th class="px-4 py-2 text-center text-sm font-semibold text-gray-700" scope="col">Actions</th>
        </tr>
       </thead>
-      <tbody class="divide-y divide-gray-200" id="userTableBody">
-       <!-- User rows inserted here -->
-      </tbody>
+      <tbody class="divide-y divide-gray-200" id="userTableBody"></tbody>
      </table>
     </div>
     <button class="mt-6 w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" id="addUserBtn" type="button">
-     <i class="fas fa-user-plus mr-2">
-     </i>
-     Tambah User Baru
+     <i class="fas fa-user-plus mr-2"></i>Tambah User Baru
     </button>
+    <section id="transactionSection" aria-label="Riwayat Penjualan Akun Game" class="mt-10 bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+      <h3 class="text-xl font-semibold text-[#30cfcf] mb-6">Riwayat Penjualan Akun Game</h3>
+      <form id="transactionForm" aria-describedby="transactionError transactionSuccess" novalidate class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label for="selectTransactionType" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-exchange-alt text-[#30cfcf]"></i> Jenis Transaksi <span class="text-red-500">*</span>
+          </label>
+          <select id="selectTransactionType" name="selectTransactionType" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]">
+            <option value="" disabled selected>Pilih jenis transaksi</option>
+            <option value="topup">Topup</option>
+            <option value="account_sale">Penjualan Akun</option>
+          </select>
+          <p class="error-message hidden" id="errorSelectTransactionType"></p>
+        </div>
+        <div class="input-container" style="max-width: 320px;">
+          <input
+            type="number"
+            id="inputNominalTopup"
+            name="inputNominalTopup"
+            placeholder=" "
+            min="0"
+            step="1000"
+            aria-label="Masukkan nominal topup"
+            class="peer"
+            disabled
+          />
+          <label for="inputNominalTopup" class="absolute top-5 left-14 text-[#30cfcf] text-xl font-semibold transition-all pointer-events-none select-none peer-placeholder-shown:top-5 peer-placeholder-shown:text-xl peer-placeholder-shown:text-[#30cfcf] peer-focus:top-1 peer-focus:text-sm peer-focus:text-[#238383]">
+            <i class="fas fa-coins absolute left-0 top-1/2 -translate-y-1/2 text-[#30cfcf] text-2xl pointer-events-none"></i>
+            Masukkan Nominal Topup <span class="text-red-500">*</span>
+          </label>
+          <p class="error-message hidden" id="errorInputNominalTopup"></p>
+        </div>
+        <div>
+          <label for="selectUser" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-user-circle text-[#30cfcf]"></i> Pilih akun yang terdaftar <span class="text-red-500">*</span>
+          </label>
+          <select id="selectUser" name="selectUser" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]">
+            <option value="" disabled selected>Pilih akun</option>
+          </select>
+          <p class="error-message hidden" id="errorSelectUser"></p>
+        </div>
+        <div>
+          <label for="selectGame" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-gamepad text-[#30cfcf]"></i> Pembelian dilakukan pada game <span class="text-red-500">*</span>
+          </label>
+          <select id="selectGame" name="selectGame" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]">
+            <option value="" disabled selected>Pilih game</option>
+          </select>
+          <p class="error-message hidden" id="errorSelectGame"></p>
+        </div>
+        <div>
+          <label for="selectPayment" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-credit-card text-[#30cfcf]"></i> Pembayaran dilakukan melalui <span class="text-red-500">*</span>
+          </label>
+          <select id="selectPayment" name="selectPayment" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]">
+            <option value="" disabled selected>Pilih metode pembayaran</option>
+            <option value="Transfer Bank">Transfer Bank</option>
+            <option value="OVO">OVO</option>
+            <option value="GoPay">GoPay</option>
+            <option value="Dana">Dana</option>
+            <option value="ShopeePay">ShopeePay</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Paypal">Paypal</option>
+          </select>
+          <p class="error-message hidden" id="errorSelectPayment"></p>
+        </div>
+        <div>
+          <label for="inputPrice" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-dollar-sign text-[#30cfcf]"></i> Harga <span class="text-red-500">*</span>
+          </label>
+          <input id="inputPrice" name="inputPrice" type="number" min="0" step="1" placeholder="Masukkan harga" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]"/>
+          <p class="error-message hidden" id="errorInputPrice"></p>
+        </div>
+        <div>
+          <label for="inputDate" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-calendar-alt text-[#30cfcf]"></i> Tanggal Transaksi <span class="text-red-500">*</span>
+          </label>
+          <input id="inputDate" name="inputDate" type="date" required aria-required="true" max="" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]"/>
+          <p class="error-message hidden" id="errorInputDate"></p>
+        </div>
+        <div>
+          <label for="selectStatus" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-info-circle text-[#30cfcf]"></i> Status Transaksi <span class="text-red-500">*</span>
+          </label>
+          <select id="selectStatus" name="selectStatus" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]">
+            <option value="" disabled selected>Pilih status</option>
+            <option value="Success">Success</option>
+            <option value="Pending">Pending</option>
+            <option value="Failed">Failed</option>
+            <option value="Refunded">Refunded</option>
+          </select>
+          <p class="error-message hidden" id="errorSelectStatus"></p>
+        </div>
+        <div>
+          <label for="inputBuyerName" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-user text-[#30cfcf]"></i> Nama Pembeli <span class="text-red-500">*</span>
+          </label>
+          <input id="inputBuyerName" name="inputBuyerName" type="text" placeholder="Masukkan nama pembeli" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]"/>
+          <p class="error-message hidden" id="errorInputBuyerName"></p>
+        </div>
+        <div class="sm:col-span-2 flex flex-col">
+          <label for="inputNotes" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-sticky-note text-[#30cfcf]"></i> Catatan (Opsional)
+          </label>
+          <textarea id="inputNotes" name="inputNotes" rows="3" placeholder="Masukkan catatan tambahan" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]"></textarea>
+        </div>
+        <div class="sm:col-span-2 flex flex-col">
+          <label for="inputPaymentProof" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-file-upload text-[#30cfcf]"></i> Upload Bukti Pembayaran <span class="text-red-500">*</span>
+          </label>
+          <input id="inputPaymentProof" name="inputPaymentProof" type="file" accept="image/*" required aria-required="true" class="w-full rounded-md border border-[#30cfcf] px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2bbaba]"/>
+          <img id="paymentProofPreview" alt="Preview Bukti Pembayaran" />
+          <p class="error-message hidden" id="errorInputPaymentProof"></p>
+        </div>
+        <div class="sm:col-span-2 flex flex-col">
+          <label for="transactionId" class="block mb-1 font-semibold text-gray-700 flex items-center gap-2">
+            <i class="fas fa-hashtag text-[#30cfcf]"></i> ID Transaksi (Otomatis)
+          </label>
+          <input id="transactionId" name="transactionId" type="text" readonly class="w-full rounded-md border border-[#30cfcf] bg-gray-100 px-3 py-2 text-gray-600 cursor-not-allowed"/>
+        </div>
+        <button id="saveTransactionBtn" type="submit" class="sm:col-span-2 flex items-center justify-center gap-2">
+          <i class="fas fa-save"></i> Simpan Transaksi
+        </button>
+      </form>
+      <p id="transactionError" role="alert" class="error-message hidden"></p>
+      <p id="transactionSuccess" role="alert" class="text-green-600 font-semibold mt-2 hidden"></p>
+    </section>
    </section>
   </main>
   <!-- Modal backdrop -->
   <div aria-labelledby="modalTitle" aria-modal="true" class="modal-backdrop hidden" id="modalBackdrop" role="dialog">
    <div class="modal" role="document">
-    <button aria-label="Close modal" class="close-btn" id="modalCloseBtn" type="button">
-     ×
-    </button>
-    <h2 class="text-xl font-semibold text-[#30cfcf] mb-4 text-center" id="modalTitle">
-     Tambah User Baru
-    </h2>
-    <form class="space-y-4" id="userForm" novalidate="">
+    <button aria-label="Close modal" class="close-btn" id="modalCloseBtn" type="button">×</button>
+    <h2 class="text-xl font-semibold text-[#30cfcf] mb-4 text-center" id="modalTitle">Tambah User Baru</h2>
+    <form class="space-y-4" id="userForm" novalidate>
      <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="userName">
-       Nama Lengkap
-      </label>
-      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userName" name="userName" placeholder="Masukkan nama lengkap" required="" type="text"/>
-      <p class="error-message hidden" id="errorUserName">
-      </p>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userName">Nama Lengkap</label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userName" name="userName" placeholder="Masukkan nama lengkap" required type="text"/>
+      <p class="error-message hidden" id="errorUserName"></p>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="userEmail">
-       Email
-      </label>
-      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userEmail" name="userEmail" placeholder="Masukkan email" required="" type="email"/>
-      <p class="error-message hidden" id="errorUserEmail">
-      </p>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userEmail">Email</label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userEmail" name="userEmail" placeholder="Masukkan email" required type="email"/>
+      <p class="error-message hidden" id="errorUserEmail"></p>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPhone">
-       Nomor Telepon
-      </label>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPhone">Nomor Telepon</label>
       <div class="flex rounded-md border border-gray-300 focus-within:ring focus-within:ring-[#30cfcf]/50 focus-within:border-[#30cfcf]">
-       <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">
-        +62
-       </span>
-       <input aria-describedby="errorUserPhone" class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" id="userPhone" name="userPhone" placeholder="Masukkan nomor telepon tanpa +62" required="" type="tel"/>
+       <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">+62</span>
+       <input aria-describedby="errorUserPhone" class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" id="userPhone" name="userPhone" placeholder="Masukkan nomor telepon tanpa +62" required type="tel"/>
       </div>
-      <p class="error-message hidden" id="errorUserPhone">
-      </p>
+      <p class="error-message hidden" id="errorUserPhone"></p>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="userAddress">
-       Keterangan
-      </label>
-      <textarea class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userAddress" name="userAddress" placeholder="Masukkan keterangan" rows="3"></textarea>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPoints">Poin</label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userPoints" name="userPoints" placeholder="Masukkan poin (angka)" type="number" min="0" step="1" value="0"/>
+      <p class="error-message hidden" id="errorUserPoints"></p>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPassword">
-       Password
-      </label>
-      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userPassword" name="userPassword" placeholder="Masukkan password" required="" type="password"/>
-      <p class="error-message hidden" id="errorUserPassword">
-      </p>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="userPassword">Password</label>
+      <input class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" id="userPassword" name="userPassword" placeholder="Masukkan password" required type="password"/>
+      <p class="error-message hidden" id="errorUserPassword"></p>
      </div>
-     <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="submit">
-      Simpan User
-     </button>
+     <button class="w-full bg-[#30cfcf] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#2bbaba] focus:outline-none focus:ring-2 focus:ring-[#2bbaba] focus:ring-offset-1" type="submit">Simpan User</button>
     </form>
    </div>
   </div>
   <script>
-   // Utility functions for localStorage users
+    // Utility functions for localStorage users
     function getUsers() {
       const usersJSON = localStorage.getItem('boi_xd_users');
       if (!usersJSON) return [];
@@ -285,13 +708,67 @@
     const userNameInput = document.getElementById('userName');
     const userEmailInput = document.getElementById('userEmail');
     const userPhoneInput = document.getElementById('userPhone');
-    const userAddressInput = document.getElementById('userAddress');
+    const userPointsInput = document.getElementById('userPoints');
+    const errorUserPoints = document.getElementById('errorUserPoints');
     const userPasswordInput = document.getElementById('userPassword');
 
     const errorUserName = document.getElementById('errorUserName');
     const errorUserEmail = document.getElementById('errorUserEmail');
     const errorUserPhone = document.getElementById('errorUserPhone');
     const errorUserPassword = document.getElementById('errorUserPassword');
+
+    // Transaction form elements
+    const selectTransactionType = document.getElementById('selectTransactionType');
+    const selectUser = document.getElementById('selectUser');
+    const selectGame = document.getElementById('selectGame');
+    const selectPayment = document.getElementById('selectPayment');
+    const inputPrice = document.getElementById('inputPrice');
+    const transactionForm = document.getElementById('transactionForm');
+    const transactionError = document.getElementById('transactionError');
+    const transactionSuccess = document.getElementById('transactionSuccess');
+    const inputDate = document.getElementById('inputDate');
+    const selectStatus = document.getElementById('selectStatus');
+    const inputBuyerName = document.getElementById('inputBuyerName');
+    const inputNotes = document.getElementById('inputNotes');
+    const inputPaymentProof = document.getElementById('inputPaymentProof');
+    const transactionId = document.getElementById('transactionId');
+    const paymentProofPreview = document.getElementById('paymentProofPreview');
+    const inputNominalTopup = document.getElementById('inputNominalTopup');
+    const errorInputNominalTopup = document.getElementById('errorInputNominalTopup');
+
+    // Games list for transaction select (from Topup page)
+    const gamesList = [
+      { id: "mobilelegends", name: "Mobile Legends" },
+      { id: "freefire", name: "Freefire" },
+      { id: "freefiremax", name: "Freefire Max" },
+      { id: "genshinimpact", name: "Genshin Impact" },
+      { id: "pubgmobile", name: "PUBG Mobile" },
+      { id: "honorofkings", name: "Honor Of Kings" },
+      { id: "8ballpool", name: "8 Ball Pool" },
+      { id: "onepunchman", name: "One Punch Man" },
+      { id: "sausageman", name: "Sausage Man" },
+      { id: "codm", name: "CODM" },
+      { id: "aceracer", name: "Ace Racer" },
+      { id: "honkaiimpact3", name: "Honkai Impact 3" },
+      { id: "lolwildrift", name: "LOL: WildRift" },
+      { id: "stumbleguys", name: "Stumble Guys" },
+      { id: "lifeafter", name: "LifeAfter" },
+      { id: "marvelsnap", name: "Marvel Snap" },
+      { id: "honkaistarrail", name: "Honkai StarRail" },
+      { id: "garenaundawn", name: "Garena Undawn" },
+      { id: "metalslug", name: "Metal Slug" },
+      { id: "fcmobile", name: "FC Mobile" },
+      { id: "eggyparty", name: "Eggy Party" },
+      { id: "pubgnewstate", name: "PUBG New State" },
+      { id: "arenabreakout", name: "Arena Breakout" },
+      { id: "farlight84", name: "Farlight 84" },
+      { id: "garenablackcoverm", name: "Garena Black Cover M" },
+      { id: "bloodstrike", name: "Blood Strike" },
+      { id: "deltaforcemobile", name: "Delta Force Mobile" },
+      { id: "harrypottermagicawakened", name: "Harry Potter Magic Awakened" },
+      { id: "mcgg", name: "MCGG" },
+      { id: "zenlesszonezero", name: "Zenless Zone Zero" }
+    ];
 
     // Show modal
     function openModal() {
@@ -308,15 +785,29 @@
     // Clear form and errors
     function clearForm() {
       userForm.reset();
-      [errorUserName, errorUserEmail, errorUserPhone, errorUserPassword].forEach(el => {
+      [errorUserName, errorUserEmail, errorUserPhone, errorUserPassword, errorUserPoints].forEach(el => {
         el.textContent = '';
         el.classList.add('hidden');
       });
+      userPointsInput.value = '0';
+      transactionError.textContent = '';
+      transactionError.style.display = 'none';
+      transactionSuccess.textContent = '';
+      transactionSuccess.style.display = 'none';
+      clearTransactionErrors();
+      paymentProofPreview.src = '';
+      paymentProofPreview.style.display = 'none';
+      generateTransactionID();
+      inputNominalTopup.value = '';
+      errorInputNominalTopup.textContent = '';
+      errorInputNominalTopup.classList.add('hidden');
+      selectTransactionType.value = '';
+      inputNominalTopup.disabled = true;
+      inputNominalTopup.required = false;
     }
 
     // Validate email format
     function isValidEmail(email) {
-      // Simple email regex
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
@@ -325,36 +816,42 @@
       return /^\d+$/.test(phone);
     }
 
+    // Validate points (non-negative integer)
+    function isValidPoints(points) {
+      return /^\d+$/.test(points) && Number(points) >= 0;
+    }
+
     // Render users in table
     function renderUsers() {
       const users = getUsers();
       userTableBody.innerHTML = '';
       if (users.length === 0) {
         userTableBody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-gray-500">Belum ada user terdaftar.</td></tr>`;
-        return;
+      } else {
+        users.forEach((user, index) => {
+          const tr = document.createElement('tr');
+          tr.classList.add('hover:bg-gray-50');
+          tr.innerHTML = `
+            <td class="px-4 py-2 text-sm text-gray-700">${user.name}</td>
+            <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.email}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">${user.phone}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">${user.points !== undefined ? user.points : 0}</td>
+            <td class="px-4 py-2 text-sm password-text" title="Password: ${user.password || '-'}">${user.password ? user.password : '-'}</td>
+            <td class="px-4 py-2 text-sm text-gray-500 created-at">${formatDateTime(user.createdAt)}</td>
+            <td class="px-4 py-2 text-center text-sm">
+              <button aria-label="Edit user ${user.name}" class="text-[#30cfcf] hover:text-[#238383] focus:outline-none mr-3 edit-btn" data-index="${index}" type="button">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button aria-label="Delete user ${user.name}" class="text-red-500 hover:text-red-700 focus:outline-none delete-btn" data-index="${index}" type="button">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          `;
+          userTableBody.appendChild(tr);
+        });
       }
-      users.forEach((user, index) => {
-        const tr = document.createElement('tr');
-        tr.classList.add('hover:bg-gray-50');
-        tr.innerHTML = `
-          <td class="px-4 py-2 text-sm text-gray-700">${user.name}</td>
-          <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.email}</td>
-          <td class="px-4 py-2 text-sm text-gray-700">${user.phone}</td>
-          <td class="px-4 py-2 text-sm text-gray-700 break-words">${user.address || '-'}</td>
-          <td class="px-4 py-2 text-sm password-text" title="Password: ${user.password || '-'}">${user.password ? user.password : '-'}</td>
-          <td class="px-4 py-2 text-sm text-gray-500 created-at">${formatDateTime(user.createdAt)}</td>
-          <td class="px-4 py-2 text-center text-sm">
-            <button aria-label="Edit user ${user.name}" class="text-[#30cfcf] hover:text-[#238383] focus:outline-none mr-3 edit-btn" data-index="${index}" type="button">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button aria-label="Delete user ${user.name}" class="text-red-500 hover:text-red-700 focus:outline-none delete-btn" data-index="${index}" type="button">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </td>
-        `;
-        userTableBody.appendChild(tr);
-      });
       attachRowEventListeners();
+      populateUserSelect();
     }
 
     // Attach event listeners to edit and delete buttons
@@ -381,9 +878,8 @@
       clearForm();
       userNameInput.value = user.name;
       userEmailInput.value = user.email;
-      // Remove +62 prefix for input field
       userPhoneInput.value = user.phone.startsWith('+62') ? user.phone.slice(3) : user.phone;
-      userAddressInput.value = user.address || '';
+      userPointsInput.value = user.points !== undefined ? user.points : 0;
       userPasswordInput.value = '';
       modalBackdrop.classList.remove('hidden');
       userNameInput.focus();
@@ -407,8 +903,7 @@
     function validateForm() {
       let valid = true;
 
-      // Clear errors
-      [errorUserName, errorUserEmail, errorUserPhone, errorUserPassword].forEach(el => {
+      [errorUserName, errorUserEmail, errorUserPhone, errorUserPassword, errorUserPoints].forEach(el => {
         el.textContent = '';
         el.classList.add('hidden');
       });
@@ -436,7 +931,11 @@
         errorUserPhone.classList.remove('hidden');
         valid = false;
       }
-      // Password required only when adding new user
+      if (!isValidPoints(userPointsInput.value.trim())) {
+        errorUserPoints.textContent = 'Poin harus berupa angka bulat 0 atau lebih.';
+        errorUserPoints.classList.remove('hidden');
+        valid = false;
+      }
       const isEditing = userForm.hasAttribute('data-edit-index');
       if (!isEditing && !userPasswordInput.value.trim()) {
         errorUserPassword.textContent = 'Password wajib diisi.';
@@ -452,9 +951,8 @@
       const name = userNameInput.value.trim();
       const email = userEmailInput.value.trim().toLowerCase();
       const phone = '+62' + userPhoneInput.value.trim();
-      const address = userAddressInput.value.trim();
+      const points = Number(userPointsInput.value.trim());
       const password = userPasswordInput.value;
-
       const isEditing = userForm.hasAttribute('data-edit-index');
       const editIndex = isEditing ? parseInt(userForm.getAttribute('data-edit-index'), 10) : -1;
 
@@ -467,28 +965,374 @@
       }
 
       if (isEditing) {
-        // Update existing user
         users[editIndex].name = name;
         users[editIndex].email = email;
         users[editIndex].phone = phone;
-        users[editIndex].address = address;
-        // Update password only if filled
+        users[editIndex].points = points;
         if (password.trim()) {
           users[editIndex].password = password;
         }
       } else {
-        // Add new user with createdAt timestamp
         users.push({
           name,
           email,
           phone,
-          address,
+          points,
           password,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          transactions: []
         });
       }
       saveUsers(users);
       return true;
+    }
+
+    // Populate user select dropdown for transactions
+    function populateUserSelect() {
+      const users = getUsers();
+      selectUser.innerHTML = '<option value="" disabled selected>Pilih akun</option>';
+      users.forEach((user, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = user.name + ' (' + user.email + ')';
+        selectUser.appendChild(option);
+      });
+    }
+
+    // Populate game select dropdown for transactions
+    function populateGameSelect() {
+      selectGame.innerHTML = '<option value="" disabled selected>Pilih game</option>';
+      gamesList.forEach(game => {
+        const option = document.createElement('option');
+        option.value = game.id;
+        option.textContent = game.name;
+        selectGame.appendChild(option);
+      });
+    }
+
+    // Validate transaction form inputs
+    function clearTransactionErrors() {
+      ['SelectTransactionType', 'SelectUser', 'SelectGame', 'SelectPayment', 'InputPrice', 'InputDate', 'SelectStatus', 'InputBuyerName', 'InputPaymentProof', 'InputNominalTopup'].forEach(id => {
+        const el = document.getElementById('error' + id);
+        if (el) {
+          el.textContent = '';
+          el.classList.add('hidden');
+        }
+      });
+      transactionError.textContent = '';
+      transactionError.style.display = 'none';
+      transactionSuccess.textContent = '';
+      transactionSuccess.style.display = 'none';
+    }
+
+    function validateTransactionForm() {
+      clearTransactionErrors();
+      let valid = true;
+
+      if (!selectTransactionType.value) {
+        document.getElementById('errorSelectTransactionType').textContent = 'Silakan pilih jenis transaksi.';
+        document.getElementById('errorSelectTransactionType').classList.remove('hidden');
+        valid = false;
+      }
+
+      if (selectTransactionType.value === 'topup') {
+        if (!inputNominalTopup.value || Number(inputNominalTopup.value) <= 0) {
+          errorInputNominalTopup.textContent = 'Nominal topup wajib diisi dan harus lebih dari 0.';
+          errorInputNominalTopup.classList.remove('hidden');
+          valid = false;
+        }
+      }
+
+      if (!selectUser.value) {
+        document.getElementById('errorSelectUser').textContent = 'Silakan pilih akun yang terdaftar.';
+        document.getElementById('errorSelectUser').classList.remove('hidden');
+        valid = false;
+      }
+      if (!selectGame.value) {
+        document.getElementById('errorSelectGame').textContent = 'Silakan pilih game.';
+        document.getElementById('errorSelectGame').classList.remove('hidden');
+        valid = false;
+      }
+      if (!selectPayment.value) {
+        document.getElementById('errorSelectPayment').textContent = 'Silakan pilih metode pembayaran.';
+        document.getElementById('errorSelectPayment').classList.remove('hidden');
+        valid = false;
+      }
+      if (!inputPrice.value || Number(inputPrice.value) < 0) {
+        document.getElementById('errorInputPrice').textContent = 'Silakan masukkan harga yang valid.';
+        document.getElementById('errorInputPrice').classList.remove('hidden');
+        valid = false;
+      }
+      if (!inputDate.value) {
+        document.getElementById('errorInputDate').textContent = 'Silakan pilih tanggal transaksi.';
+        document.getElementById('errorInputDate').classList.remove('hidden');
+        valid = false;
+      } else {
+        const selectedDate = new Date(inputDate.value);
+        const now = new Date();
+        if (selectedDate > now) {
+          document.getElementById('errorInputDate').textContent = 'Tanggal tidak boleh di masa depan.';
+          document.getElementById('errorInputDate').classList.remove('hidden');
+          valid = false;
+        }
+      }
+      if (!selectStatus.value) {
+        document.getElementById('errorSelectStatus').textContent = 'Silakan pilih status transaksi.';
+        document.getElementById('errorSelectStatus').classList.remove('hidden');
+        valid = false;
+      }
+      if (!inputBuyerName.value.trim()) {
+        document.getElementById('errorInputBuyerName').textContent = 'Silakan masukkan nama pembeli.';
+        document.getElementById('errorInputBuyerName').classList.remove('hidden');
+        valid = false;
+      }
+      if (!inputPaymentProof.files.length) {
+        document.getElementById('errorInputPaymentProof').textContent = 'Silakan upload bukti pembayaran.';
+        document.getElementById('errorInputPaymentProof').classList.remove('hidden');
+        valid = false;
+      } else {
+        const file = inputPaymentProof.files[0];
+        if (!file.type.startsWith('image/')) {
+          document.getElementById('errorInputPaymentProof').textContent = 'File harus berupa gambar.';
+          document.getElementById('errorInputPaymentProof').classList.remove('hidden');
+          valid = false;
+        }
+      }
+      return valid;
+    }
+
+    // Generate Transaction ID
+    function generateTransactionID() {
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, '0');
+      const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
+      const timePart = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const randomPart = Math.floor(1000 + Math.random() * 9000);
+      transactionId.value = `TX-${datePart}-${timePart}-${randomPart}`;
+    }
+
+    // Preview payment proof image
+    inputPaymentProof.addEventListener('change', () => {
+      const file = inputPaymentProof.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          paymentProofPreview.src = e.target.result;
+          paymentProofPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        paymentProofPreview.src = '';
+        paymentProofPreview.style.display = 'none';
+      }
+    });
+
+    // Update points based on price input (integer points = floor of price / 1000)
+    inputPrice.addEventListener('input', () => {
+      const priceVal = Number(inputPrice.value);
+      if (!isNaN(priceVal) && priceVal >= 0) {
+        const points = Math.floor(priceVal / 1000);
+        userPointsInput.value = points;
+      } else {
+        userPointsInput.value = 0;
+      }
+    });
+
+    // Enable/disable nominal topup input based on transaction type
+    selectTransactionType.addEventListener('change', () => {
+      if (selectTransactionType.value === 'topup') {
+        inputNominalTopup.disabled = false;
+        inputNominalTopup.required = true;
+      } else {
+        inputNominalTopup.disabled = true;
+        inputNominalTopup.required = false;
+        inputNominalTopup.value = '';
+        errorInputNominalTopup.textContent = '';
+        errorInputNominalTopup.classList.add('hidden');
+      }
+    });
+
+    // Add transaction to user
+    function addTransaction() {
+      if (!validateTransactionForm()) return;
+
+      const users = getUsers();
+      const userIndex = Number(selectUser.value);
+      if (userIndex < 0 || userIndex >= users.length) {
+        transactionError.textContent = 'Akun tidak ditemukan.';
+        transactionError.style.display = 'block';
+        return;
+      }
+      const user = users[userIndex];
+      if (!user.transactions) user.transactions = [];
+
+      const game = gamesList.find(g => g.id === selectGame.value);
+      const paymentMethod = selectPayment.value;
+      const price = Number(inputPrice.value);
+      const date = inputDate.value;
+      const status = selectStatus.value;
+      const buyerName = inputBuyerName.value.trim();
+      const notes = inputNotes.value.trim();
+      const transactionID = transactionId.value;
+      const transactionType = selectTransactionType.value;
+      const nominalTopup = transactionType === 'topup' ? Number(inputNominalTopup.value) : null;
+      const pointsEarned = Math.floor(price / 1000);
+
+      // Update user's points by adding pointsEarned
+      user.points = (user.points || 0) + pointsEarned;
+
+      // For demo, we won't store the image file but you can extend this to upload or store base64
+      const transactionData = {
+        transactionID,
+        game: game ? game.name : selectGame.value,
+        paymentMethod,
+        price,
+        date,
+        status,
+        buyerName,
+        notes,
+        pointsEarned,
+        paymentProof: 'uploaded', // placeholder
+        transactionType
+      };
+      if (transactionType === 'topup') {
+        transactionData.nominalTopup = nominalTopup;
+      }
+
+      user.transactions.push(transactionData);
+
+      saveUsers(users);
+      transactionSuccess.textContent = `Riwayat transaksi berhasil ditambahkan ke akun ${user.name}. Poin bertambah ${pointsEarned}.`;
+      transactionSuccess.style.display = 'block';
+
+      // Reset form except user selection for convenience
+      selectTransactionType.value = '';
+      inputNominalTopup.value = '';
+      inputNominalTopup.disabled = true;
+      selectGame.value = '';
+      selectPayment.value = '';
+      inputPrice.value = '';
+      inputDate.value = '';
+      selectStatus.value = '';
+      inputBuyerName.value = '';
+      inputNotes.value = '';
+      inputPaymentProof.value = '';
+      paymentProofPreview.src = '';
+      paymentProofPreview.style.display = 'none';
+      generateTransactionID();
+
+      // Update points input field to 0 after reset
+      userPointsInput.value = 0;
+
+      // Re-render users to update points column
+      renderUsers();
+    }
+
+    // Elements for verification and main UI
+    const verificationOverlay = document.getElementById('verificationOverlay');
+    const mainHeader = document.getElementById('mainHeader');
+    const mainContent = document.getElementById('mainContent');
+
+    const btnBlurText = document.getElementById('btnBlurText');
+    const btnImageMatch = document.getElementById('btnImageMatch');
+
+    const blurTextVerification = document.getElementById('blurTextVerification');
+    const blurTextContainer = document.getElementById('blurTextContainer');
+    const blurInput = document.getElementById('blurInput');
+    const blurError = document.getElementById('blurError');
+    const blurSubmit = document.getElementById('blurSubmit');
+
+    const imageMatchVerification = document.getElementById('imageMatchVerification');
+    const imageMatchGrid = document.getElementById('imageMatchGrid');
+    const imageMatchError = document.getElementById('imageMatchError');
+    const imageMatchSubmit = document.getElementById('imageMatchSubmit');
+
+    // Generate random 8-character alphanumeric string
+    function generateRandomText() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 8; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    // Blur text to verify (now strikethrough)
+    let verificationText = generateRandomText();
+    blurTextContainer.textContent = verificationText;
+
+    btnBlurText.addEventListener('click', () => {
+      btnBlurText.disabled = true;
+      btnImageMatch.disabled = true;
+      blurTextVerification.style.display = 'block';
+      imageMatchVerification.style.display = 'none';
+      verificationText = generateRandomText();
+      blurTextContainer.textContent = verificationText;
+      blurInput.value = '';
+      blurError.style.display = 'none';
+      blurInput.focus();
+    });
+
+    btnImageMatch.addEventListener('click', () => {
+      btnBlurText.disabled = true;
+      btnImageMatch.disabled = true;
+      blurTextVerification.style.display = 'none';
+      imageMatchVerification.style.display = 'flex';
+      imageMatchError.style.display = 'none';
+      clearImageSelection();
+    });
+
+    blurSubmit.addEventListener('click', () => {
+      if (blurInput.value.trim().toUpperCase() === verificationText) {
+        verificationSuccess();
+      } else {
+        blurError.style.display = 'block';
+      }
+    });
+
+    // Image selection logic
+    let selectedImage = null;
+    imageMatchGrid.querySelectorAll('.match-image').forEach(img => {
+      img.addEventListener('click', () => {
+        imageMatchGrid.querySelectorAll('.match-image').forEach(i => i.classList.remove('selected'));
+        img.classList.add('selected');
+        selectedImage = img;
+        imageMatchError.style.display = 'none';
+      });
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          img.click();
+        }
+      });
+    });
+
+    imageMatchSubmit.addEventListener('click', () => {
+      if (!selectedImage) {
+        imageMatchError.style.display = 'block';
+        return;
+      }
+      if (selectedImage.getAttribute('data-correct') === 'true') {
+        verificationSuccess();
+      } else {
+        imageMatchError.textContent = 'Gambar yang dipilih salah. Silakan coba lagi.';
+        imageMatchError.style.display = 'block';
+      }
+    });
+
+    function clearImageSelection() {
+      selectedImage = null;
+      imageMatchGrid.querySelectorAll('.match-image').forEach(i => i.classList.remove('selected'));
+      imageMatchError.style.display = 'none';
+    }
+
+    function verificationSuccess() {
+      verificationOverlay.style.display = 'none';
+      mainHeader.style.display = 'flex';
+      mainContent.style.display = 'block';
+      generateTransactionID();
+      populateUserSelect();
+      populateGameSelect();
     }
 
     // Event listeners
@@ -531,8 +1375,23 @@
       window.location.href = 'profilhistory.html';
     });
 
-    // Initial render
+    // Transaction form submit
+    transactionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      addTransaction();
+    });
+
+    // Transaction form submit on Enter key for inputs except textarea and file
+    transactionForm.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.type !== 'file') {
+        e.preventDefault();
+        addTransaction();
+      }
+    });
+
+    // Initial render and populate selects
     renderUsers();
+    populateGameSelect();
   </script>
  </body>
 </html>

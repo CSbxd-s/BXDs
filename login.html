@@ -39,10 +39,64 @@
       color: #2bbaba;
       outline: none;
     }
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .password-wrapper input {
+      width: 100%;
+      padding-right: 2.5rem;
+      border-radius: 0.375rem;
+      border: 1px solid #d1d5db;
+      padding: 0.5rem 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .password-wrapper input:focus {
+      border-color: #30cfcf;
+      box-shadow: 0 0 0 3px rgba(48, 207, 207, 0.3);
+      outline: none;
+    }
+    .toggle-password-btn {
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #6b7280;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+    .toggle-password-btn:hover,
+    .toggle-password-btn:focus {
+      color: #30cfcf;
+      outline: none;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
   </style>
 </head>
 <body>
-  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30 fade-in-up">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <button aria-label="Back to Main Menu" class="text-white text-2xl focus:outline-none hover:text-[#238383]" data-inti="mainmenu" id="backButton" type="button">
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -51,7 +105,7 @@
       <div class="w-8"></div>
     </div>
   </header>
-  <main class="flex-grow max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <main class="flex-grow max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-6 fade-in-up" style="animation-delay: 0.2s;">
     <section class="bg-white rounded-lg shadow-md p-6">
       <form aria-label="Login form" id="loginForm" class="space-y-6" novalidate>
         <div>
@@ -63,13 +117,19 @@
           <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
           <div class="flex rounded-md border border-gray-300 focus-within:ring focus-within:ring-[#30cfcf]/50 focus-within:border-[#30cfcf]">
             <span class="inline-flex items-center px-3 text-gray-700 select-none bg-gray-100 rounded-l-md border-r border-gray-300">+62</span>
-            <input type="tel" id="phone" name="phone" required class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" placeholder="Masukkan nomor telepon tanpa +62" aria-describedby="errorPhone" />
+            <input type="tel" id="phone" name="phone" required class="flex-grow rounded-r-md border-none px-3 py-2 focus:outline-none" placeholder="Masukkan nomor telepon tanpa +62" aria-describedby="errorPhone" maxlength="14" />
           </div>
           <p class="error-message hidden" id="errorPhone"></p>
+          <p class="text-right text-sm text-gray-600 select-none mt-1" id="phoneCounter">0 / 11</p>
         </div>
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input type="password" id="password" name="password" required class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#30cfcf] focus:ring focus:ring-[#30cfcf]/50 focus:outline-none" placeholder="Masukkan password" />
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" required placeholder="Masukkan password" />
+            <button type="button" aria-label="Toggle password visibility" class="toggle-password-btn" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
           <p class="error-message hidden" id="errorPassword"></p>
         </div>
         <div class="flex justify-between items-center">
@@ -91,7 +151,7 @@
     const waNumber = '6283132420423';
 
     document.getElementById('backButton').addEventListener('click', () => {
-      window.location.href = 'mainmenu.html';
+      window.location.href = 'profil.html';
     });
     document.getElementById('backButton').addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -110,6 +170,21 @@
       }
     });
 
+    // Toggle password visibility
+    const togglePasswordBtn = document.querySelector('.toggle-password-btn');
+    const passwordInput = document.getElementById('password');
+    togglePasswordBtn.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePasswordBtn.querySelector('i').classList.remove('fa-eye');
+        togglePasswordBtn.querySelector('i').classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        togglePasswordBtn.querySelector('i').classList.remove('fa-eye-slash');
+        togglePasswordBtn.querySelector('i').classList.add('fa-eye');
+      }
+    });
+
     function getUsers() {
       const usersJSON = localStorage.getItem('boi_xd_users');
       if (!usersJSON) return [];
@@ -119,7 +194,6 @@
         return [];
       }
     }
-
     function showError(inputId, message) {
       const errorEl = document.getElementById('error' + inputId);
       if (errorEl) {
@@ -136,17 +210,34 @@
     }
 
     const phoneInput = document.getElementById('phone');
+    const phoneCounter = document.getElementById('phoneCounter');
 
-    phoneInput.addEventListener('input', () => {
-      let val = phoneInput.value;
-      val = val.replace(/^\+?62/, '');
-      phoneInput.value = val;
-    });
-
-    phoneInput.addEventListener('keydown', (e) => {
-      if (e.key === ' ' || e.key === '+') {
-        e.preventDefault();
+    phoneInput.addEventListener('input', (e) => {
+      let val = e.target.value;
+      // Remove all non-digit chars except dash
+      val = val.replace(/[^\d-]/g, '');
+      // Remove dashes for counting digits
+      const digitsOnly = val.replace(/-/g, '');
+      // Limit digits to max 11
+      if (digitsOnly.length > 11) {
+        val = digitsOnly.slice(0, 11);
+      } else {
+        val = digitsOnly;
       }
+      // Format with first 3 digits, then groups of 4 separated by dash
+      let formatted = '';
+      if (val.length <= 3) {
+        formatted = val;
+      } else {
+        formatted = val.slice(0, 3);
+        let rest = val.slice(3);
+        while (rest.length > 0) {
+          formatted += '-' + rest.slice(0, 4);
+          rest = rest.slice(4);
+        }
+      }
+      e.target.value = formatted;
+      phoneCounter.textContent = `${val.length} / 11`;
     });
 
     const loginForm = document.getElementById('loginForm');
@@ -156,7 +247,7 @@
       ['Email', 'Phone', 'Password'].forEach(hideError);
 
       const email = loginForm.email.value.trim().toLowerCase();
-      let phone = loginForm.phone.value.trim();
+      let phoneRaw = loginForm.phone.value.trim();
       const password = loginForm.password.value;
 
       let hasError = false;
@@ -165,7 +256,7 @@
         showError('Email', 'Yang terisi (Email) tidak sesuai karena tidak boleh kosong.');
         hasError = true;
       }
-      if (!phone) {
+      if (!phoneRaw) {
         showError('Phone', 'Yang terisi (Nomor Telepon) tidak sesuai karena tidak boleh kosong.');
         hasError = true;
       }
@@ -175,7 +266,13 @@
       }
       if (hasError) return;
 
-      phone = '+62' + phone;
+      // Normalize phone: remove dashes, add +62 prefix
+      const phoneDigits = phoneRaw.replace(/-/g, '');
+      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+        showError('Phone', 'Nomor Telepon harus minimal 10 dan maksimal 11 digit.');
+        return;
+      }
+      const phone = '+62' + phoneDigits;
 
       const users = getUsers();
       const user = users.find(u => u.email === email);
@@ -193,20 +290,22 @@
         return;
       }
 
+      // Save current logged-in user to localStorage for user.html
+      localStorage.setItem('boi_xd_current_user', JSON.stringify(user));
+
       alert(`Login berhasil! Selamat datang, ${user.name}.`);
-      window.location.href = 'profil.html';
+      window.location.href = 'user.html';
     });
 
     // Lupa Password button handler
     document.getElementById('forgotPassword').addEventListener('click', () => {
       const email = loginForm.email.value.trim();
       const phoneRaw = loginForm.phone.value.trim();
-      const name = ''; // We don't have a name input on login form, so empty string
+      const name = ''; // No name input on login form
 
-      // Compose message with entered data or placeholders
       const nameText = name || '[Nama belum diisi]';
       const emailText = email || '[Email belum diisi]';
-      const phoneText = phoneRaw ? '+62' + phoneRaw : '[Nomor Telepon belum diisi]';
+      const phoneText = phoneRaw ? '+62' + phoneRaw.replace(/-/g, '') : '[Nomor Telepon belum diisi]';
 
       const message = encodeURIComponent(
         `Halo, Min saya mau ganti/lupa password, dengan Nama: ${nameText}, Email: ${emailText}, Nomor Telepon: ${phoneText}`

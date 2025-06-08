@@ -132,6 +132,7 @@
      e.preventDefault();
      const userName = nameForm.userName.value.trim();
      if (userName !== "bxdStore") {
+       alert("Verifikasi gagal: nama yang Anda masukkan tidak valid. Anda akan diarahkan ke halaman utama. Jika Anda bukan admin, mohon maaf atas ketidaknyamanannya.");
        window.location.href = "mainmenu.html";
        return;
      }
@@ -150,11 +151,11 @@
      const validCodeId = "3252-0252-0400";
 
      if (specialIdInput !== validSpecialId) {
-       alert("Bukan admin");
+       alert("Akses ditolak: Anda bukan admin yang berwenang.");
        return;
      }
      if (codeIdInput !== validCodeId) {
-       alert("Salah");
+       alert("Kode ID yang dimasukkan salah. Silakan coba lagi.");
        return;
      }
      alert("Login berhasil!");

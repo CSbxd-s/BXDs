@@ -1,247 +1,227 @@
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   Cara Topup
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>BOI XD Store - Cara TopUp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
-   body {
+    body {
       font-family: "Inter", sans-serif;
       background-color: #e0f7f7;
       margin: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 0;
-      overflow-x: hidden;
+      padding-bottom: 64px; /* space for bottom nav */
     }
-    header {
-      background-color: #30cfcf;
-      box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 30;
-    }
-    .header-container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
+    nav#bottomNav {
+      height: 64px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e5e7eb; /* gray-200 */
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 50;
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
+      justify-content: space-between;
     }
-    .header-title {
-      color: white;
-      font-weight: 600;
-      font-size: 1.5rem;
-      text-align: center;
-      flex-grow: 1;
-    }
-    .back-button {
-      position: absolute;
-      left: 1.5rem;
+    nav#bottomNav button.left-button,
+    nav#bottomNav button.right-button {
       background: none;
       border: none;
-      color: white;
-      font-size: 1.25rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.25rem;
-      border-radius: 0.375rem;
-      transition: background-color 0.2s ease;
-    }
-    .back-button:hover,
-    .back-button:focus {
-      background-color: rgba(255 255 255 / 0.2);
-      outline: none;
-    }
-    main {
-      max-width: 4xl;
-      margin: 0 auto;
-      padding: 1.5rem 1.5rem 3rem;
-      flex-grow: 1;
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards;
-      animation-delay: 0.1s;
-    }
-    h2 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #1f2937;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    .step {
+      color: #30cfcf;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 2rem;
-      background: white;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-      padding: 1rem;
-      user-select: none;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-    .step:hover,
-    .step:focus-within {
-      box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
-      transform: translateY(-4px);
-      outline: none;
-    }
-    .step-label {
-      background-color: #30cfcf;
-      color: white;
-      font-weight: 700;
-      font-size: 1.25rem;
-      width: 48px;
-      height: 48px;
-      border-radius: 9999px;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
-      flex-shrink: 0;
-    }
-    .step-content {
-      max-width: 600px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0;
+      width: 64px;
+      height: 64px;
+      transition: color 0.3s ease;
+      z-index: 40;
       text-align: center;
     }
-    .step-title {
+    nav#bottomNav button.left-button:hover,
+    nav#bottomNav button.left-button:focus,
+    nav#bottomNav button.right-button:hover,
+    nav#bottomNav button.right-button:focus {
+      color: #238383;
+      outline: none;
+    }
+    nav#bottomNav button.left-button i,
+    nav#bottomNav button.right-button i {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      color: #30cfcf;
+    }
+    nav#bottomNav .floating-topup {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 60;
+      width: 64px;
+      height: 64px;
+      background-color: #30cfcf;
+      border-radius: 9999px;
+      box-shadow: 0 10px 15px rgba(48, 207, 207, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      outline-offset: 2px;
+      transition: background-color 0.3s ease;
+      color: white;
+      font-size: 1.5rem;
+    }
+    nav#bottomNav .floating-topup:hover,
+    nav#bottomNav .floating-topup:focus {
+      background-color: #2bbaba;
+      outline: none;
+    }
+    nav#bottomNav .floating-topup:active {
+      background-color: #239999;
+    }
+    nav#bottomNav .topup-label {
+      position: absolute;
+      top: 44px; /* 64px (circle height) - 20px margin */
+      left: 50%;
+      transform: translateX(-50%);
+      color: #30cfcf;
       font-weight: 600;
-      font-size: 1.125rem;
-      color: #1f2937;
-      margin-bottom: 0.5rem;
-    }
-    .step-description {
-      font-size: 1rem;
-      color: #4b5563;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-    .step-image {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 0.5rem;
-      object-fit: contain;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      font-size: 0.75rem;
       user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
     }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    img {
+      object-fit: contain;
     }
   </style>
- </head>
- <body>
-  <header>
-   <div class="header-container">
-    <button aria-label="Back" class="back-button" onclick="window.location.href='mainmenu.html'" type="button">
-     <i aria-hidden="true" class="fas fa-arrow-left">
-     </i>
-    </button>
-    <h1 class="header-title">
-     Cara Topup
-    </h1>
-   </div>
+</head>
+<body>
+  <header class="bg-[#30cfcf] shadow-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+      <button aria-label="Back to Main Menu" class="text-white text-2xl mr-4 focus:outline-none" id="backButton" type="button">
+        <i aria-hidden="true" class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="text-2xl font-semibold text-white">Cara TopUp</h1>
+    </div>
   </header>
-  <main>
-   <h2>
-    Langkah-langkah Cara Topup
-   </h2>
-   <section aria-describedby="step1-desc" aria-labelledby="step1-title" class="step" tabindex="0">
-    <div class="step-label">
-     1
-    </div>
-    <div class="step-content">
-     <h3 class="step-title" id="step1-title">
-      Pilih Game
-     </h3>
-     <p class="step-description" id="step1-desc">
-      Pilih game yang ingin Anda topup dari daftar game yang tersedia di aplikasi.
-     </p>
-     <img alt="Tampilan layar aplikasi dengan daftar game yang bisa dipilih untuk topup" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/c5a99f58-d577-43f9-f974-9fae22979d5a.jpg" width="400"/>
-    </div>
-   </section>
-   <section aria-describedby="step2-desc" aria-labelledby="step2-title" class="step" tabindex="0">
-    <div class="step-label">
-     2
-    </div>
-    <div class="step-content">
-     <h3 class="step-title" id="step2-title">
-      Tentukan Nominal
-     </h3>
-     <p class="step-description" id="step2-desc">
-      Tentukan nominal topup sesuai kebutuhan Anda, lalu lanjutkan ke proses pembayaran.
-     </p>
-     <img alt="Tampilan layar aplikasi dengan pilihan nominal topup yang tersedia" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2e31e296-d92f-47d3-be18-a57c1356cc35.jpg" width="400"/>
-    </div>
-   </section>
-   <section aria-describedby="step3-desc" aria-labelledby="step3-title" class="step" tabindex="0">
-    <div class="step-label">
-     3
-    </div>
-    <div class="step-content">
-     <h3 class="step-title" id="step3-title">
-      Pilih Metode Pembayaran
-     </h3>
-     <p class="step-description" id="step3-desc">
-      Pilih metode pembayaran yang Anda inginkan, seperti transfer bank, e-wallet, atau pulsa.
-     </p>
-     <img alt="Tampilan layar aplikasi dengan berbagai metode pembayaran yang bisa dipilih" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/38723d60-6d78-4c77-3cee-8d9f35887593.jpg" width="400"/>
-    </div>
-   </section>
-   <section aria-describedby="step4-desc" aria-labelledby="step4-title" class="step" tabindex="0">
-    <div class="step-label">
-     4
-    </div>
-    <div class="step-content">
-     <h3 class="step-title" id="step4-title">
-      Masukkan Data Akun
-     </h3>
-     <p class="step-description" id="step4-desc">
-      Masukkan data akun game Anda dengan benar, seperti ID pengguna atau username, untuk memastikan topup tepat sasaran.
-     </p>
-     <img alt="Tampilan layar aplikasi dengan form pengisian data akun game" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/704d3954-c3b8-4214-322b-2d28c5ce16aa.jpg" width="400"/>
-    </div>
-   </section>
-   <section aria-describedby="step5-desc" aria-labelledby="step5-title" class="step" tabindex="0">
-    <div class="step-label">
-     5
-    </div>
-    <div class="step-content">
-     <h3 class="step-title" id="step5-title">
-      Konfirmasi Pembayaran
-     </h3>
-     <p class="step-description" id="step5-desc">
-      Konfirmasi pembayaran Anda dan tunggu proses verifikasi dari sistem kami.
-     </p>
-     <img alt="Tampilan layar aplikasi dengan halaman konfirmasi pembayaran" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ffff5cea-ab48-4546-7ea5-2f3476d05f48.jpg" width="400"/>
-    </div>
-   </section>
-   <section aria-describedby="step6-desc" aria-labelledby="step6-title" class="step" tabindex="0">
-    <div class="step-label">
-     6
-    </div>
-    <div class="step-content">
-     <h3 class="step-title" id="step6-title">
-      Topup Selesai
-     </h3>
-     <p class="step-description" id="step6-desc">
-      Setelah pembayaran terverifikasi, saldo atau item akan langsung masuk ke akun game Anda.
-     </p>
-     <img alt="Tampilan layar aplikasi yang menunjukkan topup berhasil" class="step-image" height="250" loading="lazy" src="https://storage.googleapis.com/a1aa/image/86a2ca80-f2bf-40f9-d806-814472e12a8a.jpg" width="400"/>
-    </div>
-   </section>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+    <section aria-labelledby="step1-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step1-title" class="text-lg font-semibold text-[#30cfcf] mb-3">1. Pilih TopUp pada Panel Tengah Bawah</h2>
+      <p class="text-gray-700 mb-4">
+        Pada laman utama aplikasi, ketuk tombol <strong>TopUp</strong> yang terletak di panel tengah bawah untuk memulai proses pengisian saldo game Anda.
+      </p>
+      <img src="https://i.ibb.co/LDNLPyMT/i-Markup-20250601-083328.png" alt="Mobile screen showing a colorful game selection interface with various game icons and top-up options" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step2-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step2-title" class="text-lg font-semibold text-[#30cfcf] mb-3">2. Pilih Game yang Akan Diisi Saldo</h2>
+      <p class="text-gray-700 mb-4">
+        Tersedia berbagai pilihan game populer. Pilih game yang ingin Anda topup dengan menekan ikon game tersebut.
+      </p>
+      <img src="https://i.ibb.co/vvCFFpD1/i-Markup-20250601-083412.png" alt="Mobile screen showing input fields for game ID and account data with keyboard visible, user entering details" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step3-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step3-title" class="text-lg font-semibold text-[#30cfcf] mb-3">3. Lengkapi Data Akun Game</h2>
+      <p class="text-gray-700 mb-4">
+        Isikan semua data akun game Anda secara lengkap dan akurat untuk memastikan topup dapat diproses dengan benar.
+      </p>
+      <img src="https://i.ibb.co/BKQHLLYD/i-Markup-20250601-083451.png" alt="Mobile screen displaying various payment methods including bank transfer, e-wallet, and mobile credit options" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step4-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step4-title" class="text-lg font-semibold text-[#30cfcf] mb-3">4. Pilih Jenis dan Nominal TopUp</h2>
+      <p class="text-gray-700 mb-4">
+        Tentukan jenis item atau saldo yang ingin Anda beli beserta nominalnya sesuai kebutuhan dan budget Anda.
+      </p>
+      <img src="https://i.ibb.co/vx8ctjqw/i-Markup-20250601-083514.png" alt="Mobile screen showing confirmation page with payment details and a button to complete the transaction" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step5-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step5-title" class="text-lg font-semibold text-[#30cfcf] mb-3">5. Pilih Metode Pembayaran</h2>
+      <p class="text-gray-700 mb-4">
+        Pilih metode pembayaran yang paling sesuai dan nyaman bagi Anda, seperti transfer bank, e-wallet, atau pulsa.
+      </p>
+      <img src="https://i.ibb.co/svBWD4dP/i-Markup-20250601-083534.png" alt="Mobile screen showing a successful top-up notification with colorful confetti and confirmation message" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step6-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step6-title" class="text-lg font-semibold text-[#30cfcf] mb-3">6. Tekan Tombol Lanjutkan Pembayaran</h2>
+      <p class="text-gray-700 mb-4">
+        Setelah memilih metode pembayaran, tekan tombol <strong>Lanjutkan Pembayaran</strong> untuk melanjutkan proses transaksi.
+      </p>
+      <img src="https://i.ibb.co/9319jm7h/i-Markup-20250601-083551.png" alt="Mobile screen showing user profile page with balance and transaction history details" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step7-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step7-title" class="text-lg font-semibold text-[#30cfcf] mb-3">7. Anda Akan Dialihkan ke WhatsApp Admin</h2>
+      <p class="text-gray-700 mb-4">
+        Sistem akan mengarahkan Anda ke WhatsApp admin untuk konfirmasi dan penyelesaian transaksi topup.
+      </p>
+      <img src="https://i.ibb.co/VphFRQQd/i-Markup-20250601-083705.png" alt="Mobile screen showing contact admin page with chat interface and support options" class="rounded-md shadow-sm w-full" />
+    </section>
+    <section aria-labelledby="step8-title" class="bg-white rounded-lg shadow-md p-6">
+      <h2 id="step8-title" class="text-lg font-semibold text-[#30cfcf] mb-3">8. Kirim Pesan dan Tunggu Balasan</h2>
+      <p class="text-gray-700 mb-4">
+        Kirim pesan konfirmasi kepada admin dan tunggu balasan untuk proses verifikasi dan penyelesaian topup.
+      </p>
+      <img src="https://i.ibb.co/4ZsDdTPs/i-Markup-20250601-083748.png" alt="Mobile screen showing promo and voucher codes available for top-up discounts" class="rounded-md shadow-sm w-full" />
+    </section>
   </main>
- </body>
+  <nav aria-label="Bottom navigation" id="bottomNav">
+    <button aria-label="Main Menu" class="left-button" data-inti="mainmenu" tabindex="0" type="button">
+      <i aria-hidden="true" class="fas fa-bars"></i>
+      <span>Main Menu</span>
+    </button>
+    <button aria-describedby="topup-label" aria-label="TopUp" class="floating-topup" data-inti="topup" tabindex="0" type="button">
+      <i aria-hidden="true" class="fas fa-coins"></i>
+    </button>
+    <span aria-hidden="true" class="topup-label" id="topup-label">TopUp</span>
+    <button aria-label="Profil" class="right-button" data-inti="profil" tabindex="0" type="button">
+      <i aria-hidden="true" class="fas fa-user"></i>
+      <span>Profil</span>
+    </button>
+  </nav>
+  <script>
+    // Navigation buttons
+    document.querySelectorAll('#bottomNav button').forEach(button => {
+      button.addEventListener('click', () => {
+        const inti = button.getAttribute('data-inti');
+        if (inti) {
+          window.location.href = `${inti}.html`;
+        }
+      });
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          button.click();
+        }
+      });
+    });
+    // Back button to main menu
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'mainmenu.html';
+    });
+    document.getElementById('backButton').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        document.getElementById('backButton').click();
+      }
+    });
+  </script>
+</body>
 </html>

@@ -1,0 +1,1033 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Topup Honkai Star Rail - BOI XD Topup
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+    font-family: "Inter", sans-serif;
+   }
+   input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    transition: border-color 0.3s, background-color 0.3s;
+    position: relative;
+    outline-offset: 2px;
+   }
+   input[type="radio"]:checked {
+    border-color: #6366f1;
+    background-color: #e0e7ff;
+   }
+   input[type="radio"]:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+   }
+   label.radio-label {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    height: 80px;
+    font-size: 1rem;
+    text-align: center;
+   }
+   input[type="radio"]:checked + label.radio-label {
+    border-color: #6366f1;
+    background-color: #e0e7ff;
+   }
+   .payment-logo-rect {
+    width: 48px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 0.25rem;
+   }
+   .payment-logo-square {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 0.25rem;
+   }
+   .payment-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+   }
+   @keyframes fadeIn {
+    from {
+     opacity: 0;
+    }
+    to {
+     opacity: 1;
+    }
+   }
+   .fade-in {
+    animation: fadeIn 0.8s ease forwards;
+   }
+   .btn-press {
+    animation: btnPressAnim 0.2s ease forwards;
+   }
+   @keyframes btnPressAnim {
+    0% {
+     transform: scale(1);
+     opacity: 1;
+    }
+    50% {
+     transform: scale(0.95);
+     opacity: 0.7;
+    }
+    100% {
+     transform: scale(1);
+     opacity: 1;
+    }
+   }
+   /* Custom styles for pack section */
+   #packSection fieldset {
+    border: 2px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+   }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30 fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+    <a aria-label="Kembali ke beranda" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded mr-4 flex items-center" href="topup.html">
+     <i class="fas fa-arrow-left">
+     </i>
+    </a>
+    <h1 class="text-2xl font-semibold text-gray-800">
+     Topup Honkai Star Rail
+    </h1>
+   </div>
+  </header>
+  <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+   <section class="bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 mb-6 fade-in">
+     <img alt="Logo game Honkai Star Rail dengan latar belakang berwarna cerah dan karakter utama, resolusi 128x128" class="w-32 h-32 object-contain mx-auto sm:mx-0 rounded" height="128" loading="lazy" src="https://i.ibb.co/chqZ06dw/honkaistarrail.jpg" width="128"/>
+     <div class="mt-4 sm:mt-0 text-center sm:text-left">
+      <h2 class="text-xl font-semibold text-gray-900">
+       Honkai Star Rail
+      </h2>
+      <p class="mt-2 text-gray-600">
+       Top up koin Honkai Star Rail Anda dengan cepat dan aman. Pilih server,
+       nominal yang diinginkan, dan selesaikan pembelian Anda.
+      </p>
+     </div>
+    </div>
+    <form class="space-y-6 fade-in" id="topupForm" novalidate="">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2" for="userId">
+       ID Pengguna (9 digit)
+      </label>
+      <input aria-describedby="userIdHelp" autocomplete="off" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" id="userId" inputmode="numeric" maxlength="9" minlength="9" name="userId" pattern="\d{9}" placeholder="Masukkan ID Pengguna 9 digit" type="text"/>
+      <p class="mt-1 text-xs text-gray-500" id="userIdHelp">
+       ID unik pemain Honkai Star Rail Anda, 9 digit angka.
+      </p>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2" for="serverSelect">
+       Pilih Server
+      </label>
+      <select class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="serverSelect" name="server" required="">
+       <option disabled="" selected="" value="">
+        Pilih server
+       </option>
+       <option value="America">
+        America
+       </option>
+       <option value="Europe">
+        Europe
+       </option>
+       <option value="Asia">
+        Asia
+       </option>
+       <option value="TW &amp; HW &amp; MO">
+        TW &amp; HW &amp; MO
+       </option>
+      </select>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Jenis Topup
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedTopupType">
+          Pilih Jenis Topup
+         </span>
+        </div>
+        <button aria-controls="topupTypeOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleTopupTypeBtn" type="button">
+         <span id="toggleTopupTypeText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleTopupTypeIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi jenis topup" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 gap-4 hidden" id="topupTypeOptions" role="list">
+        <div class="col-span-2" role="listitem">
+         <input class="hidden peer" id="topupPasses" name="topupType" type="radio" value="passes"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupPasses" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">
+           Passes
+          </span>
+         </label>
+        </div>
+        <div class="col-span-2" role="listitem">
+         <input class="hidden peer" id="topupOneiric" name="topupType" type="radio" value="oneiric"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer" for="topupOneiric" tabindex="0">
+          <span class="text-lg font-semibold text-gray-900">
+           Oneiric Shards
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-red-600 hidden" id="topupTypeError" role="alert">
+       Harap pilih jenis topup.
+      </p>
+     </div>
+     <div class="hidden" id="passesSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Passes
+       </span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="togglePassesDetailsBtn" type="button">
+        Sembunyikan
+       </button>
+      </div>
+      <fieldset aria-describedby="packageErrorPasses" aria-required="true" class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="passHertraContract" name="package" type="radio" value="Hertra Contract: Quest Sharing"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passHertraContract" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Hertra Contract: Quest Sharing
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 43.900
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passExpressSupply" name="package" type="radio" value="Express Supply Pass"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passExpressSupply" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Express Supply Pass
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 57.200
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passFuelRefill" name="package" type="radio" value="Herta Contract: Fuel Refill"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passFuelRefill" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Herta Contract: Fuel Refill
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 58.600
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passRoamingRefill" name="package" type="radio" value="Herta Contract: Roaming Refill"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passRoamingRefill" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Herta Contract: Roaming Refill
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 59.500
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passExpressSupply2x" name="package" type="radio" value="Express Supply Pass x2"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passExpressSupply2x" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Express Supply Pass x2
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 115.200
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passResourceSupplyV2" name="package" type="radio" value="Herta Contract: Resource Supply V2"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passResourceSupplyV2" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Herta Contract: Resource Supply V2
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 118.900
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passStrategicSupport" name="package" type="radio" value="Herta Contract: Strategic Support"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passStrategicSupport" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Herta Contract: Strategic Support
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 133.600
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passExpressSupply3x" name="package" type="radio" value="Express Supply Pass x3"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passExpressSupply3x" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Express Supply Pass x3
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 171.500
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passTrailiblazeAid" name="package" type="radio" value="Herta Contract: Trailiblaze Aid"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passTrailiblazeAid" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Herta Contract: Trailiblaze Aid
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 179.000
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passExpressSupply4x" name="package" type="radio" value="Express Supply Pass x4"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passExpressSupply4x" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Express Supply Pass x4
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 228.600
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passExpressSupply5x" name="package" type="radio" value="Express Supply Pass x5"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passExpressSupply5x" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Express Supply Pass x5
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 285.800
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passStrategicCooperation" name="package" type="radio" value="Herta Contract: Strategic Cooperation"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passStrategicCooperation" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Herta Contract: Strategic Cooperation
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 476.800
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passAllPack" name="package" type="radio" value="All Pack"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passAllPack" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          All Pack
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 2.354.600
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="passCastorichaGacha" name="package" type="radio" value="Castoricha Gacha (Guarantee Bundle)"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="passCastorichaGacha" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          Castoricha Gacha (Guarantee Bundle)
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 4.360.100
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorPasses" role="alert">
+       Harap pilih paket passes.
+      </p>
+     </div>
+     <div class="hidden" id="oneiricSection">
+      <div class="flex justify-between items-center mb-2">
+       <span class="block text-sm font-medium text-gray-700">
+        Oneiric Shards
+       </span>
+       <button aria-expanded="true" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded text-sm" id="toggleOneiricDetailsBtn" type="button">
+        Sembunyikan
+       </button>
+      </div>
+      <fieldset aria-describedby="packageErrorOneiric" aria-required="true" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+       <div>
+        <input class="hidden peer" id="oneiric60" name="package" type="radio" value="60"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric60" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          60
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 11.700
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric330" name="package" type="radio" value="330"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric330" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          330
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 57.100
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric1090" name="package" type="radio" value="1090"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric1090" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          1090
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 179.400
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric1420" name="package" type="radio" value="1420"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric1420" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          1420
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 236.600
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric2240" name="package" type="radio" value="2240"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric2240" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          2240
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 358.400
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric3880" name="package" type="radio" value="3880"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric3880" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          3880
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 598.600
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric4970" name="package" type="radio" value="4970"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric4970" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          4970
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 776.100
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric8080" name="package" type="radio" value="8080"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric8080" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          8080
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.152.700
+         </span>
+        </label>
+       </div>
+       <div>
+        <input class="hidden peer" id="oneiric11960" name="package" type="radio" value="11960"/>
+        <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 flex flex-col items-center justify-center" for="oneiric11960" tabindex="0">
+         <span class="text-lg font-semibold text-gray-900">
+          11960
+         </span>
+         <span class="text-sm text-gray-600">
+          Rp 1.751.200
+         </span>
+        </label>
+       </div>
+      </fieldset>
+      <p class="mt-1 text-sm text-red-600 hidden" id="packageErrorOneiric" role="alert">
+       Harap pilih paket Oneiric Shards.
+      </p>
+     </div>
+     <div>
+      <span class="block text-sm font-medium text-gray-700 mb-2">
+       Metode Pembayaran
+      </span>
+      <div class="border border-gray-300 rounded-md p-4 relative" id="paymentContainer">
+       <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+         <span class="font-semibold text-gray-900" id="selectedPaymentLabel">
+          Pilih Metode
+         </span>
+        </div>
+        <button aria-controls="paymentOptions" aria-expanded="false" class="text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded flex items-center space-x-1" id="toggleDetailsBtn" type="button">
+         <span id="toggleDetailsText">
+          Detail
+         </span>
+         <i class="fas fa-chevron-down" id="toggleDetailsIcon">
+         </i>
+        </button>
+       </div>
+       <div aria-label="Opsi metode pembayaran" class="mt-4 border-t border-gray-200 pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 hidden" id="paymentOptions" role="list">
+        <div role="listitem">
+         <input class="hidden peer" id="payGopay" name="paymentMethod" type="radio" value="gopay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payGopay" tabindex="0">
+          <img alt="Logo GoPay berwarna biru dengan tulisan GoPay di bawahnya" class="payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/ea6ab2a7-d049-4a3c-48d4-275f34d2ac4e.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           GoPay
+          </span>
+          <span class="ml-auto text-sm text-gray-600" id="priceGopay">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payQris" name="paymentMethod" type="radio" value="qris"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payQris" tabindex="0">
+          <img alt="Logo QRIS hitam putih dengan pola QR code" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/3720a347-d582-4866-2ffb-c7d21ae8dc32.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           QRIS
+          </span>
+          <span class="ml-auto text-sm text-gray-600" id="priceQris">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payOvo" name="paymentMethod" type="radio" value="ovo"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payOvo" tabindex="0">
+          <img alt="Logo OVO ungu dengan tulisan OVO" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/4aabfc09-4e51-4ed1-aaeb-45c5b31a67f0.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           OVO
+          </span>
+          <span class="ml-auto text-sm text-gray-600" id="priceOvo">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payDana" name="paymentMethod" type="radio" value="dana"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payDana" tabindex="0">
+          <img alt="Logo DANA biru dengan tulisan DANA" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/1b8aa5ec-2da1-4b2c-b3cf-17c781c8542f.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           DANA
+          </span>
+          <span class="ml-auto text-sm text-gray-600" id="priceDana">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="paySpay" name="paymentMethod" type="radio" value="spay"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="paySpay" tabindex="0">
+          <img alt="Logo ShopeePay oranye dengan tulisan ShopeePay" class="payment-logo-rect rounded" height="24" src="https://storage.googleapis.com/a1aa/image/ed5992ab-82f7-4d71-44a5-a84c63825d67.jpg" width="48"/>
+          <span class="text-gray-900 font-semibold">
+           ShopeePay
+          </span>
+          <span class="ml-auto text-sm text-gray-600" id="priceSpay">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+        <div role="listitem">
+         <input class="hidden peer" id="payLinkaja" name="paymentMethod" type="radio" value="linkaja"/>
+         <label class="radio-label peer-checked:border-indigo-500 peer-checked:bg-indigo-100 cursor-pointer flex items-center space-x-2" for="payLinkaja" tabindex="0">
+          <img alt="Logo LinkAja merah dengan tulisan LinkAja" class="payment-logo-square rounded" height="32" src="https://storage.googleapis.com/a1aa/image/510130dd-5262-4ac5-5fc4-0f56eef1b999.jpg" width="32"/>
+          <span class="text-gray-900 font-semibold">
+           LinkAja
+          </span>
+          <span class="ml-auto text-sm text-gray-600" id="priceLinkaja">
+           Harga Jual
+          </span>
+         </label>
+        </div>
+       </div>
+      </div>
+      <p class="mt-1 text-sm text-yellow-600 hidden" id="paymentBlockedAttention" role="alert">
+       Pilih jenis topup dan paket terlebih dahulu untuk memilih metode pembayaran.
+      </p>
+      <p class="mt-1 text-sm text-red-600 hidden" id="paymentMethodError" role="alert">
+       Harap pilih metode pembayaran.
+      </p>
+     </div>
+     <button class="w-full bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-2 focus:ring-offset-2 text-white font-semibold py-3 rounded-md transition-colors" type="submit">
+      Lanjutkan Topup
+     </button>
+    </form>
+    <div class="hidden mt-8 p-4 bg-green-50 border border-green-400 rounded text-green-700" id="confirmation" role="alert" tabindex="0">
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white shadow-inner py-4 mt-auto fade-in">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 BOI XD Topup. Semua hak dilindungi.
+   </div>
+  </footer>
+  <script>
+   (() => {
+    const form = document.getElementById("topupForm");
+    const userIdInput = document.getElementById("userId");
+    const serverSelect = document.getElementById("serverSelect");
+    const topupTypeRadios = form.querySelectorAll('input[name="topupType"]');
+    const passesSection = document.getElementById("passesSection");
+    const oneiricSection = document.getElementById("oneiricSection");
+    const packageRadios = form.querySelectorAll('input[name="package"]');
+    const paymentMethodRadios = form.querySelectorAll('input[name="paymentMethod"]');
+    const paymentOptions = document.getElementById("paymentOptions");
+    const paymentContainer = document.getElementById("paymentContainer");
+    const toggleDetailsBtn = document.getElementById("toggleDetailsBtn");
+    const selectedPaymentLabel = document.getElementById("selectedPaymentLabel");
+    const toggleDetailsText = document.getElementById("toggleDetailsText");
+    const toggleDetailsIcon = document.getElementById("toggleDetailsIcon");
+    const toggleTopupTypeBtn = document.getElementById("toggleTopupTypeBtn");
+    const topupTypeOptions = document.getElementById("topupTypeOptions");
+    const selectedTopupType = document.getElementById("selectedTopupType");
+
+    const togglePassesDetailsBtn = document.getElementById("togglePassesDetailsBtn");
+    const toggleOneiricDetailsBtn = document.getElementById("toggleOneiricDetailsBtn");
+
+    const packageErrorPasses = document.getElementById("packageErrorPasses");
+    const packageErrorOneiric = document.getElementById("packageErrorOneiric");
+    const topupTypeError = document.getElementById("topupTypeError");
+    const paymentMethodError = document.getElementById("paymentMethodError");
+    const paymentBlockedAttention = document.getElementById("paymentBlockedAttention");
+    const confirmation = document.getElementById("confirmation");
+
+    // Base prices (Harga Asli) in Rp
+    const packageBasePrices = {
+     "Hertra Contract: Quest Sharing": 42192,
+     "Express Supply Pass": 54950,
+     "Herta Contract: Fuel Refill": 56256,
+     "Herta Contract: Roaming Refill": 57151,
+     "Express Supply Pass x2": 110746,
+     "Herta Contract: Resource Supply V2": 114302,
+     "Herta Contract: Strategic Support": 128366,
+     "Express Supply Pass x3": 164850,
+     "Herta Contract: Trailiblaze Aid": 172050,
+     "Express Supply Pass x4": 219800,
+     "Express Supply Pass x5": 274749,
+     "Herta Contract: Strategic Cooperation": 458404,
+     "All Pack": 2264024,
+     "Castoricha Gacha (Guarantee Bundle)": 4192340,
+     "60": 11176,
+     "330": 54847,
+     "1090": 172484,
+     "1420": 227436,
+     "2240": 344604,
+     "3880": 575489,
+     "4970": 746250,
+     "8080": 1108319,
+     "11960": 1683808,
+    };
+
+    // Sell prices (Harga Jual) in Rp
+    const packageSellPrices = {
+     "Hertra Contract: Quest Sharing": 43900,
+     "Express Supply Pass": 57200,
+     "Herta Contract: Fuel Refill": 58600,
+     "Herta Contract: Roaming Refill": 59500,
+     "Express Supply Pass x2": 115200,
+     "Herta Contract: Resource Supply V2": 118900,
+     "Herta Contract: Strategic Support": 133600,
+     "Express Supply Pass x3": 171500,
+     "Herta Contract: Trailiblaze Aid": 179000,
+     "Express Supply Pass x4": 228600,
+     "Express Supply Pass x5": 285800,
+     "Herta Contract: Strategic Cooperation": 476800,
+     "All Pack": 2354600,
+     "Castoricha Gacha (Guarantee Bundle)": 4360100,
+     "60": 11700,
+     "330": 57100,
+     "1090": 179400,
+     "1420": 236600,
+     "2240": 358400,
+     "3880": 598600,
+     "4970": 776100,
+     "8080": 1152700,
+     "11960": 1751200,
+    };
+
+    const largePackages = [
+     "All Pack",
+     "Castoricha Gacha (Guarantee Bundle)",
+     "Express Supply Pass x4",
+     "Express Supply Pass x5",
+     "Herta Contract: Strategic Cooperation",
+     "8080",
+     "11960",
+    ];
+
+    const paymentPriceAdjustments = {
+     gopay: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     qris: (base) => base + 1,
+     ovo: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     dana: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     spay: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+     linkaja: (base, pkg) => {
+      if (largePackages.includes(pkg)) {
+       return Math.round(base * 1.03);
+      }
+      return Math.round(base * 1.02);
+     },
+    };
+
+    function formatRupiah(number) {
+     return "Rp " + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function updatePaymentPrices() {
+     const selectedPackage = Array.from(packageRadios).find((r) => r.checked);
+     if (!selectedPackage) {
+      [
+       "Gopay",
+       "Qris",
+       "Ovo",
+       "Dana",
+       "Spay",
+       "Linkaja",
+      ].forEach((method) => {
+       const el = document.getElementById("price" + method);
+       if (el) el.textContent = "Harga Jual";
+      });
+      return;
+     }
+
+     const nominal = selectedPackage.value;
+     const basePrice = packageSellPrices[nominal];
+     if (!basePrice) return;
+
+     paymentMethodRadios.forEach((radio) => {
+      const priceSpan = document.getElementById(
+       "price" + radio.value.charAt(0).toUpperCase() + radio.value.slice(1)
+      );
+      if (!priceSpan) return;
+      const adjustedPrice = paymentPriceAdjustments[radio.value](basePrice, nominal);
+      if (radio.value === "qris") {
+       priceSpan.textContent = formatRupiah(adjustedPrice) + " + Rp 1";
+      } else {
+       priceSpan.textContent = formatRupiah(adjustedPrice);
+      }
+     });
+    }
+
+    function validateTopupType() {
+     let selected = false;
+     topupTypeRadios.forEach((radio) => {
+      if (radio.checked) selected = true;
+     });
+     if (!selected) {
+      topupTypeError.classList.remove("hidden");
+     } else {
+      topupTypeError.classList.add("hidden");
+     }
+     return selected;
+    }
+
+    function validatePackage() {
+     let selected = false;
+     packageRadios.forEach((radio) => {
+      if (radio.checked) selected = true;
+     });
+     if (!selected) {
+      if (!passesSection.classList.contains("hidden")) {
+       packageErrorPasses.classList.remove("hidden");
+       packageErrorOneiric.classList.add("hidden");
+      } else if (!oneiricSection.classList.contains("hidden")) {
+       packageErrorPasses.classList.add("hidden");
+       packageErrorOneiric.classList.remove("hidden");
+      }
+     } else {
+      packageErrorPasses.classList.add("hidden");
+      packageErrorOneiric.classList.add("hidden");
+     }
+     return selected;
+    }
+
+    function validatePaymentMethod() {
+     let selected = false;
+     paymentMethodRadios.forEach((radio) => {
+      if (radio.checked) selected = true;
+     });
+     if (!selected) {
+      paymentMethodError.classList.remove("hidden");
+     } else {
+      paymentMethodError.classList.add("hidden");
+     }
+     return selected;
+    }
+
+    function validateUserId() {
+     const val = userIdInput.value.trim();
+     const valid = /^\d{9}$/.test(val);
+     if (!valid) {
+      userIdInput.classList.add("border-red-600");
+      return false;
+     } else {
+      userIdInput.classList.remove("border-red-600");
+      return true;
+     }
+    }
+
+    function updatePaymentAvailability() {
+     const topupSelected = validateTopupType();
+     const packageSelected = validatePackage();
+     const userIdValid = validateUserId();
+     if (topupSelected && packageSelected && userIdValid && serverSelect.value) {
+      paymentContainer.classList.remove("payment-disabled");
+      paymentBlockedAttention.classList.add("hidden");
+      paymentMethodRadios.forEach((radio) => {
+       radio.disabled = false;
+      });
+     } else {
+      paymentContainer.classList.add("payment-disabled");
+      paymentBlockedAttention.classList.remove("hidden");
+      paymentMethodError.classList.add("hidden");
+      paymentMethodRadios.forEach((radio) => {
+       radio.checked = false;
+       radio.disabled = true;
+      });
+      selectedPaymentLabel.textContent = "Pilih Metode";
+      paymentOptions.classList.add("hidden");
+      toggleDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleDetailsText.textContent = "Detail";
+      toggleDetailsIcon.classList.remove("fa-chevron-up");
+      toggleDetailsIcon.classList.add("fa-chevron-down");
+      updatePaymentPrices();
+     }
+    }
+
+    function addPressAnimation(button) {
+     button.addEventListener("click", () => {
+      button.classList.add("btn-press");
+      setTimeout(() => {
+       button.classList.remove("btn-press");
+      }, 200);
+     });
+    }
+
+    [toggleTopupTypeBtn, toggleDetailsBtn, togglePassesDetailsBtn, toggleOneiricDetailsBtn].forEach(
+     (btn) => {
+      if (btn) addPressAnimation(btn);
+     }
+    );
+
+    toggleTopupTypeBtn.addEventListener("click", () => {
+     const expanded = toggleTopupTypeBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      topupTypeOptions.classList.add("hidden");
+      toggleTopupTypeBtn.setAttribute("aria-expanded", "false");
+      toggleTopupTypeText.textContent = "Detail";
+      toggleTopupTypeIcon.classList.remove("fa-chevron-up");
+      toggleTopupTypeIcon.classList.add("fa-chevron-down");
+     } else {
+      topupTypeOptions.classList.remove("hidden");
+      toggleTopupTypeBtn.setAttribute("aria-expanded", "true");
+      toggleTopupTypeText.textContent = "Sembunyikan";
+      toggleTopupTypeIcon.classList.remove("fa-chevron-down");
+      toggleTopupTypeIcon.classList.add("fa-chevron-up");
+     }
+    });
+
+    toggleDetailsBtn.addEventListener("click", () => {
+     const expanded = toggleDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      paymentOptions.classList.add("hidden");
+      toggleDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleDetailsText.textContent = "Detail";
+      toggleDetailsIcon.classList.remove("fa-chevron-up");
+      toggleDetailsIcon.classList.add("fa-chevron-down");
+     } else {
+      paymentOptions.classList.remove("hidden");
+      toggleDetailsBtn.setAttribute("aria-expanded", "true");
+      toggleDetailsText.textContent = "Sembunyikan";
+      toggleDetailsIcon.classList.remove("fa-chevron-down");
+      toggleDetailsIcon.classList.add("fa-chevron-up");
+     }
+    });
+
+    togglePassesDetailsBtn.addEventListener("click", () => {
+     const fieldset = passesSection.querySelector("fieldset");
+     const expanded = togglePassesDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      fieldset.classList.add("hidden");
+      togglePassesDetailsBtn.setAttribute("aria-expanded", "false");
+      togglePassesDetailsBtn.textContent = "Munculkan detail";
+     } else {
+      fieldset.classList.remove("hidden");
+      togglePassesDetailsBtn.setAttribute("aria-expanded", "true");
+      togglePassesDetailsBtn.textContent = "Sembunyikan";
+     }
+    });
+
+    toggleOneiricDetailsBtn.addEventListener("click", () => {
+     const fieldset = oneiricSection.querySelector("fieldset");
+     const expanded = toggleOneiricDetailsBtn.getAttribute("aria-expanded") === "true";
+     if (expanded) {
+      fieldset.classList.add("hidden");
+      toggleOneiricDetailsBtn.setAttribute("aria-expanded", "false");
+      toggleOneiricDetailsBtn.textContent = "Munculkan detail";
+     } else {
+      fieldset.classList.remove("hidden");
+      toggleOneiricDetailsBtn.setAttribute("aria-expanded", "true");
+      toggleOneiricDetailsBtn.textContent = "Sembunyikan";
+     }
+    });
+
+    topupTypeRadios.forEach((radio) => {
+     radio.addEventListener("change", () => {
+      if (radio.value === "passes") {
+       selectedTopupType.textContent = "Passes";
+       passesSection.classList.remove("hidden");
+       oneiricSection.classList.add("hidden");
+      } else if (radio.value === "oneiric") {
+       selectedTopupType.textContent = "Oneiric Shards";
+       passesSection.classList.add("hidden");
+       oneiricSection.classList.remove("hidden");
+      }
+      packageRadios.forEach((pkg) => (pkg.checked = false));
+      paymentMethodRadios.forEach((pm) => (pm.checked = false));
+      selectedPaymentLabel.textContent = "Pilih Metode";
+      paymentOptions.classList.add("hidden");
+      updatePaymentAvailability();
+      updatePaymentPrices();
+     });
+    });
+
+    packageRadios.forEach((radio) => {
+     radio.addEventListener("change", () => {
+      paymentMethodRadios.forEach((pmRadio) => {
+       pmRadio.checked = false;
+      });
+      selectedPaymentLabel.textContent = "Pilih Metode";
+      paymentOptions.classList.add("hidden");
+      updatePaymentAvailability();
+      updatePaymentPrices();
+     });
+    });
+
+    paymentMethodRadios.forEach((radio) => {
+     radio.addEventListener("change", () => {
+      const selectedLabel = radio.nextElementSibling.querySelector("span.font-semibold");
+      if (selectedLabel) {
+       selectedPaymentLabel.textContent = selectedLabel.textContent;
+      }
+     });
+    });
+
+    userIdInput.addEventListener("input", () => {
+     validateUserId();
+     updatePaymentAvailability();
+    });
+
+    serverSelect.addEventListener("change", () => {
+     updatePaymentAvailability();
+    });
+
+    updatePaymentAvailability();
+
+    form.addEventListener("submit", (e) => {
+     e.preventDefault();
+     const missingFields = [];
+     if (!validateUserId()) missingFields.push("ID Pengguna 9 digit");
+     if (!serverSelect.value) missingFields.push("Server");
+     if (!validateTopupType()) missingFields.push("Jenis Topup");
+     if (!validatePackage()) missingFields.push("Paket");
+     if (!validatePaymentMethod()) missingFields.push("Metode Pembayaran");
+
+     if (missingFields.length > 0) {
+      alert(`Harap isi ${missingFields.join(", ")}`);
+      return;
+     }
+
+     const selectedPackage = Array.from(packageRadios).find((r) => r.checked);
+     const packageLabel = selectedPackage.nextElementSibling.querySelector("span.text-lg, span.font-semibold").textContent;
+     const basePrice = packageBasePrices[selectedPackage.value];
+     const selectedPayment = Array.from(paymentMethodRadios).find((r) => r.checked);
+     const paymentLabel = selectedPayment.nextElementSibling.querySelector("span.font-semibold").textContent;
+     const adjustedPrice = paymentPriceAdjustments[selectedPayment.value](packageSellPrices[selectedPackage.value], selectedPackage.value);
+
+     const userId = userIdInput.value.trim();
+
+     const server = serverSelect.value;
+
+     const phoneNumber = "6283132420423";
+
+     const message =
+      `Halo, saya ingin melakukan topup Honkai Star Rail dengan detail berikut:%0A` +
+      `ID Pengguna: ${userId}%0A` +
+      `Server: ${server}%0A` +
+      `Jenis Topup: ${selectedTopupType.textContent}%0A` +
+      `Nominal: ${packageLabel}%0A` +
+      `Metode Pembayaran: ${paymentLabel}%0A` +
+      `Harga: ${formatRupiah(adjustedPrice)}`;
+
+     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+     window.open(whatsappUrl, "_blank");
+    });
+   })();
+  </script>
+ </body>
+</html>
